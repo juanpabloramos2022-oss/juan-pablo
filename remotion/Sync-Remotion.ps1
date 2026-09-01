@@ -162,15 +162,17 @@ if (Test-Path "C:\tiktok\projects\actual\images") {
     Copy-Item "C:\tiktok\projects\actual\images\*" $PublicImgDir -Recurse -Force
 }
 
-# 6. Renderizado por CLI de Remotion (--concurrency=2, --gl=swangle, --pixel-format=yuv420p)
+# 6. Renderizado por CLI de Remotion mediante escritura atómica (.tmp.mp4) con flags de memoria plana
 Write-Host "[PIPELINE] Iniciando compilación Remotion 9:16..."
 Set-Location "C:\tiktok\remotion"
 $OutputPath = Join-Path $ProjectDir "output\video_final_remotion.mp4"
+$TmpOutputPath = Join-Path $ProjectDir "output\salida.tmp.mp4"
 
-cmd.exe /c "npx remotion render src/index.ts TikTokComp `"$OutputPath`" --concurrency=2 --gl=swangle --pixel-format=yuv420p --crf=18 --codec=h264 --bundle-cache=false"
+cmd.exe /c "npx remotion render src/index.ts TikTokComp `"$TmpOutputPath`" --concurrency=2 --gl=swangle --pixel-format=yuv420p --crf=18 --codec=h264 --bundle-cache=false --chromium-options=`"--disable-dev-shm-usage --no-sandbox --js-flags=--max-old-space-size=2048`""
 
-if ($LASTEXITCODE -eq 0) {
-    Write-Host "[PIPELINE] Video renderizado con éxito!"
+if ($LASTEXITCODE -eq 0 -and (Test-Path $TmpOutputPath)) {
+    Move-Item -Path $TmpOutputPath -Destination $OutputPath -Force
+    Write-Host "[PIPELINE] Video renderizado con éxito y liberado atómicamente en Windows!"
     Set-Content -Path $StateFile -Value $LatestRunId -Force
 
     # 7. Disparar evacuador final

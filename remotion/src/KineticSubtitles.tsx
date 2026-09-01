@@ -1,37 +1,38 @@
 import React from 'react';
-import { useCurrentFrame, useVideoConfig, spring, interpolate } from 'remotion';
+import { useCurrentFrame, useVideoConfig, interpolate } from 'remotion';
+import timecodesData from '../public/timecodes.json';
 
-export interface WordTimecode {
+interface WordTimecode {
   word: string;
   start: number;
   end: number;
 }
 
-interface KineticSubtitlesProps {
-  timecodes: WordTimecode[];
-}
-
-export const KineticSubtitles: React.FC<KineticSubtitlesProps> = ({ timecodes }) => {
+export const KineticSubtitles: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Búsqueda estricta: tiempo en segundos (frame / fps)
+  const timecodes = timecodesData as unknown as WordTimecode[];
+
+  if (!timecodes || !Array.isArray(timecodes) || timecodes.length === 0) {
+    return null;
+  }
+
   const currentTime = frame / fps;
+
+  // Búsqueda estricta defensiva
   const activeWordObj = timecodes.find(
-    (t) => currentTime >= t.start && currentTime < t.end
+    (t) => t && typeof t.start === 'number' && typeof t.end === 'number' && currentTime >= t.start && currentTime < t.end
   );
 
-  if (!activeWordObj) return null;
+  if (!activeWordObj || !activeWordObj.word) {
+    return null;
+  }
 
   const wordRelativeFrame = Math.max(0, Math.round((currentTime - activeWordObj.start) * fps));
 
-  const scale = spring({
-    fps,
-    frame: wordRelativeFrame,
-    config: { damping: 12, mass: 0.5, stiffness: 150 },
-  });
-
-  const opacity = interpolate(wordRelativeFrame, [0, 2], [0.4, 1.0], {
+  const scale = interpolate(wordRelativeFrame, [0, 7], [0.85, 1.05], {
+    extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
@@ -39,7 +40,6 @@ export const KineticSubtitles: React.FC<KineticSubtitlesProps> = ({ timecodes })
     <div
       style={{
         transform: `scale(${scale})`,
-        opacity,
         color: '#FFFFFF',
         fontSize: '75px',
         fontWeight: '900',
