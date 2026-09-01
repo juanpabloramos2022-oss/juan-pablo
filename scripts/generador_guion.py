@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-generador_guion.py - Generador de Guiones Simbióticos V33.8 (Groq Cloud API)
-Cumple 100% con las reglas de 'juez_algoritmico_system_prompt.txt'.
-Inferencia ultra-rápida con Llama-3.3-70B sin consumo de GPU ni RAM local.
+generador_guion.py - Generador de Guiones Simbióticos V33.8
+Co-Director de Arte Algorítmico Polimórfico (Groq Cloud Llama-3.3-70B)
+Garantiza 12 escenas atómicas con directivas de cámara, transiciones sin repetición consecutiva,
+colores emocionales y texturas cinematográficas.
 """
 
 import os
@@ -22,13 +23,24 @@ except Exception:
 BASE_DIR = r"C:\tiktok"
 OUTPUT_DIR = os.path.join(BASE_DIR, "projects", "actual")
 SCRIPT_OUTPUT = os.path.join(OUTPUT_DIR, "script.json")
+PUBLIC_SCRIPT = os.path.join(BASE_DIR, "remotion", "public", "script.json")
 API_CONFIG_FILE = os.path.join(BASE_DIR, "api_config.json")
-JUEZ_PROMPT_FILE = os.path.join(BASE_DIR, "prompts", "juez_algoritmico_system_prompt.txt")
 
 GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_MODEL = "meta-llama/llama-3.3-70b-instruct:free"
+
+CAMERA_MOVEMENTS = ["crash_zoom_in", "pan_zoom_out", "pan_diagonal", "shake", "macro_drift"]
+TRANSITIONS = ["fade", "blur_fade", "flash_white", "smash_cut"]
+HIGHLIGHT_COLORS = {
+    "alerta": "#FF0055",
+    "intriga": "#FFE500",
+    "datos": "#00F0FF",
+    "exito": "#00FF66"
+}
+COLOR_LIST = ["#FF0055", "#FFE500", "#00F0FF", "#00FF66"]
+OVERLAYS = ["vignette_heavy", "grain_cinematic", "clean"]
 
 BIOLOGICAL_HOOKS = [
     "Tu cerebro está borrando este recuerdo ahora mismo sin que te des cuenta.",
@@ -56,6 +68,57 @@ def resolve_api_keys():
 
     return groq_key, openrouter_key
 
+def enforce_consecutive_rules(scenes):
+    """Garantiza matemáticamente que dos escenas consecutivas NO repitan movimiento ni transición."""
+    last_move = None
+    last_trans = None
+
+    for idx, sc in enumerate(scenes):
+        fx = sc.get("remotion_fx") or {}
+        
+        # 1. Movimiento de cámara
+        move = fx.get("camera_movement")
+        if not move or move == last_move or move not in CAMERA_MOVEMENTS:
+            avail_moves = [m for m in CAMERA_MOVEMENTS if m != last_move]
+            move = avail_moves[idx % len(avail_moves)]
+        last_move = move
+
+        # 2. Transición de salida
+        trans = fx.get("transition_out")
+        if not trans or trans == last_trans or trans not in TRANSITIONS:
+            avail_trans = [t for t in TRANSITIONS if t != last_trans]
+            trans = avail_trans[idx % len(avail_trans)]
+        last_trans = trans
+
+        # 3. Color de resalte
+        color = fx.get("text_highlight_color")
+        if not color or not color.startswith("#"):
+            color = COLOR_LIST[idx % len(COLOR_LIST)]
+
+        # 4. Superposición visual
+        overlay = fx.get("visual_overlay")
+        if not overlay or overlay not in OVERLAYS:
+            overlay = OVERLAYS[idx % len(OVERLAYS)]
+
+        sc["id"] = idx + 1
+        sc["scene_number"] = idx + 1
+        sc["image_filename"] = f"escena_{idx + 1}.png"
+        
+        # Asegurar límite de 15 palabras por escena
+        words = sc.get("text", "").split()
+        if len(words) > 15:
+            sc["text"] = " ".join(words[:15])
+        sc["narration_es"] = sc["text"]
+
+        sc["remotion_fx"] = {
+            "camera_movement": move,
+            "transition_out": trans,
+            "text_highlight_color": color,
+            "visual_overlay": overlay
+        }
+
+    return scenes
+
 def call_llm(endpoint: str, api_key: str, model: str, system_prompt: str, user_prompt: str):
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -74,149 +137,113 @@ def call_llm(endpoint: str, api_key: str, model: str, system_prompt: str, user_p
     }
 
     req = urllib.request.Request(endpoint, data=json.dumps(payload).encode("utf-8"), headers=headers, method="POST")
-    with urllib.request.urlopen(req, timeout=15) as resp:
+    with urllib.request.urlopen(req, timeout=20) as resp:
         data = json.loads(resp.read().decode("utf-8"))
         content = data["choices"][0]["message"]["content"]
         return json.loads(content)
 
 def generate_procedural_script(selected_hook: str):
-    print("[GUION] Generando guion procedural de $0 USD con 12 escenas de shock biológico...")
-    scenes = []
-    
-    # 12 bloques cinéticos alternando FX
+    print("[CO-DIRECTOR] Generando guion procedural con 12 escenas atómicas y Co-Director de Arte...")
     narrations = [
         selected_hook,
-        "Cada vez que parpadeas, tu mente desconecta tu visión para no marearte con el movimiento.",
-        "Esto significa que pasas casi una hora al día sumergido en oscuridad total absoluta.",
-        "Pero tu cortex visual inventa fotogramas falsos para que no entres en pánico.",
-        "Mientras duermes, tu cuerpo se paraliza por completo para que no actúes tus pesadillas.",
-        "Si esa barrera química falla, te levantarías dormido con el sistema motor encendido.",
-        "Tu corazón late cien mil veces cada veinticuatro horas bombeando litros de sangre a presión.",
-        "La fuerza es suficiente para proyectar un chorro a más de nueve metros de distancia.",
-        "En tu estómago hay ácido tan corrosivo que puede disolver metal en pocas horas.",
-        "La única razón por la que no te digieres a ti mismo es porque produces moco protector cada minuto.",
-        "Ahora mismo, millones de bacterias en tu intestino están alterando tus emociones.",
+        "Cada vez que parpadeas, tu mente desconecta tu visión para no marearte.",
+        "Esto significa que pasas casi una hora al día sumergido en oscuridad.",
+        "Tu cortex visual inventa fotogramas falsos para que no entres en pánico.",
+        "Mientras duermes, tu cuerpo se paraliza para no actuar tus pesadillas.",
+        "Si esa barrera química falla, te levantarías con el sistema motor encendido.",
+        "Tu corazón late cien mil veces bombeando sangre a presión brutal constante.",
+        "La fuerza es suficiente para proyectar un chorro a nueve metros de distancia.",
+        "En tu estómago hay ácido tan corrosivo que puede disolver metal duro.",
+        "Produces una capa de moco protector cada minuto para no digerirte a ti mismo.",
+        "Ahora mismo millones de bacterias en tu intestino están alterando tus emociones.",
         "Tú crees que controlas tus decisiones, pero tu cuerpo ya decidió por ti."
     ]
 
-    for i in range(12):
-        is_zoom = (i % 2 == 0)
+    scenes = []
+    for idx, text in enumerate(narrations):
         scenes.append({
-            "scene_number": i + 1,
-            "narration_es": narrations[i],
-            "image_filename": f"escena_{i + 1}.png",
-            "visual_prompt": f"Cinematic photorealistic 8k vertical 9:16 documentary scene #{i + 1}, dark atmospheric lighting, biological mystery",
-            "remotion_fx": {
-                "transformOrigin": "50.00% 50.00%",
-                "animation_type": "pan_zoom" if is_zoom else "subtle_drift",
-                "scale_start": 1.0 if is_zoom else 1.12,
-                "scale_end": 1.15 if is_zoom else 1.0,
-                "drift_x": 0 if is_zoom else (2.5 if i % 4 == 1 else -2.5)
-            }
+            "id": idx + 1,
+            "text": text,
+            "remotion_fx": {}
         })
 
-    return {
-        "theme": "shock_biologico_humano",
-        "hook_strength_1_to_10": 10,
-        "duration_target": 60,
-        "scenes": scenes
-    }
+    return enforce_consecutive_rules(scenes)
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    groq_key, openrouter_key = resolve_api_keys()
+    os.makedirs(os.path.dirname(PUBLIC_SCRIPT), exist_ok=True)
 
     selected_hook = random.choice(BIOLOGICAL_HOOKS)
     print("==================================================")
-    print("FACTORÍA V33.8 - GENERADOR DE GUION SIMBIÓTICO")
+    print("FACTORÍA V33.8 - GENERADOR DE GUION Y CO-DIRECTOR DE ARTE")
     print(f"  Gancho de Retención: \"{selected_hook}\"")
-    print(f"  Groq Cloud API Key: {'Configurada' if groq_key else 'No detectada'}")
-    print("==================================================")
 
-    system_prompt = """Eres el Algoritmo Central de Recomendación de TikTok. Tu objetivo es maximizar la tasa de retención (Hold Rate) y Completion Rate (>60s).
-Debes generar un guion de EXACTAMENTE 12 escenas para un video de TikTok vertical (9:16).
-REGLAS OBLIGATORIAS:
-1. Anti-cliché estricto: Cero saludos, cero '¿Sabías que?', cero 'Descubre', cero rodeos.
-2. La Escena 1 DEBE usar el gancho biológico en segunda persona provisto por el usuario.
-3. Cinetismo narrativo constante: transiciones de estímulo cada 2 a 3 segundos. Frases directas, viscerales y magnéticas.
-4. Formato de respuesta: Responde ÚNICA Y EXCLUSIVAMENTE con el objeto JSON con las 12 escenas y sus directivas remotion_fx.
-Estructura JSON requerida:
-{
-  "theme": "shock_biologico",
-  "hook_strength_1_to_10": 10,
-  "duration_target": 60,
-  "scenes": [
-    {
-      "scene_number": 1,
-      "narration_es": "...",
-      "image_filename": "escena_1.png",
-      "visual_prompt": "...",
-      "remotion_fx": {
-        "transformOrigin": "50.00% 50.00%",
-        "animation_type": "pan_zoom",
-        "scale_start": 1.0,
-        "scale_end": 1.15,
-        "drift_x": 0
-      }
-    }
-  ]
-}"""
+    groq_key, openrouter_key = resolve_api_keys()
+    scenes = None
 
-    user_prompt = f"Genera el guion viral de 12 escenas iniciando obligatoriamente en la escena 1 con la frase exacta: '{selected_hook}'"
+    system_prompt = """Eres el Co-Director de Arte Algorítmico y Guionista de TikTok para Factoría V33.8.
+Tu misión es generar exactamente 12 escenas de ultra-retención sobre shock biológico humano.
+Cada escena debe contener:
+- "id": número entero del 1 al 12
+- "text": narración hablada en español (MÁXIMO 15 PALABRAS por escena, lenguaje visceral, directo y sin rodeos)
+- "remotion_fx": {
+    "camera_movement": uno de ["crash_zoom_in", "pan_zoom_out", "pan_diagonal", "shake", "macro_drift"],
+    "transition_out": uno de ["fade", "blur_fade", "flash_white", "smash_cut"],
+    "text_highlight_color": HEX (#FF0055 para peligro/alerta, #FFE500 para intriga, #00F0FF para datos, #00FF66 para éxito),
+    "visual_overlay": uno de ["vignette_heavy", "grain_cinematic", "clean"]
+  }
 
-    script_data = None
+REGLAS ABSOLUTAS:
+1. Dos escenas consecutivas NO pueden tener el mismo "camera_movement".
+2. Dos escenas consecutivas NO pueden tener la misma "transition_out".
+3. La escena 1 debe usar el gancho provisto.
+4. Responde ÚNICAMENTE un objeto JSON con la clave "scenes": [ ... ] que contenga las 12 escenas."""
 
-    # 1. Intentar con Groq Cloud API
+    user_prompt = f"Genera el guion completo de 12 escenas. El gancho inicial obligatorio para la escena 1 es: \"{selected_hook}\""
+
     if groq_key:
-        print("[GUION] Solicitando inferencia directa a Groq Cloud (Llama 3.3 70B)...")
         try:
-            script_data = call_llm(GROQ_ENDPOINT, groq_key, GROQ_MODEL, system_prompt, user_prompt)
-            print("[GUION] ¡Inferencia exitosa en Groq Cloud!")
+            print("[CO-DIRECTOR] Solicitando guion a Groq Cloud (Llama-3.3-70B)...")
+            res = call_llm(GROQ_ENDPOINT, groq_key, GROQ_MODEL, system_prompt, user_prompt)
+            scenes = res.get("scenes")
+            if scenes and len(scenes) >= 12:
+                scenes = enforce_consecutive_rules(scenes[:12])
+                print("[CO-DIRECTOR] Guion generado exitosamente con Groq LPU.")
         except Exception as e:
-            print(f"[GUION] Aviso: Groq Cloud falló ({e}). Conmutando a fallback...")
+            print(f"[CO-DIRECTOR] Error con Groq API: {e}. Conmutando a OpenRouter / Fallback...")
 
-    # 2. Intentar con OpenRouter Fallback
-    if not script_data and openrouter_key:
-        print("[GUION] Solicitando inferencia a OpenRouter Cloud...")
+    if not scenes and openrouter_key:
         try:
-            script_data = call_llm(OPENROUTER_ENDPOINT, openrouter_key, OPENROUTER_MODEL, system_prompt, user_prompt)
-            print("[GUION] ¡Inferencia exitosa en OpenRouter Cloud!")
+            print("[CO-DIRECTOR] Conmutando a OpenRouter (Llama 3.3 Free)...")
+            res = call_llm(OPENROUTER_ENDPOINT, openrouter_key, OPENROUTER_MODEL, system_prompt, user_prompt)
+            scenes = res.get("scenes")
+            if scenes and len(scenes) >= 12:
+                scenes = enforce_consecutive_rules(scenes[:12])
+                print("[CO-DIRECTOR] Guion generado exitosamente con OpenRouter.")
         except Exception as e:
-            print(f"[GUION] Aviso: OpenRouter falló ({e}).")
+            print(f"[CO-DIRECTOR] Error con OpenRouter: {e}.")
 
-    # 3. Fallback Procedural de Alta Fidelidad
-    if not script_data:
-        script_data = generate_procedural_script(selected_hook)
+    if not scenes:
+        scenes = generate_procedural_script(selected_hook)
 
-    # Validar que tenga las 12 escenas y remotion_fx
-    scenes = script_data.get("scenes", [])
-    if len(scenes) < 12:
-        print(f"[GUION] Completando escenas hasta 12 (actuales: {len(scenes)})...")
-        procedural = generate_procedural_script(selected_hook)["scenes"]
-        while len(scenes) < 12:
-            idx = len(scenes)
-            scenes.append(procedural[idx])
-        script_data["scenes"] = scenes
-
-    for i, sc in enumerate(scenes):
-        sc["scene_number"] = i + 1
-        sc["image_filename"] = f"escena_{i + 1}.png"
-        if "remotion_fx" not in sc:
-            is_zoom = (i % 2 == 0)
-            sc["remotion_fx"] = {
-                "transformOrigin": "50.00% 50.00%",
-                "animation_type": "pan_zoom" if is_zoom else "subtle_drift",
-                "scale_start": 1.0 if is_zoom else 1.12,
-                "scale_end": 1.15 if is_zoom else 1.0,
-                "drift_x": 0 if is_zoom else (2.5 if i % 4 == 1 else -2.5)
-            }
+    script_data = {
+        "theme": "shock_biologico_humano_v33_8",
+        "duration_target": 65,
+        "scenes": scenes
+    }
 
     with open(SCRIPT_OUTPUT, "w", encoding="utf-8") as f:
-        json.dump(script_data, f, indent=2, ensure_ascii=False)
+        json.dump(script_data, f, ensure_ascii=False, indent=2)
 
-    print(f"\n[OK] script.json generado exitosamente en: {SCRIPT_OUTPUT}")
-    print(f"  Escenas: {len(script_data['scenes'])}")
-    print(f"  Gancho Escena 1: \"{script_data['scenes'][0]['narration_es']}\"")
+    with open(PUBLIC_SCRIPT, "w", encoding="utf-8") as f:
+        json.dump(script_data, f, ensure_ascii=False, indent=2)
+
+    print(f"\n[OK] script.json generado con 12 escenas atómicas en:")
+    print(f"  - {SCRIPT_OUTPUT}")
+    print(f"  - {PUBLIC_SCRIPT}")
+    for s in scenes:
+        fx = s["remotion_fx"]
+        print(f"  Escena {s['id']}: [{fx['camera_movement']}] -> [{fx['transition_out']}] | {fx['text_highlight_color']} | {len(s['text'].split())} palabras")
 
 if __name__ == "__main__":
     main()

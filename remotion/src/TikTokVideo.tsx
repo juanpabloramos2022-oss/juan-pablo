@@ -1,57 +1,50 @@
 import React from 'react';
-import { AbsoluteFill } from 'remotion';
+import { AbsoluteFill, Series, Audio, staticFile } from 'remotion';
 import { VideoLayer } from './VideoLayer';
-import { AudioLayer } from './AudioLayer';
 import { KineticSubtitles } from './KineticSubtitles';
 import { RetentionBar } from './RetentionBar';
+import scriptData from '../public/script.json';
 
-export interface TikTokVideoProps {
-  audioFileName?: string;
-  hasBackgroundMusic?: boolean;
-}
+export const TikTokVideo: React.FC = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const rawScenes = Array.isArray(scriptData) ? scriptData : (scriptData as any).scenes || [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const scenes = rawScenes.length > 0 ? rawScenes : (scriptData as any)?.scenes || [];
+  const fps = 30;
 
-export const TikTokVideo: React.FC<TikTokVideoProps> = ({
-  audioFileName = 'audio_narracion.mp3',
-  hasBackgroundMusic = false,
-}) => {
   return (
-    <AbsoluteFill
-      style={{
-        backgroundColor: '#000000',
-        width: 1080,
-        height: 1920,
-        overflow: 'hidden',
-      }}
-    >
-      {/* Capa 1: VideoLayer secuencial con Series (z-index 10) */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 10 }}>
-        <VideoLayer />
-      </div>
-
-      {/* Capa 2: AudioLayer con staticFile (locución) */}
-      <AudioLayer
-        fileName={audioFileName}
-        hasBackgroundMusic={hasBackgroundMusic}
-      />
-
-      {/* Capa 3: KineticSubtitles ÚNICO con timecodes directos (z-index 50) */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 50,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'flex-end',
-          paddingBottom: '400px',
-          pointerEvents: 'none',
-        }}
-      >
-        <KineticSubtitles />
-      </div>
-
-      {/* Capa 4: RetentionBar (z-index 9999) en top: 0 */}
+    <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       <RetentionBar />
+      <Series>
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        {scenes.map((scene: any) => {
+          const durSec = scene.durationInSeconds || 5.0;
+          const durationInFrames = Math.max(1, Math.round(durSec * fps));
+          const sceneId = scene.id || scene.scene_number || 1;
+          const audioFileName = `audio/audio_${sceneId}.mp3`;
+          const highlightColor = scene.remotion_fx?.text_highlight_color || '#FFE500';
+
+          return (
+            <Series.Sequence key={sceneId} durationInFrames={durationInFrames}>
+              <VideoLayer scene={scene} durationInFrames={durationInFrames} />
+              <Audio src={staticFile(audioFileName)} volume={1.0} />
+              <AbsoluteFill
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                  paddingBottom: '400px',
+                  pointerEvents: 'none',
+                  zIndex: 50,
+                }}
+              >
+                <KineticSubtitles words={scene.words || []} highlightColor={highlightColor} />
+              </AbsoluteFill>
+            </Series.Sequence>
+          );
+        })}
+      </Series>
     </AbsoluteFill>
   );
 };

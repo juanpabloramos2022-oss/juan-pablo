@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 import { useCurrentFrame, useVideoConfig, spring } from 'remotion';
-import timecodesData from '../public/timecodes.json';
 
 export interface WordTiming {
   word: string;
+  start?: number;
+  end?: number;
   startFrame: number;
   endFrame: number;
 }
@@ -14,30 +15,37 @@ interface Burst {
   endFrame: number;
 }
 
+interface KineticSubtitlesProps {
+  words?: WordTiming[];
+  highlightColor?: string;
+}
+
 const MAX_WORDS = 3;
 
-export const KineticSubtitles: React.FC = () => {
+export const KineticSubtitles: React.FC<KineticSubtitlesProps> = ({
+  words = [],
+  highlightColor = '#FFE500',
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const words = (timecodesData as any[]) || [];
 
   const bursts = useMemo(() => {
     const res: Burst[] = [];
+    if (!words || words.length === 0) return res;
+
     for (let i = 0; i < words.length; i += MAX_WORDS) {
       const chunk = words.slice(i, i + MAX_WORDS);
       if (chunk.length > 0) {
         const first = chunk[0];
         const last = chunk[chunk.length - 1];
-        const sFrame = first.startFrame ?? first.start_frame ?? Math.floor((first.start ?? 0) * fps);
-        const eFrame = last.endFrame ?? last.end_frame ?? Math.ceil((last.end ?? 0) * fps);
+        const sFrame = first.startFrame ?? Math.floor((first.start ?? 0) * fps);
+        const eFrame = last.endFrame ?? Math.ceil((last.end ?? 0) * fps);
 
         res.push({
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          words: chunk.map((w: any) => ({
+          words: chunk.map((w) => ({
             word: w.word,
-            startFrame: w.startFrame ?? w.start_frame ?? Math.floor((w.start ?? 0) * fps),
-            endFrame: w.endFrame ?? w.end_frame ?? Math.ceil((w.end ?? 0) * fps),
+            startFrame: w.startFrame ?? Math.floor((w.start ?? 0) * fps),
+            endFrame: w.endFrame ?? Math.ceil((w.end ?? 0) * fps),
           })),
           startFrame: sFrame,
           endFrame: Math.max(sFrame + 1, eFrame),
@@ -74,7 +82,7 @@ export const KineticSubtitles: React.FC = () => {
         });
 
         const scale = isActive ? 1 + pop * 0.18 : 1;
-        const color = isActive ? '#FFE500' : hasPassed ? '#E0E0E0' : '#FFFFFF';
+        const color = isActive ? highlightColor : hasPassed ? '#E0E0E0' : '#FFFFFF';
         const rotate = isActive ? (idx % 2 === 0 ? '-2deg' : '2deg') : '0deg';
 
         return (
