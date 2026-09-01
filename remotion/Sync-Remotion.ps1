@@ -147,7 +147,7 @@ Write-Host "[PIPELINE] Iniciando compilación Remotion 9:16..."
 Set-Location "C:\tiktok\remotion"
 $OutputPath = Join-Path $ProjectDir "output\video_final_remotion.mp4"
 
-cmd.exe /c "npx remotion render src/index.ts TikTokComp `"$OutputPath`" --concurrency=2 --gl=angle"
+cmd.exe /c "npx remotion render src/index.ts TikTokComp `"$OutputPath`" --concurrency=2 --gl=angle --bundle-cache=false"
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "[PIPELINE] Video renderizado con éxito!"
