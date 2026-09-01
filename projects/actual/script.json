@@ -383,9 +383,12 @@
     "text": "EMPIEZAN A TRAGARSE CONEXIONES SINÁPTICAS SANAS QUE NUNCA PODRÁS RECUPERAR.",
     "camara": "earthquake_shake",
     "iluminacion": "chromatic_aberration_glitch",
-    "overlay": "ninguno",
+    "overlay": "alerta_roja_neon",
     "remotion_fx": {
-      "emotional_color": "#FF0055"
+      "emotional_color": "#FF0055",
+      "camera_movement": "earthquake_shake",
+      "overlay": "alerta_roja_neon",
+      "overlay_text": "¡DAÑO IRREVERSIBLE!"
     },
     "durationInSeconds": 4.99,
     "durationInFrames": 150,
@@ -460,7 +463,8 @@
         "startFrame": 104,
         "endFrame": 121
       }
-    ]
+    ],
+    "overlayText": "¡DAÑO IRREVERSIBLE!"
   },
   {
     "id": 6,
