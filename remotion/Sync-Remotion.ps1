@@ -5,8 +5,8 @@
 #>
 
 param (
-    [string]$RepoOwner = $(if ($env:GITHUB_REPO_OWNER) { $env:GITHUB_REPO_OWNER } else { "TU_USUARIO_GITHUB" }),
-    [string]$RepoName = $(if ($env:GITHUB_REPO_NAME) { $env:GITHUB_REPO_NAME } else { "TU_REPOSITORIO_GITHUB" }),
+    [string]$RepoOwner = $(if ($env:GITHUB_REPO_OWNER) { $env:GITHUB_REPO_OWNER } else { "juanpabloramos2022-oss" }),
+    [string]$RepoName = $(if ($env:GITHUB_REPO_NAME) { $env:GITHUB_REPO_NAME } else { "juan-pablo" }),
     [string]$Token = $env:GITHUB_TOKEN,
     [string]$WorkflowFileName = "generate_script.yml",
     [string]$BaseDir = "C:\tiktok",
