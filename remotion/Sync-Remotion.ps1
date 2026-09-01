@@ -131,23 +131,43 @@ if (-not (Test-Path $TargetScriptPath)) {
     }
 }
 
-# 5. Ejecutar scripts preparatorios (Ojo Matemático, Calibración y Guardián)
+# 5. Ejecutar scripts preparatorios (Ojo Matemático, Calibración y Guardianes)
 Write-Host "[PIPELINE] Ejecutando análisis matemático y guardianes..."
 node "C:\tiktok\remotion\pre-render.js"
 python "C:\tiktok\scripts\calibracion_fonetica.py"
 python "C:\tiktok\scripts\guardian_integridad.py"
+node "C:\tiktok\scripts\guardian_integridad_av.js"
 
 if ($LASTEXITCODE -ne 0) {
-    Write-Error "[PIPELINE] El Guardián de Integridad abortó el render."
+    Write-Error "[PIPELINE] El Guardián abortó el render por fallo de integridad."
     exit 1
 }
 
-# 6. Renderizado por CLI de Remotion (--concurrency=2 para cuidar los 8GB de RAM)
+# 5.1 Sincronizar assets hacia C:\tiktok\remotion\public\ para staticFile
+$PublicDir = "C:\tiktok\remotion\public"
+if (-not (Test-Path $PublicDir)) { New-Item -ItemType Directory -Force -Path $PublicDir | Out-Null }
+$PublicImgDir = Join-Path $PublicDir "images"
+if (-not (Test-Path $PublicImgDir)) { New-Item -ItemType Directory -Force -Path $PublicImgDir | Out-Null }
+
+if (Test-Path "C:\tiktok\projects\actual\audio_narracion.mp3") {
+    Copy-Item "C:\tiktok\projects\actual\audio_narracion.mp3" "$PublicDir\audio_narracion.mp3" -Force
+}
+if (Test-Path "C:\tiktok\projects\actual\timecodes.json") {
+    Copy-Item "C:\tiktok\projects\actual\timecodes.json" "$PublicDir\timecodes.json" -Force
+}
+if (Test-Path "C:\tiktok\projects\actual\script.json") {
+    Copy-Item "C:\tiktok\projects\actual\script.json" "$PublicDir\script.json" -Force
+}
+if (Test-Path "C:\tiktok\projects\actual\images") {
+    Copy-Item "C:\tiktok\projects\actual\images\*" $PublicImgDir -Recurse -Force
+}
+
+# 6. Renderizado por CLI de Remotion (--concurrency=2, --gl=swangle, --pixel-format=yuv420p)
 Write-Host "[PIPELINE] Iniciando compilación Remotion 9:16..."
 Set-Location "C:\tiktok\remotion"
 $OutputPath = Join-Path $ProjectDir "output\video_final_remotion.mp4"
 
-cmd.exe /c "npx remotion render src/index.ts TikTokComp `"$OutputPath`" --concurrency=2 --gl=angle --bundle-cache=false"
+cmd.exe /c "npx remotion render src/index.ts TikTokComp `"$OutputPath`" --concurrency=2 --gl=swangle --pixel-format=yuv420p --crf=18 --codec=h264 --bundle-cache=false"
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host "[PIPELINE] Video renderizado con éxito!"

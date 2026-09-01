@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap');
+
+body {
+  font-family: 'Satoshi', sans-serif;
+  background-color: #010101;
+  color: white;
+}
+
+.sporty-text {
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.neon-glow {
+  text-shadow: 0 0 20px rgba(204, 255, 0, 0.5);
+}
+
+.neon-border {
+  border-color: #ccff00;
+  box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
+}
