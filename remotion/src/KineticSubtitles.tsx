@@ -29,15 +29,15 @@ export const KineticSubtitles: React.FC = () => {
       if (chunk.length > 0) {
         const first = chunk[0];
         const last = chunk[chunk.length - 1];
-        const sFrame = first.startFrame ?? first.start_frame ?? Math.round((first.start ?? 0) * fps);
-        const eFrame = last.endFrame ?? last.end_frame ?? Math.round((last.end ?? 0) * fps);
+        const sFrame = first.startFrame ?? first.start_frame ?? Math.floor((first.start ?? 0) * fps);
+        const eFrame = last.endFrame ?? last.end_frame ?? Math.ceil((last.end ?? 0) * fps);
 
         res.push({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           words: chunk.map((w: any) => ({
             word: w.word,
-            startFrame: w.startFrame ?? w.start_frame ?? Math.round((w.start ?? 0) * fps),
-            endFrame: w.endFrame ?? w.end_frame ?? Math.round((w.end ?? 0) * fps),
+            startFrame: w.startFrame ?? w.start_frame ?? Math.floor((w.start ?? 0) * fps),
+            endFrame: w.endFrame ?? w.end_frame ?? Math.ceil((w.end ?? 0) * fps),
           })),
           startFrame: sFrame,
           endFrame: Math.max(sFrame + 1, eFrame),
@@ -47,7 +47,7 @@ export const KineticSubtitles: React.FC = () => {
     return res;
   }, [words, fps]);
 
-  const activeBurst = bursts.find((b) => frame >= b.startFrame && frame <= b.endFrame);
+  const activeBurst = bursts.find((b) => frame >= b.startFrame && frame < b.endFrame);
   if (!activeBurst) return null;
 
   return (
@@ -64,8 +64,8 @@ export const KineticSubtitles: React.FC = () => {
       }}
     >
       {activeBurst.words.map((w, idx) => {
-        const isActive = frame >= w.startFrame && frame <= w.endFrame;
-        const hasPassed = frame > w.endFrame;
+        const isActive = frame >= w.startFrame && frame < w.endFrame;
+        const hasPassed = frame >= w.endFrame;
 
         const pop = spring({
           frame: Math.max(0, frame - w.startFrame),

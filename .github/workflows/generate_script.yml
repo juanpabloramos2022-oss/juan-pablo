@@ -13,22 +13,19 @@ jobs:
       - name: Checkout repositorio
         uses: actions/checkout@v4
 
-      - name: Generar Script Simbiótico V33.8 (Test de Humo)
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Generar Script Simbiótico V33.8 (12 Escenas de Shock Biológico)
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
         run: |
           mkdir -p output
-          cat << 'EOF' > output/script.json
-          {
-            "theme": "prueba_humo_nube_local",
-            "duration_target": 65,
-            "scenes": [
-              {
-                "scene_number": 1,
-                "narration_es": "Tus ojos están parpadeando ahora mismo sin que tu cerebro lo decida.",
-                "image_filename": "escena_1.png"
-              }
-            ]
-          }
-          EOF
+          python scripts/generador_guion.py
+          cp projects/actual/script.json output/script.json
 
       - name: Subir Artefacto de Guion
         uses: actions/upload-artifact@v4
