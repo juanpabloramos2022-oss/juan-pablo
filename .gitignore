@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.git_nested/
+
+# Build & artifacts
+build/
+output/
+temp_artifact.zip
+.last_run_id
+
+# Media
+*.mp4
+*.wav
+*.mp3
+projects/actual/output/*
+!projects/actual/output/.gitkeep
+
+*.github_token
+.github_token

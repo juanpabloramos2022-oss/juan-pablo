@@ -1,0 +1,38 @@
+name: Generate Script V33.8
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-pack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Generar Script Simbiótico V33.8 (Test de Humo)
+        run: |
+          mkdir -p output
+          cat << 'EOF' > output/script.json
+          {
+            "theme": "prueba_humo_nube_local",
+            "duration_target": 65,
+            "scenes": [
+              {
+                "scene_number": 1,
+                "narration_es": "Tus ojos están parpadeando ahora mismo sin que tu cerebro lo decida.",
+                "image_filename": "escena_1.png"
+              }
+            ]
+          }
+          EOF
+
+      - name: Subir Artefacto de Guion
+        uses: actions/upload-artifact@v4
+        with:
+          name: script-artifact
+          path: output/script.json
+          retention-days: 1

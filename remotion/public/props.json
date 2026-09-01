@@ -1,0 +1,358 @@
+{
+  "projectName": "Simbiosis_Remotion_Test",
+  "hookTitle": "Tu cerebro tarda 0.3 segundos en...",
+  "niche": "Misterio",
+  "scenes": [
+    {
+      "sceneNumber": 1,
+      "fromFrame": 0,
+      "durationInFrames": 61,
+      "videoSrc": "videos/scene_0001.mp4",
+      "audioSrc": null,
+      "niche": "Misterio",
+      "fx": {
+        "transition_in": "glitch",
+        "camera_movement": "shake_impact",
+        "kinetic_emphasis": "ENGAÑA",
+        "accent_color": "#00F2FE",
+        "overlay_style": "vignette_dark"
+      }
+    },
+    {
+      "sceneNumber": 2,
+      "fromFrame": 61,
+      "durationInFrames": 104,
+      "videoSrc": "videos/scene_0002.mp4",
+      "audioSrc": null,
+      "niche": "Misterio",
+      "fx": {
+        "transition_in": "whip_right",
+        "camera_movement": "shake_impact",
+        "kinetic_emphasis": "DESPLAZAMIENTO",
+        "accent_color": "#FFE500",
+        "overlay_style": "hud_tech"
+      }
+    },
+    {
+      "sceneNumber": 3,
+      "fromFrame": 165,
+      "durationInFrames": 152,
+      "videoSrc": "videos/scene_0003.mp4",
+      "audioSrc": null,
+      "niche": "Misterio",
+      "fx": {
+        "transition_in": "fade",
+        "camera_movement": "pan_zoom",
+        "kinetic_emphasis": "ÓRGANOS",
+        "accent_color": "#FFE500",
+        "overlay_style": "vignette_dark"
+      }
+    }
+  ],
+  "subtitlePages": [
+    {
+      "words": [
+        {
+          "text": "Tu",
+          "startMs": 0,
+          "endMs": 106
+        },
+        {
+          "text": "cerebro",
+          "startMs": 106,
+          "endMs": 212
+        },
+        {
+          "text": "tarda",
+          "startMs": 212,
+          "endMs": 318
+        }
+      ],
+      "startMs": 0,
+      "endMs": 318,
+      "accentColor": "#00F2FE",
+      "kineticEmphasis": "ENGAÑA"
+    },
+    {
+      "words": [
+        {
+          "text": "0.3",
+          "startMs": 318,
+          "endMs": 408
+        },
+        {
+          "text": "segundos",
+          "startMs": 408,
+          "endMs": 498
+        },
+        {
+          "text": "en",
+          "startMs": 498,
+          "endMs": 588
+        }
+      ],
+      "startMs": 318,
+      "endMs": 588,
+      "accentColor": "#00F2FE",
+      "kineticEmphasis": "ENGAÑA"
+    },
+    {
+      "words": [
+        {
+          "text": "registrar",
+          "startMs": 588,
+          "endMs": 752
+        },
+        {
+          "text": "cómo",
+          "startMs": 752,
+          "endMs": 916
+        },
+        {
+          "text": "Simbiosis",
+          "startMs": 916,
+          "endMs": 1081
+        }
+      ],
+      "startMs": 588,
+      "endMs": 1081,
+      "accentColor": "#00F2FE",
+      "kineticEmphasis": "ENGAÑA"
+    },
+    {
+      "words": [
+        {
+          "text": "Remotion",
+          "startMs": 1081,
+          "endMs": 1187
+        },
+        {
+          "text": "Test",
+          "startMs": 1187,
+          "endMs": 1293
+        },
+        {
+          "text": "te",
+          "startMs": 1293,
+          "endMs": 1399
+        }
+      ],
+      "startMs": 1081,
+      "endMs": 1399,
+      "accentColor": "#00F2FE",
+      "kineticEmphasis": "ENGAÑA"
+    },
+    {
+      "words": [
+        {
+          "text": "engaña.",
+          "startMs": 1399,
+          "endMs": 1797
+        }
+      ],
+      "startMs": 1399,
+      "endMs": 1797,
+      "accentColor": "#00F2FE",
+      "kineticEmphasis": "ENGAÑA"
+    },
+    {
+      "words": [
+        {
+          "text": "Un",
+          "startMs": 2050,
+          "endMs": 2297
+        },
+        {
+          "text": "desplazamiento",
+          "startMs": 2297,
+          "endMs": 2544
+        },
+        {
+          "text": "de",
+          "startMs": 2544,
+          "endMs": 2792
+        }
+      ],
+      "startMs": 2050,
+      "endMs": 2792,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "DESPLAZAMIENTO"
+    },
+    {
+      "words": [
+        {
+          "text": "3",
+          "startMs": 2792,
+          "endMs": 2963
+        },
+        {
+          "text": "milímetros",
+          "startMs": 2963,
+          "endMs": 3134
+        },
+        {
+          "text": "en",
+          "startMs": 3134,
+          "endMs": 3306
+        }
+      ],
+      "startMs": 2792,
+      "endMs": 3306,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "DESPLAZAMIENTO"
+    },
+    {
+      "words": [
+        {
+          "text": "este",
+          "startMs": 3306,
+          "endMs": 3572
+        },
+        {
+          "text": "registro",
+          "startMs": 3572,
+          "endMs": 3839
+        },
+        {
+          "text": "destruye",
+          "startMs": 3839,
+          "endMs": 4106
+        }
+      ],
+      "startMs": 3306,
+      "endMs": 4106,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "DESPLAZAMIENTO"
+    },
+    {
+      "words": [
+        {
+          "text": "la",
+          "startMs": 4106,
+          "endMs": 4486
+        },
+        {
+          "text": "versión",
+          "startMs": 4486,
+          "endMs": 4867
+        },
+        {
+          "text": "oficial.",
+          "startMs": 4867,
+          "endMs": 5248
+        }
+      ],
+      "startMs": 4106,
+      "endMs": 5248,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "DESPLAZAMIENTO"
+    },
+    {
+      "words": [
+        {
+          "text": "Tus",
+          "startMs": 5500,
+          "endMs": 5774
+        },
+        {
+          "text": "órganos",
+          "startMs": 5774,
+          "endMs": 6049
+        },
+        {
+          "text": "no",
+          "startMs": 6049,
+          "endMs": 6324
+        }
+      ],
+      "startMs": 5500,
+      "endMs": 6324,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "ÓRGANOS"
+    },
+    {
+      "words": [
+        {
+          "text": "fallan",
+          "startMs": 6324,
+          "endMs": 6695
+        },
+        {
+          "text": "por",
+          "startMs": 6695,
+          "endMs": 7067
+        },
+        {
+          "text": "impacto;",
+          "startMs": 7067,
+          "endMs": 7439
+        }
+      ],
+      "startMs": 6324,
+      "endMs": 7439,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "ÓRGANOS"
+    },
+    {
+      "words": [
+        {
+          "text": "colapsan",
+          "startMs": 7439,
+          "endMs": 7729
+        },
+        {
+          "text": "por",
+          "startMs": 7729,
+          "endMs": 8020
+        },
+        {
+          "text": "la",
+          "startMs": 8020,
+          "endMs": 8311
+        }
+      ],
+      "startMs": 7439,
+      "endMs": 8311,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "ÓRGANOS"
+    },
+    {
+      "words": [
+        {
+          "text": "presión",
+          "startMs": 8311,
+          "endMs": 8537
+        },
+        {
+          "text": "en",
+          "startMs": 8537,
+          "endMs": 8763
+        },
+        {
+          "text": "4",
+          "startMs": 8763,
+          "endMs": 8989
+        }
+      ],
+      "startMs": 8311,
+      "endMs": 8989,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "ÓRGANOS"
+    },
+    {
+      "words": [
+        {
+          "text": "segundos.",
+          "startMs": 8989,
+          "endMs": 10298
+        }
+      ],
+      "startMs": 8989,
+      "endMs": 10298,
+      "accentColor": "#FFE500",
+      "kineticEmphasis": "ÓRGANOS"
+    }
+  ],
+  "ambientTrackSrc": "audio/ambient.mp3",
+  "ambientVolume": 0.12
+}

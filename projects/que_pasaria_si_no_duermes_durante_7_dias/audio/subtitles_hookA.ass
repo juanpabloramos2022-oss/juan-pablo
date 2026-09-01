@@ -1,0 +1,44 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TikTokYellow,Arial Black,64,&H0000FFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+Style: TikTokWhite,Arial Black,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.95,TikTokYellow,,0,0,0,,EL ENIGMA OCULTO
+Dialogue: 0,0:00:00.95,0:00:01.89,TikTokWhite,,0,0,0,,DETRÁS DE QUE
+Dialogue: 0,0:00:01.89,0:00:02.84,TikTokYellow,,0,0,0,,PASARIA SI NO
+Dialogue: 0,0:00:02.84,0:00:03.78,TikTokWhite,,0,0,0,,DUERMES DURANTE 7
+Dialogue: 0,0:00:03.78,0:00:04.73,TikTokYellow,,0,0,0,,DIAS
+Dialogue: 0,0:00:05.03,0:00:06.28,TikTokYellow,,0,0,0,,TUS RODILLAS ACABAN
+Dialogue: 0,0:00:06.28,0:00:07.52,TikTokWhite,,0,0,0,,DE FUSIONARSE EN
+Dialogue: 0,0:00:07.52,0:00:08.77,TikTokYellow,,0,0,0,,UN SOLO BLOQUE
+Dialogue: 0,0:00:09.07,0:00:10.21,TikTokYellow,,0,0,0,,LA ANOMALÍA FÍSICA
+Dialogue: 0,0:00:10.21,0:00:11.35,TikTokWhite,,0,0,0,,QUE DESCONCERTÓ POR
+Dialogue: 0,0:00:11.35,0:00:12.50,TikTokYellow,,0,0,0,,COMPLETO A LOS
+Dialogue: 0,0:00:12.50,0:00:13.64,TikTokWhite,,0,0,0,,ARQUEÓLOGOS MÁS VETERANOS
+Dialogue: 0,0:00:13.64,0:00:14.78,TikTokYellow,,0,0,0,,DEL MUNDO
+Dialogue: 0,0:00:15.08,0:00:16.04,TikTokYellow,,0,0,0,,Y LA ATERRADORA
+Dialogue: 0,0:00:16.04,0:00:17.00,TikTokWhite,,0,0,0,,RAZÓN POR LA
+Dialogue: 0,0:00:17.00,0:00:17.96,TikTokYellow,,0,0,0,,QUE INTENTARON BORRAR
+Dialogue: 0,0:00:17.96,0:00:18.92,TikTokWhite,,0,0,0,,ESTE SECRETO PARA
+Dialogue: 0,0:00:18.92,0:00:19.88,TikTokYellow,,0,0,0,,SIEMPRE
+Dialogue: 0,0:00:20.18,0:00:21.23,TikTokYellow,,0,0,0,,LO QUE LA
+Dialogue: 0,0:00:21.23,0:00:22.27,TikTokWhite,,0,0,0,,HISTORIA OFICIAL JAMÁS
+Dialogue: 0,0:00:22.27,0:00:23.31,TikTokYellow,,0,0,0,,ADMITIRÁ SOBRE LA
+Dialogue: 0,0:00:23.31,0:00:24.36,TikTokWhite,,0,0,0,,VERDAD FINAL
+Dialogue: 0,0:00:24.66,0:00:25.61,TikTokYellow,,0,0,0,,EL ENIGMA OCULTO
+Dialogue: 0,0:00:25.61,0:00:26.55,TikTokWhite,,0,0,0,,DETRÁS DE QUE
+Dialogue: 0,0:00:26.55,0:00:27.50,TikTokYellow,,0,0,0,,PASARIA SI NO
+Dialogue: 0,0:00:27.50,0:00:28.44,TikTokWhite,,0,0,0,,DUERMES DURANTE 7
+Dialogue: 0,0:00:28.44,0:00:29.39,TikTokYellow,,0,0,0,,DIAS
+Dialogue: 0,0:00:29.69,0:00:30.88,TikTokYellow,,0,0,0,,DOCUMENTOS CLASIFICADOS QUE
+Dialogue: 0,0:00:30.88,0:00:32.06,TikTokWhite,,0,0,0,,NADIE SE ATREVE
+Dialogue: 0,0:00:32.06,0:00:33.25,TikTokYellow,,0,0,0,,A REVELAR SOBRE
+Dialogue: 0,0:00:33.25,0:00:34.44,TikTokWhite,,0,0,0,,ESTE MISTERIO

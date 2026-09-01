@@ -1,0 +1,81 @@
+{
+  "project_meta": {
+    "project_name": "que_pasaria_si_no_duermes_durante_7_dias",
+    "niche": "Misterio",
+    "modo_trabajo": "Crear Guion desde Idea",
+    "estilo_ritmo": "Híbrido Cinematográfico (Alternar 1.5s, 3s y 5s)",
+    "estilo_visual": "Cinemático Oscuro Hiperrealista (Lente 35mm, sombras profundas)",
+    "voice_profile": "es-ES-AlvaroNeural",
+    "voice_rate": "+0%",
+    "ambient_track": "ambient_cinematic.mp3",
+    "ambient_volume": 0.15,
+    "aspect_ratio": "9:16"
+  },
+  "scenes": [
+    {
+      "scene_number": 1,
+      "tipo_ritmo": "impacto",
+      "duracion_estimada_segundos": 1.8,
+      "narration": "El enigma oculto detrás de que pasaria si no duermes durante 7 dias...",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 1. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: fast kinetic crash zoom and whip pan over 1.8 seconds to hook audience. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 1, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "fast kinetic crash zoom and whip pan over 1.8 seconds to hook audience, vertical 9:16, 4k 30fps.",
+      "hook_b": "Nadie debería saber la verdad sobre que pasaria si no duermes durante 7 dias..."
+    },
+    {
+      "scene_number": 2,
+      "tipo_ritmo": "desarrollo",
+      "duracion_estimada_segundos": 3.7,
+      "narration": "Tus rodillas acaban de fusionarse en un solo bloque.",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 2. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: smooth fluid tracking dolly shot over 3.2 seconds establishing dramatic details. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 2, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "smooth fluid tracking dolly shot over 3.2 seconds establishing dramatic details, vertical 9:16, 4k 30fps.",
+      "voice_profile": "es-ES-AlvaroNeural"
+    },
+    {
+      "scene_number": 3,
+      "tipo_ritmo": "climax",
+      "duracion_estimada_segundos": 4.8,
+      "narration": "La anomalía física que desconcertó por completo a los arqueólogos más veteranos del mundo...",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 3. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: slow creeping cinematic push-in over 4.8 seconds building unbearable suspense. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 3, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "slow creeping cinematic push-in over 4.8 seconds building unbearable suspense, vertical 9:16, 4k 30fps."
+    },
+    {
+      "scene_number": 4,
+      "tipo_ritmo": "impacto",
+      "duracion_estimada_segundos": 2.1,
+      "narration": "Y la aterradora razón por la que intentaron borrar este secreto para siempre...",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 4. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: abrupt sudden whip pan reveal over 2.1 seconds. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 4, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "abrupt sudden whip pan reveal over 2.1 seconds, vertical 9:16, 4k 30fps."
+    },
+    {
+      "scene_number": 5,
+      "tipo_ritmo": "climax",
+      "duracion_estimada_segundos": 4.9,
+      "narration": "Lo que la historia oficial jamás admitirá sobre la verdad final...",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 5. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: lingering ominous slow push-in over 4.9 seconds reaching dramatic conclusion. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 5, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "lingering ominous slow push-in over 4.9 seconds reaching dramatic conclusion, vertical 9:16, 4k 30fps."
+    },
+    {
+      "scene_number": 6,
+      "tipo_ritmo": "impacto",
+      "duracion_estimada_segundos": 1.8,
+      "narration": "El enigma oculto detrás de que pasaria si no duermes durante 7 dias...",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 6. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: fast kinetic crash zoom and whip pan over 1.8 seconds to hook audience. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 6, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "fast kinetic crash zoom and whip pan over 1.8 seconds to hook audience, vertical 9:16, 4k 30fps."
+    },
+    {
+      "scene_number": 7,
+      "tipo_ritmo": "desarrollo",
+      "duracion_estimada_segundos": 3.2,
+      "narration": "Documentos clasificados que nadie se atreve a revelar sobre este misterio...",
+      "prompt_visual": "Cinematic dark hyperrealistic photography, shot on 35mm anamorphic lens, deep dramatic shadows, volumetric rim lighting, photorealistic 8k, moody atmospheric depth, film grain, vertical 9:16 aspect ratio. Vertical 9:16 aspect ratio cinematic framing depicting a breathtaking visualization of que pasaria si no duermes durante 7 dias, scene 7. Atmosphere: deeply immersive atmospheric haze, volumetric fog, dramatic chiaroscuro high contrast lighting, rich realistic shadows, meticulous photorealistic 8k detail across all physical textures and surfaces. Camera movement: smooth fluid tracking dolly shot over 3.2 seconds establishing dramatic details. Color grading tailored for Misterio narrative, cinematic depth of field, anamorphic optical perfection, award-winning cinematography, ultra-sharp focus on subject, authentic filmic mood.",
+      "image_prompt": "Cinematic vertical 9:16 shot of que pasaria si no duermes durante 7 dias, scene 7, Misterio aesthetic, 8k dramatic lighting.",
+      "video_prompt": "smooth fluid tracking dolly shot over 3.2 seconds establishing dramatic details, vertical 9:16, 4k 30fps."
+    }
+  ]
+}

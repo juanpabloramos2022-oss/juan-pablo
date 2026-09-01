@@ -1,0 +1,27 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TikTokYellow,Arial Black,64,&H0000FFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+Style: TikTokWhite,Arial Black,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.16,TikTokYellow,,0,0,0,,TU CEREBRO TARDA
+Dialogue: 0,0:00:01.16,0:00:02.32,TikTokWhite,,0,0,0,,03 SEGUNDOS EN
+Dialogue: 0,0:00:02.32,0:00:03.49,TikTokYellow,,0,0,0,,REGISTRAR CÓMO SIMBIOSIS
+Dialogue: 0,0:00:03.49,0:00:04.65,TikTokWhite,,0,0,0,,REMOTION TEST TE
+Dialogue: 0,0:00:04.65,0:00:05.81,TikTokYellow,,0,0,0,,ENGAÑA
+Dialogue: 0,0:00:06.11,0:00:07.41,TikTokYellow,,0,0,0,,UN DESPLAZAMIENTO DE
+Dialogue: 0,0:00:07.41,0:00:08.71,TikTokWhite,,0,0,0,,3 MILÍMETROS EN
+Dialogue: 0,0:00:08.71,0:00:10.02,TikTokYellow,,0,0,0,,ESTE REGISTRO DESTRUYE
+Dialogue: 0,0:00:10.02,0:00:11.32,TikTokWhite,,0,0,0,,LA VERSIÓN OFICIAL
+Dialogue: 0,0:00:11.62,0:00:12.67,TikTokYellow,,0,0,0,,TUS ÓRGANOS NO
+Dialogue: 0,0:00:12.67,0:00:13.71,TikTokWhite,,0,0,0,,FALLAN POR IMPACTO;
+Dialogue: 0,0:00:13.71,0:00:14.76,TikTokYellow,,0,0,0,,COLAPSAN POR LA
+Dialogue: 0,0:00:14.76,0:00:15.80,TikTokWhite,,0,0,0,,PRESIÓN EN 4
+Dialogue: 0,0:00:15.80,0:00:16.85,TikTokYellow,,0,0,0,,SEGUNDOS

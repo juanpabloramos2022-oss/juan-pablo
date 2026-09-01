@@ -1,29 +1,46 @@
 import React, { useMemo } from 'react';
 import { useCurrentFrame, useVideoConfig, spring } from 'remotion';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const KineticSubtitles: React.FC<{ words: any[]; highlightColor: string }> = ({ words = [], highlightColor = '#FFE500' }) => {
+export interface WordTiming {
+  word: string;
+  startFrame: number;
+  endFrame: number;
+}
+
+interface Burst {
+  words: WordTiming[];
+  chunkStart: number;
+  chunkEnd: number;
+}
+
+const CHUNK_SIZE = 3;
+
+export const KineticSubtitles: React.FC<{ words: WordTiming[]; highlightColor?: string }> = ({
+  words = [],
+  highlightColor = '#FFE500',
+}) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   const bursts = useMemo(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const list: any[] = [];
-    const maxWords = 3;
-    for (let i = 0; i < words.length; i += maxWords) {
-      const chunk = words.slice(i, i + maxWords);
+    const res: Burst[] = [];
+    for (let i = 0; i < words.length; i += CHUNK_SIZE) {
+      const chunk = words.slice(i, i + CHUNK_SIZE);
       if (chunk.length > 0) {
-        list.push({
+        // Adelanto anticipatorio de 2 frames en el inicio de la ráfaga
+        const rawStart = chunk[0].startFrame;
+        const rawEnd = chunk[chunk.length - 1].endFrame;
+        res.push({
           words: chunk,
-          startFrame: chunk[0].startFrame ?? 0,
-          endFrame: chunk[chunk.length - 1].endFrame ?? 150,
+          chunkStart: Math.max(0, rawStart - 2),
+          chunkEnd: rawEnd,
         });
       }
     }
-    return list;
+    return res;
   }, [words]);
 
-  const activeBurst = bursts.find((b) => frame >= b.startFrame && frame < b.endFrame);
+  const activeBurst = bursts.find((b) => frame >= b.chunkStart && frame < b.chunkEnd);
   if (!activeBurst) return null;
 
   return (
@@ -39,13 +56,15 @@ export const KineticSubtitles: React.FC<{ words: any[]; highlightColor: string }
         width: '100%',
       }}
     >
-      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-      {activeBurst.words.map((w: any, idx: number) => {
-        const isActive = frame >= w.startFrame && frame < w.endFrame;
+      {activeBurst.words.map((w, idx) => {
+        // Anticipatory Lead-In: La palabra despierta 2 fotogramas antes del audio
+        const activationFrame = Math.max(0, w.startFrame - 2);
+        const isActive = frame >= activationFrame && frame < w.endFrame;
         const hasPassed = frame >= w.endFrame;
 
+        // Física elástica compensada en el frame exacto de ataque
         const pop = spring({
-          frame: Math.max(0, frame - w.startFrame),
+          frame: Math.max(0, frame - activationFrame),
           fps,
           config: { damping: 12, mass: 0.7, stiffness: 220 },
         });

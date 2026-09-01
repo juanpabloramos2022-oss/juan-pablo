@@ -1,0 +1,32 @@
+{
+  "project_meta": {
+    "project_name": "Prueba_KenBurns_LUFS",
+    "niche": "dark_fantasy_mystery",
+    "voice_profile": "es-ES-AlvaroNeural",
+    "voice_rate": "+0%",
+    "ambient_track": "ambient_cinematic.mp3",
+    "ambient_volume": 0.15,
+    "aspect_ratio": "9:16"
+  },
+  "scenes": [
+    {
+      "scene_number": 1,
+      "narration": "El enigma oculto detras de Prueba_KenBurns_LUFS...",
+      "image_prompt": "Cinematic 8k photorealistic vertical 9:16 shot representing Prueba_KenBurns_LUFS, scene 1, dramatic lighting, hyperrealistic, ultra detailed, eerie atmosphere.",
+      "video_prompt": "Slow forward push-in tracking shot, 9:16 vertical, smooth cinematic motion, 4k.",
+      "hook_b": "Nadie deberia saber la verdad sobre Prueba_KenBurns_LUFS..."
+    },
+    {
+      "scene_number": 2,
+      "narration": "Lo que nadie te cuenta sobre lo que ocurre realmente...",
+      "image_prompt": "Cinematic 8k photorealistic vertical 9:16 shot representing Prueba_KenBurns_LUFS, scene 2, dramatic lighting, hyperrealistic, ultra detailed, eerie atmosphere.",
+      "video_prompt": "Slow forward push-in tracking shot, 9:16 vertical, smooth cinematic motion, 4k."
+    },
+    {
+      "scene_number": 3,
+      "narration": "Los detalles prohibidos que intentaron borrar del mapa...",
+      "image_prompt": "Cinematic 8k photorealistic vertical 9:16 shot representing Prueba_KenBurns_LUFS, scene 3, dramatic lighting, hyperrealistic, ultra detailed, eerie atmosphere.",
+      "video_prompt": "Slow forward push-in tracking shot, 9:16 vertical, smooth cinematic motion, 4k."
+    }
+  ]
+}

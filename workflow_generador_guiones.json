@@ -1,0 +1,261 @@
+{
+  "id": "JbHK9PqNVrhxtAQK",
+  "name": "Fabrica_V33_7_Generador_Guiones",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "crear-video",
+        "formTitle": "Factoría TikTok V33.7: Generador Cinematográfico (Pacing Variable)",
+        "formDescription": "Ingresa la premisa o guion completo y configura el ritmo dramático y estilo visual (límite inquebrantable de 5.0s por toma para Google Flow / Vibes).",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "contenido_input",
+              "fieldType": "textarea",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "modo_trabajo",
+              "fieldType": "dropdown",
+              "defaultValue": "Crear Guion desde Idea",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Crear Guion desde Idea"
+                  },
+                  {
+                    "option": "Segmentar y Adaptar mi Guion"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "estilo_ritmo",
+              "fieldType": "dropdown",
+              "defaultValue": "Híbrido Cinematográfico (Alternar 1.5s, 3s y 5s)",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Híbrido Cinematográfico (Alternar 1.5s, 3s y 5s)"
+                  },
+                  {
+                    "option": "Frenético Viral (Tomas rápidas de 1.5s a 2.5s)"
+                  },
+                  {
+                    "option": "Tensión / Documental (Tomas sostenidas de 3.5s a 5s)"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "estilo_visual",
+              "fieldType": "dropdown",
+              "defaultValue": "Cinemático Oscuro Hiperrealista (Lente 35mm, sombras profundas)",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Cinemático Oscuro Hiperrealista (Lente 35mm, sombras profundas)"
+                  },
+                  {
+                    "option": "Documental Histórico / Archivo Vintage"
+                  },
+                  {
+                    "option": "Monigote 3D / Plastilina Claymation"
+                  },
+                  {
+                    "option": "Fotografía Científica Macro"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "nicho",
+              "fieldType": "dropdown",
+              "defaultValue": "Misterio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Misterio"
+                  },
+                  {
+                    "option": "Psicología"
+                  },
+                  {
+                    "option": "Ciencia"
+                  },
+                  {
+                    "option": "Finanzas"
+                  },
+                  {
+                    "option": "Historia"
+                  },
+                  {
+                    "option": "Terror"
+                  },
+                  {
+                    "option": "Curiosidades"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "escenas_total",
+              "fieldType": "dropdown",
+              "defaultValue": "3 escenas [~10s]",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "3 escenas [~10s]"
+                  },
+                  {
+                    "option": "5 escenas [~16s]"
+                  },
+                  {
+                    "option": "7 escenas [~24s]"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "voz",
+              "fieldType": "dropdown",
+              "defaultValue": "[Gemini] Charon (Misterio y Tensión Oscura)",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "[Gemini] Charon (Misterio y Tensión Oscura)"
+                  },
+                  {
+                    "option": "[Gemini] Puck (Cinemático y Viral Dinámico)"
+                  },
+                  {
+                    "option": "[Gemini] Kore (Psicología y Ciencia Profunda)"
+                  },
+                  {
+                    "option": "[Gemini] Fenrir (Autoridad y Documental Crudo)"
+                  },
+                  {
+                    "option": "[Gemini] Aoede (Dramático y Teatral)"
+                  },
+                  {
+                    "option": "es-ES-AlvaroNeural (Edge-TTS Rápido $0)"
+                  },
+                  {
+                    "option": "es-MX-JorgeNeural (Edge-TTS Documental)"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "musica",
+              "fieldType": "dropdown",
+              "defaultValue": "ambient_cinematic.mp3",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "ambient_cinematic.mp3"
+                  },
+                  {
+                    "option": "ambient_corporate.mp3"
+                  },
+                  {
+                    "option": "sin_musica"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "form-trigger-tiktok",
+      "name": "Formulario TikTok (Nuevo Video)",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2,
+      "position": [
+        200,
+        300
+      ],
+      "webhookId": "crear-video"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\n\n// Compatibilidad: contenido_input o idea_tema\nconst rawContent = item.contenido_input || item.idea_tema || item.idea || 'El secreto del manuscrito Voynich';\nconst cleanIdea = String(rawContent).replace(/[\"'\\\\\\r\\n]/g, ' ').trim();\n\nconst modoTrabajo = String(item.modo_trabajo || 'Crear Guion desde Idea').replace(/[\"'\\\\\\r\\n]/g, ' ').trim();\nconst estiloRitmo = String(item.estilo_ritmo || 'Híbrido Cinematográfico (Alternar 1.5s, 3s y 5s)').replace(/[\"'\\\\\\r\\n]/g, ' ').trim();\nconst estiloVisual = String(item.estilo_visual || 'Cinemático Oscuro Hiperrealista (Lente 35mm, sombras profundas)').replace(/[\"'\\\\\\r\\n]/g, ' ').trim();\nconst cleanNicho = String(item.nicho || 'Misterio').replace(/[\"'\\\\\\r\\n]/g, ' ').trim();\n\nlet escenas = 3;\nconst escStr = String(item.escenas_total || '');\nif (escStr.includes('7')) escenas = 7;\nelse if (escStr.includes('5')) escenas = 5;\nelse if (escStr.includes('3')) escenas = 3;\n\nconst cleanVoz = String(item.voz || 'es-ES-AlvaroNeural').trim();\nconst cleanMusica = String(item.musica || 'ambient_cinematic.mp3').trim();\n\n// Comando seguro para invocar el puente Python\nconst cmd = `python C:\\\\tiktok\\\\generar_guion_bridge.py --idea \"${cleanIdea}\" --modo-trabajo \"${modoTrabajo}\" --ritmo \"${estiloRitmo}\" --visual \"${estiloVisual}\" --nicho \"${cleanNicho}\" --escenas ${escenas} --voz \"${cleanVoz}\" --musica \"${cleanMusica}\"`;\n\nreturn [{\n  json: {\n    command: cmd,\n    contenido_input: cleanIdea,\n    modo_trabajo: modoTrabajo,\n    estilo_ritmo: estiloRitmo,\n    estilo_visual: estiloVisual,\n    nicho: cleanNicho,\n    escenas_total: escenas,\n    voz: cleanVoz,\n    musica: cleanMusica\n  }\n}];"
+      },
+      "id": "code-prepare-command",
+      "name": "Sanitizar y Preparar Comando",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "command": "={{ $json.command }}"
+      },
+      "id": "exec-generate-script-voice",
+      "name": "Generar Guion y Pre-Voz",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const stdout = $input.first().json.stdout || '';\nlet parsed = {};\ntry {\n  const jsonStart = stdout.indexOf('{');\n  const jsonEnd = stdout.lastIndexOf('}');\n  if (jsonStart !== -1 && jsonEnd !== -1) {\n    parsed = JSON.parse(stdout.substring(jsonStart, jsonEnd + 1));\n  }\n} catch (e) {}\n\nconst projectDir = parsed.carpeta_proyecto || parsed.project_dir || 'C:\\\\tiktok\\\\projects\\\\';\nconst scriptFile = parsed.script_file || (projectDir + '\\\\script.json');\nconst projectName = parsed.proyecto || parsed.project_name || 'proyecto';\nconst scenesCount = parsed.escenas || parsed.scenes_count || 3;\nconst duraciones = (parsed.duraciones_escenas && parsed.duraciones_escenas.length > 0)\n  ? parsed.duraciones_escenas.map(d => d + 's').join(' | ')\n  : '1.8s | 3.2s | 4.8s';\n\nreturn {\n  \"status\": \"ok\",\n  \"mensaje\": \"¡Guion cinematográfico generado con pacing dinámico!\",\n  \"proyecto\": projectName,\n  \"escenas\": scenesCount,\n  \"pacing_dinamico\": duraciones,\n  \"techo_maximo_segundos\": parsed.max_duracion || 4.8,\n  \"ritmo\": parsed.ritmo || \"Híbrido Cinematográfico (1.5s - 5.0s)\",\n  \"estilo_visual\": parsed.estilo_visual || \"Cinemático Oscuro Hiperrealista\",\n  \"carpeta_proyecto\": projectDir,\n  \"script_file\": scriptFile,\n  \"instrucciones\": \"1. Abre Google Flow / Vibes AI y genera los clips visuales. 2. Para ensamble nativo FFmpeg: powershell -File C:\\\\tiktok\\\\ensamble.ps1\"\n};"
+      },
+      "id": "code-form-response",
+      "name": "Pantalla de Éxito",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Formulario TikTok (Nuevo Video)": {
+      "main": [
+        [
+          {
+            "node": "Sanitizar y Preparar Comando",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitizar y Preparar Comando": {
+      "main": [
+        [
+          {
+            "node": "Generar Guion y Pre-Voz",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generar Guion y Pre-Voz": {
+      "main": [
+        [
+          {
+            "node": "Pantalla de Éxito",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,41 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TikTokYellow,Arial Black,64,&H0000FFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+Style: TikTokWhite,Arial Black,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:00.80,TikTokYellow,,0,0,0,,SI CREES QUE
+Dialogue: 0,0:00:00.80,0:00:01.56,TikTokWhite,,0,0,0,,QUÉ LE PASA
+Dialogue: 0,0:00:01.56,0:00:02.27,TikTokYellow,,0,0,0,,A UNA GOTA
+Dialogue: 0,0:00:02.27,0:00:02.98,TikTokWhite,,0,0,0,,DE AGUA SI
+Dialogue: 0,0:00:02.98,0:00:03.78,TikTokYellow,,0,0,0,,CAE DESDE EL
+Dialogue: 0,0:00:03.78,0:00:04.64,TikTokWhite,,0,0,0,,ESPACIO A LA
+Dialogue: 0,0:00:04.64,0:00:06.56,TikTokYellow,,0,0,0,,ATMÓSFERA SIN DESINTEGRARSE
+Dialogue: 0,0:00:06.56,0:00:07.36,TikTokWhite,,0,0,0,,NO ALTERA TU
+Dialogue: 0,0:00:07.36,0:00:08.76,TikTokYellow,,0,0,0,,PERCEPCIÓN MIRA TUS
+Dialogue: 0,0:00:08.76,0:00:10.07,TikTokWhite,,0,0,0,,MANOS AHORA MISMO
+Dialogue: 0,0:00:10.38,0:00:11.66,TikTokYellow,,0,0,0,,TUS RODILLAS ACABAN
+Dialogue: 0,0:00:11.66,0:00:12.80,TikTokWhite,,0,0,0,,DE FUSIONARSE EN
+Dialogue: 0,0:00:12.80,0:00:13.79,TikTokYellow,,0,0,0,,UN SOLO BLOQUE
+Dialogue: 0,0:00:13.79,0:00:14.62,TikTokWhite,,0,0,0,,DE CALCIO
+Dialogue: 0,0:00:14.93,0:00:15.95,TikTokYellow,,0,0,0,,TUS ÓRGANOS NO
+Dialogue: 0,0:00:15.95,0:00:17.44,TikTokWhite,,0,0,0,,FALLAN POR IMPACTO;
+Dialogue: 0,0:00:17.44,0:00:18.51,TikTokYellow,,0,0,0,,COLAPSAN POR LA
+Dialogue: 0,0:00:18.51,0:00:19.37,TikTokWhite,,0,0,0,,PRESIÓN EN 4
+Dialogue: 0,0:00:19.37,0:00:20.17,TikTokYellow,,0,0,0,,SEGUNDOS
+Dialogue: 0,0:00:20.46,0:00:22.06,TikTokYellow,,0,0,0,,LOS REGISTROS CLASIFICADOS
+Dialogue: 0,0:00:22.06,0:00:23.45,TikTokWhite,,0,0,0,,CONFIRMAN LA ANOMALÍA
+Dialogue: 0,0:00:23.45,0:00:24.60,TikTokYellow,,0,0,0,,QUE NINGÚN FORENSE
+Dialogue: 0,0:00:24.60,0:00:25.44,TikTokWhite,,0,0,0,,SE ATREVIÓ A
+Dialogue: 0,0:00:25.44,0:00:25.98,TikTokYellow,,0,0,0,,FIRMAR
+Dialogue: 0,0:00:26.28,0:00:27.35,TikTokYellow,,0,0,0,,LA EVIDENCIA NO
+Dialogue: 0,0:00:27.35,0:00:29.27,TikTokWhite,,0,0,0,,DESAPARECIÓ; LA ENTERRARON
+Dialogue: 0,0:00:29.27,0:00:30.33,TikTokYellow,,0,0,0,,BAJO DIEZ METROS
+Dialogue: 0,0:00:30.33,0:00:31.81,TikTokWhite,,0,0,0,,DE CONCRETO BLINDADO

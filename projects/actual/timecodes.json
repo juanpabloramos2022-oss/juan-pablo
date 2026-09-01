@@ -1,0 +1,1702 @@
+[
+  {
+    "word": "TU",
+    "raw": "Tu",
+    "start": 0.26,
+    "end": 0.421,
+    "startFrame": 8,
+    "endFrame": 13,
+    "start_frame": 8,
+    "end_frame": 13
+  },
+  {
+    "word": "CEREBRO",
+    "raw": "cerebro",
+    "start": 0.421,
+    "end": 0.902,
+    "startFrame": 13,
+    "endFrame": 27,
+    "start_frame": 13,
+    "end_frame": 27
+  },
+  {
+    "word": "ESTÁ",
+    "raw": "está",
+    "start": 0.902,
+    "end": 1.222,
+    "startFrame": 27,
+    "endFrame": 37,
+    "start_frame": 27,
+    "end_frame": 37
+  },
+  {
+    "word": "BORRANDO",
+    "raw": "borrando",
+    "start": 1.222,
+    "end": 1.704,
+    "startFrame": 37,
+    "endFrame": 51,
+    "start_frame": 37,
+    "end_frame": 51
+  },
+  {
+    "word": "ESTE",
+    "raw": "este",
+    "start": 1.704,
+    "end": 2.024,
+    "startFrame": 51,
+    "endFrame": 61,
+    "start_frame": 51,
+    "end_frame": 61
+  },
+  {
+    "word": "RECUERDO",
+    "raw": "recuerdo",
+    "start": 2.024,
+    "end": 2.505,
+    "startFrame": 61,
+    "endFrame": 75,
+    "start_frame": 61,
+    "end_frame": 75
+  },
+  {
+    "word": "AHORA",
+    "raw": "ahora",
+    "start": 2.505,
+    "end": 2.987,
+    "startFrame": 75,
+    "endFrame": 90,
+    "start_frame": 75,
+    "end_frame": 90
+  },
+  {
+    "word": "MISMO",
+    "raw": "mismo",
+    "start": 2.987,
+    "end": 3.307,
+    "startFrame": 90,
+    "endFrame": 99,
+    "start_frame": 90,
+    "end_frame": 99
+  },
+  {
+    "word": "SIN",
+    "raw": "sin",
+    "start": 3.307,
+    "end": 3.468,
+    "startFrame": 99,
+    "endFrame": 104,
+    "start_frame": 99,
+    "end_frame": 104
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 3.468,
+    "end": 3.628,
+    "startFrame": 104,
+    "endFrame": 109,
+    "start_frame": 104,
+    "end_frame": 109
+  },
+  {
+    "word": "TE",
+    "raw": "te",
+    "start": 4.748,
+    "end": 4.809,
+    "startFrame": 142,
+    "endFrame": 144,
+    "start_frame": 142,
+    "end_frame": 144
+  },
+  {
+    "word": "DES",
+    "raw": "des",
+    "start": 4.809,
+    "end": 4.871,
+    "startFrame": 144,
+    "endFrame": 146,
+    "start_frame": 144,
+    "end_frame": 146
+  },
+  {
+    "word": "CUENTA",
+    "raw": "cuenta.",
+    "start": 4.871,
+    "end": 4.994,
+    "startFrame": 146,
+    "endFrame": 150,
+    "start_frame": 146,
+    "end_frame": 150
+  },
+  {
+    "word": "CADA",
+    "raw": "Cada",
+    "start": 4.994,
+    "end": 5.117,
+    "startFrame": 150,
+    "endFrame": 154,
+    "start_frame": 150,
+    "end_frame": 154
+  },
+  {
+    "word": "VEZ",
+    "raw": "vez",
+    "start": 5.117,
+    "end": 5.179,
+    "startFrame": 154,
+    "endFrame": 155,
+    "start_frame": 154,
+    "end_frame": 155
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 5.179,
+    "end": 5.241,
+    "startFrame": 155,
+    "endFrame": 157,
+    "start_frame": 155,
+    "end_frame": 157
+  },
+  {
+    "word": "PARPADEAS",
+    "raw": "parpadeas,",
+    "start": 5.241,
+    "end": 5.425,
+    "startFrame": 157,
+    "endFrame": 163,
+    "start_frame": 157,
+    "end_frame": 163
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 5.425,
+    "end": 5.487,
+    "startFrame": 163,
+    "endFrame": 165,
+    "start_frame": 163,
+    "end_frame": 165
+  },
+  {
+    "word": "MENTE",
+    "raw": "mente",
+    "start": 5.487,
+    "end": 5.61,
+    "startFrame": 165,
+    "endFrame": 168,
+    "start_frame": 165,
+    "end_frame": 168
+  },
+  {
+    "word": "DESCONECTA",
+    "raw": "desconecta",
+    "start": 5.61,
+    "end": 5.857,
+    "startFrame": 168,
+    "endFrame": 176,
+    "start_frame": 168,
+    "end_frame": 176
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 6.167,
+    "end": 6.312,
+    "startFrame": 185,
+    "endFrame": 189,
+    "start_frame": 185,
+    "end_frame": 189
+  },
+  {
+    "word": "VISIÓN",
+    "raw": "visión",
+    "start": 6.312,
+    "end": 6.603,
+    "startFrame": 189,
+    "endFrame": 198,
+    "start_frame": 189,
+    "end_frame": 198
+  },
+  {
+    "word": "PARA",
+    "raw": "para",
+    "start": 6.603,
+    "end": 6.893,
+    "startFrame": 198,
+    "endFrame": 207,
+    "start_frame": 198,
+    "end_frame": 207
+  },
+  {
+    "word": "NO",
+    "raw": "no",
+    "start": 6.893,
+    "end": 7.038,
+    "startFrame": 207,
+    "endFrame": 211,
+    "start_frame": 207,
+    "end_frame": 211
+  },
+  {
+    "word": "MAREARTE",
+    "raw": "marearte",
+    "start": 7.038,
+    "end": 7.474,
+    "startFrame": 211,
+    "endFrame": 224,
+    "start_frame": 211,
+    "end_frame": 224
+  },
+  {
+    "word": "CON",
+    "raw": "con",
+    "start": 7.474,
+    "end": 7.619,
+    "startFrame": 224,
+    "endFrame": 229,
+    "start_frame": 224,
+    "end_frame": 229
+  },
+  {
+    "word": "EL",
+    "raw": "el",
+    "start": 7.619,
+    "end": 7.764,
+    "startFrame": 229,
+    "endFrame": 233,
+    "start_frame": 229,
+    "end_frame": 233
+  },
+  {
+    "word": "MOVIMIENTO",
+    "raw": "movimiento.",
+    "start": 7.764,
+    "end": 8.345,
+    "startFrame": 233,
+    "endFrame": 250,
+    "start_frame": 233,
+    "end_frame": 250
+  },
+  {
+    "word": "ESTO",
+    "raw": "Esto",
+    "start": 8.345,
+    "end": 8.635,
+    "startFrame": 250,
+    "endFrame": 259,
+    "start_frame": 250,
+    "end_frame": 259
+  },
+  {
+    "word": "SIGNIFICA",
+    "raw": "significa",
+    "start": 8.635,
+    "end": 9.216,
+    "startFrame": 259,
+    "endFrame": 276,
+    "start_frame": 259,
+    "end_frame": 276
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 10.32,
+    "end": 10.539,
+    "startFrame": 310,
+    "endFrame": 316,
+    "start_frame": 310,
+    "end_frame": 316
+  },
+  {
+    "word": "PASAS",
+    "raw": "pasas",
+    "start": 10.539,
+    "end": 10.977,
+    "startFrame": 316,
+    "endFrame": 329,
+    "start_frame": 316,
+    "end_frame": 329
+  },
+  {
+    "word": "CASI",
+    "raw": "casi",
+    "start": 10.977,
+    "end": 11.416,
+    "startFrame": 329,
+    "endFrame": 342,
+    "start_frame": 329,
+    "end_frame": 342
+  },
+  {
+    "word": "UNA",
+    "raw": "una",
+    "start": 11.416,
+    "end": 11.854,
+    "startFrame": 342,
+    "endFrame": 356,
+    "start_frame": 342,
+    "end_frame": 356
+  },
+  {
+    "word": "HORA",
+    "raw": "hora",
+    "start": 11.854,
+    "end": 12.292,
+    "startFrame": 356,
+    "endFrame": 369,
+    "start_frame": 356,
+    "end_frame": 369
+  },
+  {
+    "word": "AL",
+    "raw": "al",
+    "start": 12.292,
+    "end": 12.511,
+    "startFrame": 369,
+    "endFrame": 375,
+    "start_frame": 369,
+    "end_frame": 375
+  },
+  {
+    "word": "DÍA",
+    "raw": "día",
+    "start": 12.511,
+    "end": 12.731,
+    "startFrame": 375,
+    "endFrame": 382,
+    "start_frame": 375,
+    "end_frame": 382
+  },
+  {
+    "word": "SUMERGIDO",
+    "raw": "sumergido",
+    "start": 12.731,
+    "end": 13.607,
+    "startFrame": 382,
+    "endFrame": 408,
+    "start_frame": 382,
+    "end_frame": 408
+  },
+  {
+    "word": "EN",
+    "raw": "en",
+    "start": 13.607,
+    "end": 13.826,
+    "startFrame": 408,
+    "endFrame": 415,
+    "start_frame": 408,
+    "end_frame": 415
+  },
+  {
+    "word": "OSCURIDAD",
+    "raw": "oscuridad",
+    "start": 13.826,
+    "end": 14.703,
+    "startFrame": 415,
+    "endFrame": 441,
+    "start_frame": 415,
+    "end_frame": 441
+  },
+  {
+    "word": "TOTAL",
+    "raw": "total",
+    "start": 15.837,
+    "end": 16.145,
+    "startFrame": 475,
+    "endFrame": 484,
+    "start_frame": 475,
+    "end_frame": 484
+  },
+  {
+    "word": "ABSOLUTA",
+    "raw": "absoluta.",
+    "start": 16.145,
+    "end": 16.761,
+    "startFrame": 484,
+    "endFrame": 503,
+    "start_frame": 484,
+    "end_frame": 503
+  },
+  {
+    "word": "PERO",
+    "raw": "Pero",
+    "start": 16.761,
+    "end": 17.069,
+    "startFrame": 503,
+    "endFrame": 512,
+    "start_frame": 503,
+    "end_frame": 512
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 17.069,
+    "end": 17.223,
+    "startFrame": 512,
+    "endFrame": 517,
+    "start_frame": 512,
+    "end_frame": 517
+  },
+  {
+    "word": "CORTEX",
+    "raw": "cortex",
+    "start": 17.223,
+    "end": 17.531,
+    "startFrame": 517,
+    "endFrame": 526,
+    "start_frame": 517,
+    "end_frame": 526
+  },
+  {
+    "word": "VISUAL",
+    "raw": "visual",
+    "start": 17.531,
+    "end": 17.839,
+    "startFrame": 526,
+    "endFrame": 535,
+    "start_frame": 526,
+    "end_frame": 535
+  },
+  {
+    "word": "INVENTA",
+    "raw": "inventa",
+    "start": 17.839,
+    "end": 18.301,
+    "startFrame": 535,
+    "endFrame": 549,
+    "start_frame": 535,
+    "end_frame": 549
+  },
+  {
+    "word": "FOTOGRAMAS",
+    "raw": "fotogramas",
+    "start": 18.301,
+    "end": 18.917,
+    "startFrame": 549,
+    "endFrame": 568,
+    "start_frame": 549,
+    "end_frame": 568
+  },
+  {
+    "word": "FALSOS",
+    "raw": "falsos",
+    "start": 18.917,
+    "end": 19.225,
+    "startFrame": 568,
+    "endFrame": 577,
+    "start_frame": 568,
+    "end_frame": 577
+  },
+  {
+    "word": "PARA",
+    "raw": "para",
+    "start": 19.225,
+    "end": 19.533,
+    "startFrame": 577,
+    "endFrame": 586,
+    "start_frame": 577,
+    "end_frame": 586
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 20.643,
+    "end": 20.692,
+    "startFrame": 619,
+    "endFrame": 621,
+    "start_frame": 619,
+    "end_frame": 621
+  },
+  {
+    "word": "NO",
+    "raw": "no",
+    "start": 20.692,
+    "end": 20.741,
+    "startFrame": 621,
+    "endFrame": 622,
+    "start_frame": 621,
+    "end_frame": 622
+  },
+  {
+    "word": "ENTRES",
+    "raw": "entres",
+    "start": 20.741,
+    "end": 20.839,
+    "startFrame": 622,
+    "endFrame": 625,
+    "start_frame": 622,
+    "end_frame": 625
+  },
+  {
+    "word": "EN",
+    "raw": "en",
+    "start": 20.839,
+    "end": 20.888,
+    "startFrame": 625,
+    "endFrame": 627,
+    "start_frame": 625,
+    "end_frame": 627
+  },
+  {
+    "word": "PÁNICO",
+    "raw": "pánico.",
+    "start": 20.888,
+    "end": 21.035,
+    "startFrame": 627,
+    "endFrame": 631,
+    "start_frame": 627,
+    "end_frame": 631
+  },
+  {
+    "word": "MIENTRAS",
+    "raw": "Mientras",
+    "start": 21.035,
+    "end": 21.133,
+    "startFrame": 631,
+    "endFrame": 634,
+    "start_frame": 631,
+    "end_frame": 634
+  },
+  {
+    "word": "DUERMES",
+    "raw": "duermes,",
+    "start": 21.133,
+    "end": 21.23,
+    "startFrame": 634,
+    "endFrame": 637,
+    "start_frame": 634,
+    "end_frame": 637
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 21.23,
+    "end": 21.279,
+    "startFrame": 637,
+    "endFrame": 638,
+    "start_frame": 637,
+    "end_frame": 638
+  },
+  {
+    "word": "CUERPO",
+    "raw": "cuerpo",
+    "start": 21.279,
+    "end": 21.377,
+    "startFrame": 638,
+    "endFrame": 641,
+    "start_frame": 638,
+    "end_frame": 641
+  },
+  {
+    "word": "SE",
+    "raw": "se",
+    "start": 21.377,
+    "end": 21.426,
+    "startFrame": 641,
+    "endFrame": 643,
+    "start_frame": 641,
+    "end_frame": 643
+  },
+  {
+    "word": "PARALIZA",
+    "raw": "paraliza",
+    "start": 21.723,
+    "end": 22.38,
+    "startFrame": 652,
+    "endFrame": 671,
+    "start_frame": 652,
+    "end_frame": 671
+  },
+  {
+    "word": "POR",
+    "raw": "por",
+    "start": 22.38,
+    "end": 22.544,
+    "startFrame": 671,
+    "endFrame": 676,
+    "start_frame": 671,
+    "end_frame": 676
+  },
+  {
+    "word": "COMPLETO",
+    "raw": "completo",
+    "start": 22.544,
+    "end": 23.037,
+    "startFrame": 676,
+    "endFrame": 691,
+    "start_frame": 676,
+    "end_frame": 691
+  },
+  {
+    "word": "PARA",
+    "raw": "para",
+    "start": 23.037,
+    "end": 23.365,
+    "startFrame": 691,
+    "endFrame": 701,
+    "start_frame": 691,
+    "end_frame": 701
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 23.365,
+    "end": 23.53,
+    "startFrame": 701,
+    "endFrame": 706,
+    "start_frame": 701,
+    "end_frame": 706
+  },
+  {
+    "word": "NO",
+    "raw": "no",
+    "start": 23.53,
+    "end": 23.694,
+    "startFrame": 706,
+    "endFrame": 711,
+    "start_frame": 706,
+    "end_frame": 711
+  },
+  {
+    "word": "ACTÚES",
+    "raw": "actúes",
+    "start": 23.694,
+    "end": 24.022,
+    "startFrame": 711,
+    "endFrame": 721,
+    "start_frame": 711,
+    "end_frame": 721
+  },
+  {
+    "word": "TUS",
+    "raw": "tus",
+    "start": 24.022,
+    "end": 24.187,
+    "startFrame": 721,
+    "endFrame": 726,
+    "start_frame": 721,
+    "end_frame": 726
+  },
+  {
+    "word": "PESADILLAS",
+    "raw": "pesadillas.",
+    "start": 24.187,
+    "end": 24.844,
+    "startFrame": 726,
+    "endFrame": 745,
+    "start_frame": 726,
+    "end_frame": 745
+  },
+  {
+    "word": "SI",
+    "raw": "Si",
+    "start": 24.844,
+    "end": 25.008,
+    "startFrame": 745,
+    "endFrame": 750,
+    "start_frame": 745,
+    "end_frame": 750
+  },
+  {
+    "word": "ESA",
+    "raw": "esa",
+    "start": 26.129,
+    "end": 26.264,
+    "startFrame": 784,
+    "endFrame": 788,
+    "start_frame": 784,
+    "end_frame": 788
+  },
+  {
+    "word": "BARRERA",
+    "raw": "barrera",
+    "start": 26.264,
+    "end": 26.466,
+    "startFrame": 788,
+    "endFrame": 794,
+    "start_frame": 788,
+    "end_frame": 794
+  },
+  {
+    "word": "QUÍMICA",
+    "raw": "química",
+    "start": 26.466,
+    "end": 26.668,
+    "startFrame": 794,
+    "endFrame": 800,
+    "start_frame": 794,
+    "end_frame": 800
+  },
+  {
+    "word": "FALLA",
+    "raw": "falla,",
+    "start": 26.668,
+    "end": 26.803,
+    "startFrame": 800,
+    "endFrame": 804,
+    "start_frame": 800,
+    "end_frame": 804
+  },
+  {
+    "word": "TE",
+    "raw": "te",
+    "start": 26.803,
+    "end": 26.87,
+    "startFrame": 804,
+    "endFrame": 806,
+    "start_frame": 804,
+    "end_frame": 806
+  },
+  {
+    "word": "LEVANTARÍAS",
+    "raw": "levantarías",
+    "start": 26.87,
+    "end": 27.14,
+    "startFrame": 806,
+    "endFrame": 814,
+    "start_frame": 806,
+    "end_frame": 814
+  },
+  {
+    "word": "DORMIDO",
+    "raw": "dormido",
+    "start": 27.14,
+    "end": 27.342,
+    "startFrame": 814,
+    "endFrame": 820,
+    "start_frame": 814,
+    "end_frame": 820
+  },
+  {
+    "word": "CON",
+    "raw": "con",
+    "start": 27.342,
+    "end": 27.409,
+    "startFrame": 820,
+    "endFrame": 822,
+    "start_frame": 820,
+    "end_frame": 822
+  },
+  {
+    "word": "EL",
+    "raw": "el",
+    "start": 27.409,
+    "end": 27.477,
+    "startFrame": 822,
+    "endFrame": 824,
+    "start_frame": 822,
+    "end_frame": 824
+  },
+  {
+    "word": "SISTEMA",
+    "raw": "sistema",
+    "start": 27.477,
+    "end": 27.679,
+    "startFrame": 824,
+    "endFrame": 830,
+    "start_frame": 824,
+    "end_frame": 830
+  },
+  {
+    "word": "MOTOR",
+    "raw": "motor",
+    "start": 28.022,
+    "end": 28.258,
+    "startFrame": 841,
+    "endFrame": 848,
+    "start_frame": 841,
+    "end_frame": 848
+  },
+  {
+    "word": "ENCENDIDO",
+    "raw": "encendido.",
+    "start": 28.258,
+    "end": 28.73,
+    "startFrame": 848,
+    "endFrame": 862,
+    "start_frame": 848,
+    "end_frame": 862
+  },
+  {
+    "word": "TU",
+    "raw": "Tu",
+    "start": 28.73,
+    "end": 28.847,
+    "startFrame": 862,
+    "endFrame": 865,
+    "start_frame": 862,
+    "end_frame": 865
+  },
+  {
+    "word": "CORAZÓN",
+    "raw": "corazón",
+    "start": 28.847,
+    "end": 29.201,
+    "startFrame": 865,
+    "endFrame": 876,
+    "start_frame": 865,
+    "end_frame": 876
+  },
+  {
+    "word": "LATE",
+    "raw": "late",
+    "start": 29.201,
+    "end": 29.437,
+    "startFrame": 876,
+    "endFrame": 883,
+    "start_frame": 876,
+    "end_frame": 883
+  },
+  {
+    "word": "CIEN",
+    "raw": "cien",
+    "start": 29.437,
+    "end": 29.555,
+    "startFrame": 883,
+    "endFrame": 887,
+    "start_frame": 883,
+    "end_frame": 887
+  },
+  {
+    "word": "MIL",
+    "raw": "mil",
+    "start": 29.555,
+    "end": 29.673,
+    "startFrame": 887,
+    "endFrame": 890,
+    "start_frame": 887,
+    "end_frame": 890
+  },
+  {
+    "word": "VECES",
+    "raw": "veces",
+    "start": 29.673,
+    "end": 29.908,
+    "startFrame": 890,
+    "endFrame": 897,
+    "start_frame": 890,
+    "end_frame": 897
+  },
+  {
+    "word": "CADA",
+    "raw": "cada",
+    "start": 29.908,
+    "end": 30.144,
+    "startFrame": 897,
+    "endFrame": 904,
+    "start_frame": 897,
+    "end_frame": 904
+  },
+  {
+    "word": "VEINTICUATRO",
+    "raw": "veinticuatro",
+    "start": 30.144,
+    "end": 30.616,
+    "startFrame": 904,
+    "endFrame": 918,
+    "start_frame": 904,
+    "end_frame": 918
+  },
+  {
+    "word": "HORAS",
+    "raw": "horas",
+    "start": 31.742,
+    "end": 32.278,
+    "startFrame": 952,
+    "endFrame": 968,
+    "start_frame": 952,
+    "end_frame": 968
+  },
+  {
+    "word": "BOMBEANDO",
+    "raw": "bombeando",
+    "start": 32.278,
+    "end": 33.083,
+    "startFrame": 968,
+    "endFrame": 992,
+    "start_frame": 968,
+    "end_frame": 992
+  },
+  {
+    "word": "LITROS",
+    "raw": "litros",
+    "start": 33.083,
+    "end": 33.62,
+    "startFrame": 992,
+    "endFrame": 1009,
+    "start_frame": 992,
+    "end_frame": 1009
+  },
+  {
+    "word": "DE",
+    "raw": "de",
+    "start": 33.62,
+    "end": 33.888,
+    "startFrame": 1009,
+    "endFrame": 1017,
+    "start_frame": 1009,
+    "end_frame": 1017
+  },
+  {
+    "word": "SANGRE",
+    "raw": "sangre",
+    "start": 33.888,
+    "end": 34.424,
+    "startFrame": 1017,
+    "endFrame": 1033,
+    "start_frame": 1017,
+    "end_frame": 1033
+  },
+  {
+    "word": "A",
+    "raw": "a",
+    "start": 34.424,
+    "end": 34.693,
+    "startFrame": 1033,
+    "endFrame": 1041,
+    "start_frame": 1033,
+    "end_frame": 1041
+  },
+  {
+    "word": "PRESIÓN",
+    "raw": "presión.",
+    "start": 34.693,
+    "end": 35.229,
+    "startFrame": 1041,
+    "endFrame": 1057,
+    "start_frame": 1041,
+    "end_frame": 1057
+  },
+  {
+    "word": "LA",
+    "raw": "La",
+    "start": 35.229,
+    "end": 35.497,
+    "startFrame": 1057,
+    "endFrame": 1065,
+    "start_frame": 1057,
+    "end_frame": 1065
+  },
+  {
+    "word": "FUERZA",
+    "raw": "fuerza",
+    "start": 35.497,
+    "end": 36.034,
+    "startFrame": 1065,
+    "endFrame": 1081,
+    "start_frame": 1065,
+    "end_frame": 1081
+  },
+  {
+    "word": "ES",
+    "raw": "es",
+    "start": 36.034,
+    "end": 36.302,
+    "startFrame": 1081,
+    "endFrame": 1089,
+    "start_frame": 1081,
+    "end_frame": 1089
+  },
+  {
+    "word": "SUFICIENTE",
+    "raw": "suficiente",
+    "start": 37.471,
+    "end": 38.283,
+    "startFrame": 1124,
+    "endFrame": 1148,
+    "start_frame": 1124,
+    "end_frame": 1148
+  },
+  {
+    "word": "PARA",
+    "raw": "para",
+    "start": 38.283,
+    "end": 38.689,
+    "startFrame": 1148,
+    "endFrame": 1161,
+    "start_frame": 1148,
+    "end_frame": 1161
+  },
+  {
+    "word": "PROYECTAR",
+    "raw": "proyectar",
+    "start": 38.689,
+    "end": 39.298,
+    "startFrame": 1161,
+    "endFrame": 1179,
+    "start_frame": 1161,
+    "end_frame": 1179
+  },
+  {
+    "word": "UN",
+    "raw": "un",
+    "start": 39.298,
+    "end": 39.501,
+    "startFrame": 1179,
+    "endFrame": 1185,
+    "start_frame": 1179,
+    "end_frame": 1185
+  },
+  {
+    "word": "CHORRO",
+    "raw": "chorro",
+    "start": 39.501,
+    "end": 39.907,
+    "startFrame": 1185,
+    "endFrame": 1197,
+    "start_frame": 1185,
+    "end_frame": 1197
+  },
+  {
+    "word": "A",
+    "raw": "a",
+    "start": 39.907,
+    "end": 40.11,
+    "startFrame": 1197,
+    "endFrame": 1203,
+    "start_frame": 1197,
+    "end_frame": 1203
+  },
+  {
+    "word": "MÁS",
+    "raw": "más",
+    "start": 40.11,
+    "end": 40.313,
+    "startFrame": 1203,
+    "endFrame": 1209,
+    "start_frame": 1203,
+    "end_frame": 1209
+  },
+  {
+    "word": "DE",
+    "raw": "de",
+    "start": 40.313,
+    "end": 40.516,
+    "startFrame": 1209,
+    "endFrame": 1215,
+    "start_frame": 1209,
+    "end_frame": 1215
+  },
+  {
+    "word": "NUEVE",
+    "raw": "nueve",
+    "start": 40.516,
+    "end": 40.922,
+    "startFrame": 1215,
+    "endFrame": 1228,
+    "start_frame": 1215,
+    "end_frame": 1228
+  },
+  {
+    "word": "METROS",
+    "raw": "metros",
+    "start": 40.922,
+    "end": 41.328,
+    "startFrame": 1228,
+    "endFrame": 1240,
+    "start_frame": 1228,
+    "end_frame": 1240
+  },
+  {
+    "word": "DE",
+    "raw": "de",
+    "start": 42.436,
+    "end": 42.633,
+    "startFrame": 1273,
+    "endFrame": 1279,
+    "start_frame": 1273,
+    "end_frame": 1279
+  },
+  {
+    "word": "DISTANCIA",
+    "raw": "distancia.",
+    "start": 42.633,
+    "end": 43.225,
+    "startFrame": 1279,
+    "endFrame": 1297,
+    "start_frame": 1279,
+    "end_frame": 1297
+  },
+  {
+    "word": "EN",
+    "raw": "En",
+    "start": 43.225,
+    "end": 43.422,
+    "startFrame": 1297,
+    "endFrame": 1303,
+    "start_frame": 1297,
+    "end_frame": 1303
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 43.422,
+    "end": 43.619,
+    "startFrame": 1303,
+    "endFrame": 1309,
+    "start_frame": 1303,
+    "end_frame": 1309
+  },
+  {
+    "word": "ESTÓMAGO",
+    "raw": "estómago",
+    "start": 43.619,
+    "end": 44.408,
+    "startFrame": 1309,
+    "endFrame": 1332,
+    "start_frame": 1309,
+    "end_frame": 1332
+  },
+  {
+    "word": "HAY",
+    "raw": "hay",
+    "start": 44.408,
+    "end": 44.605,
+    "startFrame": 1332,
+    "endFrame": 1338,
+    "start_frame": 1332,
+    "end_frame": 1338
+  },
+  {
+    "word": "ÁCIDO",
+    "raw": "ácido",
+    "start": 44.605,
+    "end": 45.196,
+    "startFrame": 1338,
+    "endFrame": 1356,
+    "start_frame": 1338,
+    "end_frame": 1356
+  },
+  {
+    "word": "TAN",
+    "raw": "tan",
+    "start": 45.196,
+    "end": 45.394,
+    "startFrame": 1356,
+    "endFrame": 1362,
+    "start_frame": 1356,
+    "end_frame": 1362
+  },
+  {
+    "word": "CORROSIVO",
+    "raw": "corrosivo",
+    "start": 45.394,
+    "end": 46.182,
+    "startFrame": 1362,
+    "endFrame": 1385,
+    "start_frame": 1362,
+    "end_frame": 1385
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 46.182,
+    "end": 46.379,
+    "startFrame": 1385,
+    "endFrame": 1391,
+    "start_frame": 1385,
+    "end_frame": 1391
+  },
+  {
+    "word": "PUEDE",
+    "raw": "puede",
+    "start": 47.476,
+    "end": 47.959,
+    "startFrame": 1424,
+    "endFrame": 1439,
+    "start_frame": 1424,
+    "end_frame": 1439
+  },
+  {
+    "word": "DISOLVER",
+    "raw": "disolver",
+    "start": 47.959,
+    "end": 48.684,
+    "startFrame": 1439,
+    "endFrame": 1461,
+    "start_frame": 1439,
+    "end_frame": 1461
+  },
+  {
+    "word": "METAL",
+    "raw": "metal",
+    "start": 48.684,
+    "end": 49.167,
+    "startFrame": 1461,
+    "endFrame": 1475,
+    "start_frame": 1461,
+    "end_frame": 1475
+  },
+  {
+    "word": "EN",
+    "raw": "en",
+    "start": 49.167,
+    "end": 49.409,
+    "startFrame": 1475,
+    "endFrame": 1482,
+    "start_frame": 1475,
+    "end_frame": 1482
+  },
+  {
+    "word": "POCAS",
+    "raw": "pocas",
+    "start": 49.409,
+    "end": 49.892,
+    "startFrame": 1482,
+    "endFrame": 1497,
+    "start_frame": 1482,
+    "end_frame": 1497
+  },
+  {
+    "word": "HORAS",
+    "raw": "horas.",
+    "start": 49.892,
+    "end": 50.375,
+    "startFrame": 1497,
+    "endFrame": 1511,
+    "start_frame": 1497,
+    "end_frame": 1511
+  },
+  {
+    "word": "LA",
+    "raw": "La",
+    "start": 50.375,
+    "end": 50.616,
+    "startFrame": 1511,
+    "endFrame": 1518,
+    "start_frame": 1511,
+    "end_frame": 1518
+  },
+  {
+    "word": "ÚNICA",
+    "raw": "única",
+    "start": 50.616,
+    "end": 51.341,
+    "startFrame": 1518,
+    "endFrame": 1540,
+    "start_frame": 1518,
+    "end_frame": 1540
+  },
+  {
+    "word": "RAZÓN",
+    "raw": "razón",
+    "start": 51.341,
+    "end": 51.824,
+    "startFrame": 1540,
+    "endFrame": 1555,
+    "start_frame": 1540,
+    "end_frame": 1555
+  },
+  {
+    "word": "POR",
+    "raw": "por",
+    "start": 51.824,
+    "end": 52.066,
+    "startFrame": 1555,
+    "endFrame": 1562,
+    "start_frame": 1555,
+    "end_frame": 1562
+  },
+  {
+    "word": "LA",
+    "raw": "la",
+    "start": 53.195,
+    "end": 53.489,
+    "startFrame": 1596,
+    "endFrame": 1605,
+    "start_frame": 1596,
+    "end_frame": 1605
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 53.489,
+    "end": 53.783,
+    "startFrame": 1605,
+    "endFrame": 1613,
+    "start_frame": 1605,
+    "end_frame": 1613
+  },
+  {
+    "word": "NO",
+    "raw": "no",
+    "start": 53.783,
+    "end": 54.077,
+    "startFrame": 1613,
+    "endFrame": 1622,
+    "start_frame": 1613,
+    "end_frame": 1622
+  },
+  {
+    "word": "TE",
+    "raw": "te",
+    "start": 54.077,
+    "end": 54.371,
+    "startFrame": 1622,
+    "endFrame": 1631,
+    "start_frame": 1622,
+    "end_frame": 1631
+  },
+  {
+    "word": "DIGIERES",
+    "raw": "digieres",
+    "start": 54.371,
+    "end": 55.253,
+    "startFrame": 1631,
+    "endFrame": 1658,
+    "start_frame": 1631,
+    "end_frame": 1658
+  },
+  {
+    "word": "A",
+    "raw": "a",
+    "start": 55.253,
+    "end": 55.547,
+    "startFrame": 1658,
+    "endFrame": 1666,
+    "start_frame": 1658,
+    "end_frame": 1666
+  },
+  {
+    "word": "TI",
+    "raw": "ti",
+    "start": 55.547,
+    "end": 55.841,
+    "startFrame": 1666,
+    "endFrame": 1675,
+    "start_frame": 1666,
+    "end_frame": 1675
+  },
+  {
+    "word": "MISMO",
+    "raw": "mismo",
+    "start": 55.841,
+    "end": 56.428,
+    "startFrame": 1675,
+    "endFrame": 1693,
+    "start_frame": 1675,
+    "end_frame": 1693
+  },
+  {
+    "word": "ES",
+    "raw": "es",
+    "start": 56.428,
+    "end": 56.722,
+    "startFrame": 1693,
+    "endFrame": 1702,
+    "start_frame": 1693,
+    "end_frame": 1702
+  },
+  {
+    "word": "PORQUE",
+    "raw": "porque",
+    "start": 56.722,
+    "end": 57.31,
+    "startFrame": 1702,
+    "endFrame": 1719,
+    "start_frame": 1702,
+    "end_frame": 1719
+  },
+  {
+    "word": "PRODUCES",
+    "raw": "produces",
+    "start": 58.446,
+    "end": 58.662,
+    "startFrame": 1753,
+    "endFrame": 1760,
+    "start_frame": 1753,
+    "end_frame": 1760
+  },
+  {
+    "word": "MOCO",
+    "raw": "moco",
+    "start": 58.662,
+    "end": 58.806,
+    "startFrame": 1760,
+    "endFrame": 1764,
+    "start_frame": 1760,
+    "end_frame": 1764
+  },
+  {
+    "word": "PROTECTOR",
+    "raw": "protector",
+    "start": 58.806,
+    "end": 59.022,
+    "startFrame": 1764,
+    "endFrame": 1771,
+    "start_frame": 1764,
+    "end_frame": 1771
+  },
+  {
+    "word": "CADA",
+    "raw": "cada",
+    "start": 59.022,
+    "end": 59.165,
+    "startFrame": 1771,
+    "endFrame": 1775,
+    "start_frame": 1771,
+    "end_frame": 1775
+  },
+  {
+    "word": "MINUTO",
+    "raw": "minuto.",
+    "start": 59.165,
+    "end": 59.381,
+    "startFrame": 1775,
+    "endFrame": 1781,
+    "start_frame": 1775,
+    "end_frame": 1781
+  },
+  {
+    "word": "AHORA",
+    "raw": "Ahora",
+    "start": 59.381,
+    "end": 59.597,
+    "startFrame": 1781,
+    "endFrame": 1788,
+    "start_frame": 1781,
+    "end_frame": 1788
+  },
+  {
+    "word": "MISMO",
+    "raw": "mismo,",
+    "start": 59.597,
+    "end": 59.741,
+    "startFrame": 1788,
+    "endFrame": 1792,
+    "start_frame": 1788,
+    "end_frame": 1792
+  },
+  {
+    "word": "MILLONES",
+    "raw": "millones",
+    "start": 59.741,
+    "end": 59.957,
+    "startFrame": 1792,
+    "endFrame": 1799,
+    "start_frame": 1792,
+    "end_frame": 1799
+  },
+  {
+    "word": "DE",
+    "raw": "de",
+    "start": 59.957,
+    "end": 60.029,
+    "startFrame": 1799,
+    "endFrame": 1801,
+    "start_frame": 1799,
+    "end_frame": 1801
+  },
+  {
+    "word": "BACTERIAS",
+    "raw": "bacterias",
+    "start": 60.029,
+    "end": 60.245,
+    "startFrame": 1801,
+    "endFrame": 1807,
+    "start_frame": 1801,
+    "end_frame": 1807
+  },
+  {
+    "word": "EN",
+    "raw": "en",
+    "start": 60.539,
+    "end": 60.612,
+    "startFrame": 1816,
+    "endFrame": 1818,
+    "start_frame": 1816,
+    "end_frame": 1818
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 60.612,
+    "end": 60.685,
+    "startFrame": 1818,
+    "endFrame": 1821,
+    "start_frame": 1818,
+    "end_frame": 1821
+  },
+  {
+    "word": "INTESTINO",
+    "raw": "intestino",
+    "start": 60.685,
+    "end": 60.979,
+    "startFrame": 1821,
+    "endFrame": 1829,
+    "start_frame": 1821,
+    "end_frame": 1829
+  },
+  {
+    "word": "ESTÁN",
+    "raw": "están",
+    "start": 60.979,
+    "end": 61.125,
+    "startFrame": 1829,
+    "endFrame": 1834,
+    "start_frame": 1829,
+    "end_frame": 1834
+  },
+  {
+    "word": "ALTERANDO",
+    "raw": "alterando",
+    "start": 61.125,
+    "end": 61.419,
+    "startFrame": 1834,
+    "endFrame": 1843,
+    "start_frame": 1834,
+    "end_frame": 1843
+  },
+  {
+    "word": "TUS",
+    "raw": "tus",
+    "start": 61.419,
+    "end": 61.492,
+    "startFrame": 1843,
+    "endFrame": 1845,
+    "start_frame": 1843,
+    "end_frame": 1845
+  },
+  {
+    "word": "EMOCIONES",
+    "raw": "emociones.",
+    "start": 61.492,
+    "end": 61.785,
+    "startFrame": 1845,
+    "endFrame": 1854,
+    "start_frame": 1845,
+    "end_frame": 1854
+  },
+  {
+    "word": "TÚ",
+    "raw": "Tú",
+    "start": 61.785,
+    "end": 61.859,
+    "startFrame": 1854,
+    "endFrame": 1856,
+    "start_frame": 1854,
+    "end_frame": 1856
+  },
+  {
+    "word": "CREES",
+    "raw": "crees",
+    "start": 61.859,
+    "end": 61.932,
+    "startFrame": 1856,
+    "endFrame": 1858,
+    "start_frame": 1856,
+    "end_frame": 1858
+  },
+  {
+    "word": "QUE",
+    "raw": "que",
+    "start": 61.932,
+    "end": 62.005,
+    "startFrame": 1858,
+    "endFrame": 1860,
+    "start_frame": 1858,
+    "end_frame": 1860
+  },
+  {
+    "word": "CONTROLAS",
+    "raw": "controlas",
+    "start": 62.976,
+    "end": 62.977,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "TUS",
+    "raw": "tus",
+    "start": 62.977,
+    "end": 62.977,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "DECISIONES",
+    "raw": "decisiones,",
+    "start": 62.977,
+    "end": 62.978,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "PERO",
+    "raw": "pero",
+    "start": 62.978,
+    "end": 62.978,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "TU",
+    "raw": "tu",
+    "start": 62.978,
+    "end": 62.978,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "CUERPO",
+    "raw": "cuerpo",
+    "start": 62.978,
+    "end": 62.979,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "YA",
+    "raw": "ya",
+    "start": 62.979,
+    "end": 62.979,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "DECIDIÓ",
+    "raw": "decidió",
+    "start": 62.979,
+    "end": 62.98,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "POR",
+    "raw": "por",
+    "start": 62.98,
+    "end": 62.98,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  },
+  {
+    "word": "TI",
+    "raw": "ti.",
+    "start": 62.98,
+    "end": 62.98,
+    "startFrame": 1889,
+    "endFrame": 1890,
+    "start_frame": 1889,
+    "end_frame": 1890
+  }
+]

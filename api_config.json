@@ -1,0 +1,8 @@
+{
+  "groq_api_key": "",
+  "api_key": "",
+  "model": "llama-3.3-70b-versatile",
+  "endpoint": "https://api.groq.com/openai/v1/chat/completions",
+  "openrouter_api_key": "",
+  "gemini_api_key": ""
+}

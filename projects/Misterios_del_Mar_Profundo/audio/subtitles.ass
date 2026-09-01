@@ -1,0 +1,23 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TikTokYellow,Arial Black,64,&H0000FFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+Style: TikTokWhite,Arial Black,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.24,TikTokYellow,,0,0,0,,EL ENIGMA OCULTO
+Dialogue: 0,0:00:01.24,0:00:02.48,TikTokWhite,,0,0,0,,DETRAS DE MISTERIOS
+Dialogue: 0,0:00:02.48,0:00:03.72,TikTokYellow,,0,0,0,,DEL MAR PROFUNDO
+Dialogue: 0,0:00:04.02,0:00:04.92,TikTokYellow,,0,0,0,,LO QUE NADIE
+Dialogue: 0,0:00:04.92,0:00:05.83,TikTokWhite,,0,0,0,,TE CUENTA SOBRE
+Dialogue: 0,0:00:05.83,0:00:06.74,TikTokYellow,,0,0,0,,LO QUE OCURRE
+Dialogue: 0,0:00:06.73,0:00:07.64,TikTokWhite,,0,0,0,,REALMENTE
+Dialogue: 0,0:00:07.94,0:00:09.18,TikTokYellow,,0,0,0,,LOS DETALLES PROHIBIDOS
+Dialogue: 0,0:00:09.18,0:00:10.42,TikTokWhite,,0,0,0,,QUE INTENTARON BORRAR
+Dialogue: 0,0:00:10.42,0:00:11.66,TikTokYellow,,0,0,0,,DEL MAPA

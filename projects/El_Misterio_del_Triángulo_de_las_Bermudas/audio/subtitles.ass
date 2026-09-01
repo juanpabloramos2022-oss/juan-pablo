@@ -1,0 +1,24 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: TikTokYellow,Arial Black,64,&H0000FFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+Style: TikTokWhite,Arial Black,64,&H00FFFFFF,&H00FFFFFF,&H00000000,&H80000000,-1,0,0,0,100,100,1,0,1,8,4,2,40,40,460,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,0:00:00.00,0:00:01.08,TikTokYellow,,0,0,0,,EL ENIGMA OCULTO
+Dialogue: 0,0:00:01.08,0:00:02.16,TikTokWhite,,0,0,0,,DETRAS DE EL
+Dialogue: 0,0:00:02.16,0:00:03.24,TikTokYellow,,0,0,0,,MISTERIO DEL TRIÁNGULO
+Dialogue: 0,0:00:03.24,0:00:04.32,TikTokWhite,,0,0,0,,DE LAS BERMUDAS
+Dialogue: 0,0:00:04.62,0:00:05.53,TikTokYellow,,0,0,0,,LO QUE NADIE
+Dialogue: 0,0:00:05.53,0:00:06.43,TikTokWhite,,0,0,0,,TE CUENTA SOBRE
+Dialogue: 0,0:00:06.43,0:00:07.34,TikTokYellow,,0,0,0,,LO QUE OCURRE
+Dialogue: 0,0:00:07.34,0:00:08.24,TikTokWhite,,0,0,0,,REALMENTE
+Dialogue: 0,0:00:08.54,0:00:09.78,TikTokYellow,,0,0,0,,LOS DETALLES PROHIBIDOS
+Dialogue: 0,0:00:09.78,0:00:11.02,TikTokWhite,,0,0,0,,QUE INTENTARON BORRAR
+Dialogue: 0,0:00:11.02,0:00:12.26,TikTokYellow,,0,0,0,,DEL MAPA

@@ -1,0 +1,22 @@
+node_modules
+dist
+.DS_Store
+.env
+
+# Ignore the output video from Git but not videos you import into src/.
+out
+
+# Large root videos
+/raw_video.mp4
+/video_to_subtitle.mp4
+
+# External submodules or large folders
+/whisper.cpp/
+
+# AI Assistant folders
+.agent/
+.agents/
+.claude/
+
+*.github_token
+.github_token

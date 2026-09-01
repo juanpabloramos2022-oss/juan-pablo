@@ -1,0 +1,97 @@
+{
+  "id": "rRGmpYrTAduV41OU",
+  "name": "Fabrica_V33_7_Ensamble_Nativo",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "manual-trigger-v33-7",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        200,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ensamble-tiktok",
+        "options": {}
+      },
+      "id": "webhook-ensamble-tiktok",
+      "name": "Webhook (ensamble-tiktok)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        420
+      ],
+      "webhookId": "ensamble-tiktok"
+    },
+    {
+      "parameters": {
+        "command": "python C:\\tiktok\\generar_audio_qwen.py"
+      },
+      "id": "exec-generate-voice",
+      "name": "Execute Command (Generar Voz Neuronal)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        440,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:\\tiktok\\ensamble.ps1"
+      },
+      "id": "exec-ffmpeg-concat",
+      "name": "Execute Command (Ensamble y Mezcla FFmpeg)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        680,
+        320
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Execute Command (Generar Voz Neuronal)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook (ensamble-tiktok)": {
+      "main": [
+        [
+          {
+            "node": "Execute Command (Generar Voz Neuronal)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command (Generar Voz Neuronal)": {
+      "main": [
+        [
+          {
+            "node": "Execute Command (Ensamble y Mezcla FFmpeg)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

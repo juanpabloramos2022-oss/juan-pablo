@@ -1,0 +1,77 @@
+{
+    "title": "Resultados de Abril",
+    "subtitle": "Resumen de rendimiento mensual",
+    "kpis": [
+        {
+            "label": "Ingresos",
+            "value": 18420,
+            "prefix": "$"
+        },
+        {
+            "label": "Usuarios",
+            "value": 5320
+        },
+        {
+            "label": "Conversión",
+            "value": 4.8,
+            "suffix": "%"
+        }
+    ],
+    "comparison": {
+        "previousMonth": "Marzo",
+        "growth": 27
+    },
+    "bars": [
+        {
+            "name": "Producto A",
+            "value": 90
+        },
+        {
+            "name": "Producto B",
+            "value": 65
+        },
+        {
+            "name": "Producto C",
+            "value": 45
+        },
+        {
+            "name": "Producto D",
+            "value": 30
+        }
+    ],
+    "lineChart": [
+        {
+            "day": "01",
+            "value": 200
+        },
+        {
+            "day": "05",
+            "value": 450
+        },
+        {
+            "day": "10",
+            "value": 700
+        },
+        {
+            "day": "15",
+            "value": 950
+        },
+        {
+            "day": "20",
+            "value": 1200
+        },
+        {
+            "day": "25",
+            "value": 1500
+        },
+        {
+            "day": "30",
+            "value": 1840
+        }
+    ],
+    "highlight": {
+        "text": "Crecimiento mensual",
+        "value": 27,
+        "suffix": "%"
+    }
+}
