@@ -7,7 +7,7 @@
 param (
     [string]$RepoOwner = $(if ($env:GITHUB_REPO_OWNER) { $env:GITHUB_REPO_OWNER } else { "juanpabloramos2022-oss" }),
     [string]$RepoName = $(if ($env:GITHUB_REPO_NAME) { $env:GITHUB_REPO_NAME } else { "juan-pablo" }),
-    [string]$Token = $env:GITHUB_TOKEN,
+    [string]$Token = "",
     [string]$WorkflowFileName = "generate_script.yml",
     [string]$BaseDir = "C:\tiktok",
     [string]$ProjectDir = "C:\tiktok\projects\actual",
@@ -33,8 +33,33 @@ if ($RepoOwner -eq "TU_USUARIO_GITHUB" -or $RepoName -eq "TU_REPOSITORIO_GITHUB"
     }
 }
 
+# Resolución segura del token en cascada: 1. Argumento CLI, 2. Variable de proceso, 3. Registro Usuario/Máquina, 4. Archivo local .github_token
 if (-not $Token) {
-    Write-Error "[FATAL] GITHUB_TOKEN no encontrado en las variables de entorno."
+    if ($env:GITHUB_TOKEN) {
+        $Token = $env:GITHUB_TOKEN
+    } elseif ([System.Environment]::GetEnvironmentVariable("GITHUB_TOKEN", "User")) {
+        $Token = [System.Environment]::GetEnvironmentVariable("GITHUB_TOKEN", "User")
+    } elseif ([System.Environment]::GetEnvironmentVariable("GITHUB_TOKEN", "Machine")) {
+        $Token = [System.Environment]::GetEnvironmentVariable("GITHUB_TOKEN", "Machine")
+    } else {
+        $TokenCandidates = @(
+            (Join-Path $PSScriptRoot ".github_token"),
+            (Join-Path $BaseDir ".github_token")
+        )
+        foreach ($Candidate in $TokenCandidates) {
+            if (Test-Path $Candidate) {
+                $CandidateContent = (Get-Content -Path $Candidate -Raw).Trim()
+                if ($CandidateContent) {
+                    $Token = $CandidateContent
+                    break
+                }
+            }
+        }
+    }
+}
+
+if (-not $Token) {
+    Write-Error "[FATAL] GITHUB_TOKEN no encontrado en entorno, registro ni archivo local .github_token."
     exit 1
 }
 
