@@ -1,1255 +1,1123 @@
 [
   {
     "id": 1,
-    "text": "Tus ojos están ciegos durante cuarenta minutos al día y tu cerebro te lo oculta.",
+    "text": "SI PASAS TREINTA Y SEIS HORAS SIN DORMIR TU CEREBRO EMPIEZA A DEVORARSE.",
+    "camara": "crash_zoom_in",
+    "iluminacion": "red_alert_pulse",
+    "overlay": "alerta_roja_neon",
+    "overlayText": "¡SHOCK BIOLÓGICO!",
     "remotion_fx": {
-      "camera_movement": "crash_zoom_in",
-      "transition_out": "fade",
-      "text_highlight_color": "#FF0055",
-      "visual_overlay": "vignette_heavy"
+      "emotional_color": "#FF0055"
     },
-    "scene_number": 1,
-    "image_filename": "escena_1.png",
-    "narration_es": "Tus ojos están ciegos durante cuarenta minutos al día y tu cerebro te lo oculta.",
-    "durationInSeconds": 5.16,
-    "durationInFrames": 155,
+    "durationInSeconds": 4.8,
+    "durationInFrames": 144,
     "words": [
       {
-        "word": "TUS",
+        "word": "SI",
         "start": 0.25,
-        "end": 0.43,
+        "end": 0.37,
         "startFrame": 8,
-        "endFrame": 13
+        "endFrame": 11
       },
       {
-        "word": "OJOS",
-        "start": 0.43,
+        "word": "PASAS",
+        "start": 0.37,
         "end": 0.67,
-        "startFrame": 13,
+        "startFrame": 11,
         "endFrame": 20
       },
       {
-        "word": "ESTÁN",
+        "word": "TREINTA",
         "start": 0.67,
-        "end": 0.97,
+        "end": 1.09,
         "startFrame": 20,
-        "endFrame": 29
-      },
-      {
-        "word": "CIEGOS",
-        "start": 0.97,
-        "end": 1.33,
-        "startFrame": 29,
-        "endFrame": 40
-      },
-      {
-        "word": "DURANTE",
-        "start": 1.33,
-        "end": 1.75,
-        "startFrame": 40,
-        "endFrame": 52
-      },
-      {
-        "word": "CUARENTA",
-        "start": 1.75,
-        "end": 2.23,
-        "startFrame": 52,
-        "endFrame": 67
-      },
-      {
-        "word": "MINUTOS",
-        "start": 2.23,
-        "end": 2.65,
-        "startFrame": 67,
-        "endFrame": 80
-      },
-      {
-        "word": "AL",
-        "start": 2.65,
-        "end": 2.77,
-        "startFrame": 80,
-        "endFrame": 83
-      },
-      {
-        "word": "DÍA",
-        "start": 2.77,
-        "end": 2.95,
-        "startFrame": 83,
-        "endFrame": 88
+        "endFrame": 33
       },
       {
         "word": "Y",
-        "start": 2.95,
-        "end": 3.01,
-        "startFrame": 88,
-        "endFrame": 90
+        "start": 1.09,
+        "end": 1.15,
+        "startFrame": 33,
+        "endFrame": 34
+      },
+      {
+        "word": "SEIS",
+        "start": 1.15,
+        "end": 1.39,
+        "startFrame": 34,
+        "endFrame": 42
+      },
+      {
+        "word": "HORAS",
+        "start": 1.39,
+        "end": 1.69,
+        "startFrame": 42,
+        "endFrame": 51
+      },
+      {
+        "word": "SIN",
+        "start": 1.69,
+        "end": 1.87,
+        "startFrame": 51,
+        "endFrame": 56
+      },
+      {
+        "word": "DORMIR",
+        "start": 1.87,
+        "end": 2.23,
+        "startFrame": 56,
+        "endFrame": 67
       },
       {
         "word": "TU",
-        "start": 3.01,
-        "end": 3.13,
-        "startFrame": 90,
-        "endFrame": 94
+        "start": 2.23,
+        "end": 2.35,
+        "startFrame": 67,
+        "endFrame": 70
       },
       {
         "word": "CEREBRO",
-        "start": 3.13,
-        "end": 3.55,
-        "startFrame": 94,
-        "endFrame": 107
+        "start": 2.35,
+        "end": 2.77,
+        "startFrame": 70,
+        "endFrame": 83
       },
       {
-        "word": "TE",
-        "start": 3.55,
-        "end": 3.67,
-        "startFrame": 107,
-        "endFrame": 110
+        "word": "EMPIEZA",
+        "start": 2.77,
+        "end": 3.19,
+        "startFrame": 83,
+        "endFrame": 96
       },
       {
-        "word": "LO",
-        "start": 3.67,
-        "end": 3.79,
-        "startFrame": 110,
-        "endFrame": 114
+        "word": "A",
+        "start": 3.19,
+        "end": 3.25,
+        "startFrame": 96,
+        "endFrame": 98
       },
       {
-        "word": "OCULTA.",
-        "start": 3.79,
-        "end": 4.21,
-        "startFrame": 114,
-        "endFrame": 126
+        "word": "DEVORARSE.",
+        "start": 3.25,
+        "end": 3.85,
+        "startFrame": 98,
+        "endFrame": 115
       }
     ]
   },
   {
     "id": 2,
-    "text": "Cada vez que parpadeas, tu mente desconecta tu visión para no marearte.",
+    "text": "NO ES UNA METÁFORA. TUS CÉLULAS DE LIMPIEZA PIERDEN EL CONTROL TOTAL.",
+    "camara": "vertigo_dolly_zoom",
+    "iluminacion": "limpio",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "pan_diagonal",
-      "transition_out": "flash_white",
-      "text_highlight_color": "#FFE500",
-      "visual_overlay": "grain_cinematic"
+      "emotional_color": "#FFE500"
     },
-    "scene_number": 2,
-    "image_filename": "escena_2.png",
-    "narration_es": "Cada vez que parpadeas, tu mente desconecta tu visión para no marearte.",
-    "durationInSeconds": 4.9,
-    "durationInFrames": 147,
+    "durationInSeconds": 5.81,
+    "durationInFrames": 174,
     "words": [
       {
-        "word": "CADA",
-        "start": 0.25,
-        "end": 0.497,
-        "startFrame": 8,
-        "endFrame": 15
-      },
-      {
-        "word": "VEZ",
-        "start": 0.497,
-        "end": 0.682,
-        "startFrame": 15,
-        "endFrame": 20
-      },
-      {
-        "word": "QUE",
-        "start": 0.682,
-        "end": 0.867,
-        "startFrame": 20,
-        "endFrame": 26
-      },
-      {
-        "word": "PARPADEAS,",
-        "start": 0.867,
-        "end": 1.483,
-        "startFrame": 26,
-        "endFrame": 44
-      },
-      {
-        "word": "TU",
-        "start": 1.483,
-        "end": 1.607,
-        "startFrame": 44,
-        "endFrame": 48
-      },
-      {
-        "word": "MENTE",
-        "start": 1.607,
-        "end": 1.915,
-        "startFrame": 48,
-        "endFrame": 57
-      },
-      {
-        "word": "DESCONECTA",
-        "start": 1.915,
-        "end": 2.532,
-        "startFrame": 57,
-        "endFrame": 76
-      },
-      {
-        "word": "TU",
-        "start": 2.532,
-        "end": 2.655,
-        "startFrame": 76,
-        "endFrame": 80
-      },
-      {
-        "word": "VISIÓN",
-        "start": 2.655,
-        "end": 3.025,
-        "startFrame": 80,
-        "endFrame": 91
-      },
-      {
-        "word": "PARA",
-        "start": 3.025,
-        "end": 3.272,
-        "startFrame": 91,
-        "endFrame": 98
-      },
-      {
         "word": "NO",
-        "start": 3.272,
-        "end": 3.395,
-        "startFrame": 98,
-        "endFrame": 102
+        "start": 0.25,
+        "end": 0.409,
+        "startFrame": 8,
+        "endFrame": 12
       },
       {
-        "word": "MAREARTE.",
-        "start": 3.395,
-        "end": 3.95,
-        "startFrame": 102,
-        "endFrame": 119
+        "word": "ES",
+        "start": 0.409,
+        "end": 0.568,
+        "startFrame": 12,
+        "endFrame": 17
+      },
+      {
+        "word": "UNA",
+        "start": 0.568,
+        "end": 0.806,
+        "startFrame": 17,
+        "endFrame": 24
+      },
+      {
+        "word": "METÁFORA.",
+        "start": 0.806,
+        "end": 1.522,
+        "startFrame": 24,
+        "endFrame": 46
+      },
+      {
+        "word": "TUS",
+        "start": 1.522,
+        "end": 1.76,
+        "startFrame": 46,
+        "endFrame": 53
+      },
+      {
+        "word": "CÉLULAS",
+        "start": 1.76,
+        "end": 2.317,
+        "startFrame": 53,
+        "endFrame": 69
+      },
+      {
+        "word": "DE",
+        "start": 2.317,
+        "end": 2.476,
+        "startFrame": 69,
+        "endFrame": 74
+      },
+      {
+        "word": "LIMPIEZA",
+        "start": 2.476,
+        "end": 3.111,
+        "startFrame": 74,
+        "endFrame": 93
+      },
+      {
+        "word": "PIERDEN",
+        "start": 3.111,
+        "end": 3.668,
+        "startFrame": 93,
+        "endFrame": 110
+      },
+      {
+        "word": "EL",
+        "start": 3.668,
+        "end": 3.827,
+        "startFrame": 110,
+        "endFrame": 115
+      },
+      {
+        "word": "CONTROL",
+        "start": 3.827,
+        "end": 4.383,
+        "startFrame": 115,
+        "endFrame": 131
+      },
+      {
+        "word": "TOTAL.",
+        "start": 4.383,
+        "end": 4.86,
+        "startFrame": 131,
+        "endFrame": 146
       }
     ]
   },
   {
     "id": 3,
-    "text": "Esto significa que pasas casi una hora al día sumergido en oscuridad.",
+    "text": "NORMALMENTE LOS ASTROCITOS ELIMINAN BASURA NEURONAL MIENTRAS DUERMES PROFUNDAMENTE.",
+    "camara": "slow_creepy_crawl",
+    "iluminacion": "dark_vignette_pulse",
+    "overlay": "marco_cinematico",
     "remotion_fx": {
-      "camera_movement": "shake",
-      "transition_out": "smash_cut",
-      "text_highlight_color": "#00F0FF",
-      "visual_overlay": "clean"
+      "emotional_color": "#00F0FF"
     },
-    "scene_number": 3,
-    "image_filename": "escena_3.png",
-    "narration_es": "Esto significa que pasas casi una hora al día sumergido en oscuridad.",
-    "durationInSeconds": 4.75,
-    "durationInFrames": 142,
+    "durationInSeconds": 5.52,
+    "durationInFrames": 166,
     "words": [
       {
-        "word": "ESTO",
+        "word": "NORMALMENTE",
         "start": 0.25,
-        "end": 0.495,
+        "end": 0.884,
         "startFrame": 8,
-        "endFrame": 15
+        "endFrame": 27
       },
       {
-        "word": "SIGNIFICA",
-        "start": 0.495,
-        "end": 1.046,
-        "startFrame": 15,
-        "endFrame": 31
+        "word": "LOS",
+        "start": 0.884,
+        "end": 1.056,
+        "startFrame": 27,
+        "endFrame": 32
       },
       {
-        "word": "QUE",
-        "start": 1.046,
-        "end": 1.229,
-        "startFrame": 31,
-        "endFrame": 37
+        "word": "ASTROCITOS",
+        "start": 1.056,
+        "end": 1.632,
+        "startFrame": 32,
+        "endFrame": 49
       },
       {
-        "word": "PASAS",
-        "start": 1.229,
-        "end": 1.535,
-        "startFrame": 37,
-        "endFrame": 46
+        "word": "ELIMINAN",
+        "start": 1.632,
+        "end": 2.093,
+        "startFrame": 49,
+        "endFrame": 63
       },
       {
-        "word": "CASI",
-        "start": 1.535,
-        "end": 1.78,
-        "startFrame": 46,
-        "endFrame": 53
+        "word": "BASURA",
+        "start": 2.093,
+        "end": 2.439,
+        "startFrame": 63,
+        "endFrame": 73
       },
       {
-        "word": "UNA",
-        "start": 1.78,
-        "end": 1.964,
-        "startFrame": 53,
-        "endFrame": 59
+        "word": "NEURONAL",
+        "start": 2.439,
+        "end": 2.9,
+        "startFrame": 73,
+        "endFrame": 87
       },
       {
-        "word": "HORA",
-        "start": 1.964,
-        "end": 2.209,
-        "startFrame": 59,
-        "endFrame": 66
+        "word": "MIENTRAS",
+        "start": 2.9,
+        "end": 3.36,
+        "startFrame": 87,
+        "endFrame": 101
       },
       {
-        "word": "AL",
-        "start": 2.209,
-        "end": 2.331,
-        "startFrame": 66,
-        "endFrame": 70
+        "word": "DUERMES",
+        "start": 3.36,
+        "end": 3.764,
+        "startFrame": 101,
+        "endFrame": 113
       },
       {
-        "word": "DÍA",
-        "start": 2.331,
-        "end": 2.515,
-        "startFrame": 70,
-        "endFrame": 75
-      },
-      {
-        "word": "SUMERGIDO",
-        "start": 2.515,
-        "end": 3.066,
-        "startFrame": 75,
-        "endFrame": 92
-      },
-      {
-        "word": "EN",
-        "start": 3.066,
-        "end": 3.188,
-        "startFrame": 92,
-        "endFrame": 96
-      },
-      {
-        "word": "OSCURIDAD.",
-        "start": 3.188,
-        "end": 3.8,
-        "startFrame": 96,
-        "endFrame": 114
+        "word": "PROFUNDAMENTE.",
+        "start": 3.764,
+        "end": 4.57,
+        "startFrame": 113,
+        "endFrame": 137
       }
     ]
   },
   {
     "id": 4,
-    "text": "Tu cortex visual inventa fotogramas falsos para que no entres en pánico.",
+    "text": "PERO TRAS VEINTICUATRO HORAS DE VIGILIA ENTRAN EN UN ESTADO HIPERACTIVO DESTRUCTOR.",
+    "camara": "whip_pan_left",
+    "iluminacion": "limpio",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "macro_drift",
-      "transition_out": "fade",
-      "text_highlight_color": "#00FF66",
-      "visual_overlay": "vignette_heavy"
+      "emotional_color": "#FF0055"
     },
-    "scene_number": 4,
-    "image_filename": "escena_4.png",
-    "narration_es": "Tu cortex visual inventa fotogramas falsos para que no entres en pánico.",
-    "durationInSeconds": 4.73,
-    "durationInFrames": 142,
+    "durationInSeconds": 4.9,
+    "durationInFrames": 147,
     "words": [
       {
-        "word": "TU",
+        "word": "PERO",
         "start": 0.25,
-        "end": 0.366,
+        "end": 0.456,
         "startFrame": 8,
-        "endFrame": 11
+        "endFrame": 14
       },
       {
-        "word": "CORTEX",
-        "start": 0.366,
-        "end": 0.713,
-        "startFrame": 11,
-        "endFrame": 21
+        "word": "TRAS",
+        "start": 0.456,
+        "end": 0.661,
+        "startFrame": 14,
+        "endFrame": 20
       },
       {
-        "word": "VISUAL",
-        "start": 0.713,
-        "end": 1.06,
-        "startFrame": 21,
-        "endFrame": 32
+        "word": "VEINTICUATRO",
+        "start": 0.661,
+        "end": 1.278,
+        "startFrame": 20,
+        "endFrame": 38
       },
       {
-        "word": "INVENTA",
-        "start": 1.06,
-        "end": 1.465,
-        "startFrame": 32,
-        "endFrame": 44
+        "word": "HORAS",
+        "start": 1.278,
+        "end": 1.535,
+        "startFrame": 38,
+        "endFrame": 46
       },
       {
-        "word": "FOTOGRAMAS",
-        "start": 1.465,
-        "end": 2.044,
-        "startFrame": 44,
-        "endFrame": 61
+        "word": "DE",
+        "start": 1.535,
+        "end": 1.637,
+        "startFrame": 46,
+        "endFrame": 49
       },
       {
-        "word": "FALSOS",
-        "start": 2.044,
-        "end": 2.391,
-        "startFrame": 61,
-        "endFrame": 72
+        "word": "VIGILIA",
+        "start": 1.637,
+        "end": 1.997,
+        "startFrame": 49,
+        "endFrame": 60
       },
       {
-        "word": "PARA",
-        "start": 2.391,
-        "end": 2.623,
-        "startFrame": 72,
-        "endFrame": 79
-      },
-      {
-        "word": "QUE",
-        "start": 2.623,
-        "end": 2.796,
-        "startFrame": 79,
-        "endFrame": 84
-      },
-      {
-        "word": "NO",
-        "start": 2.796,
-        "end": 2.912,
-        "startFrame": 84,
-        "endFrame": 87
-      },
-      {
-        "word": "ENTRES",
-        "start": 2.912,
-        "end": 3.259,
-        "startFrame": 87,
-        "endFrame": 98
+        "word": "ENTRAN",
+        "start": 1.997,
+        "end": 2.306,
+        "startFrame": 60,
+        "endFrame": 69
       },
       {
         "word": "EN",
-        "start": 3.259,
-        "end": 3.375,
-        "startFrame": 98,
-        "endFrame": 101
+        "start": 2.306,
+        "end": 2.408,
+        "startFrame": 69,
+        "endFrame": 72
       },
       {
-        "word": "PÁNICO.",
-        "start": 3.375,
-        "end": 3.78,
-        "startFrame": 101,
-        "endFrame": 113
+        "word": "UN",
+        "start": 2.408,
+        "end": 2.511,
+        "startFrame": 72,
+        "endFrame": 75
+      },
+      {
+        "word": "ESTADO",
+        "start": 2.511,
+        "end": 2.819,
+        "startFrame": 75,
+        "endFrame": 85
+      },
+      {
+        "word": "HIPERACTIVO",
+        "start": 2.819,
+        "end": 3.385,
+        "startFrame": 85,
+        "endFrame": 102
+      },
+      {
+        "word": "DESTRUCTOR.",
+        "start": 3.385,
+        "end": 3.95,
+        "startFrame": 102,
+        "endFrame": 118
       }
     ]
   },
   {
     "id": 5,
-    "text": "Mientras duermes, tu cuerpo se paraliza para no actuar tus pesadillas.",
+    "text": "EMPIEZAN A TRAGARSE CONEXIONES SINÁPTICAS SANAS QUE NUNCA PODRÁS RECUPERAR.",
+    "camara": "earthquake_shake",
+    "iluminacion": "chromatic_aberration_glitch",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "crash_zoom_in",
-      "transition_out": "flash_white",
-      "text_highlight_color": "#FF0055",
-      "visual_overlay": "grain_cinematic"
+      "emotional_color": "#FF0055"
     },
-    "scene_number": 5,
-    "image_filename": "escena_5.png",
-    "narration_es": "Mientras duermes, tu cuerpo se paraliza para no actuar tus pesadillas.",
-    "durationInSeconds": 4.92,
-    "durationInFrames": 148,
+    "durationInSeconds": 4.99,
+    "durationInFrames": 150,
     "words": [
       {
-        "word": "MIENTRAS",
+        "word": "EMPIEZAN",
         "start": 0.25,
-        "end": 0.746,
+        "end": 0.709,
         "startFrame": 8,
-        "endFrame": 22
+        "endFrame": 21
       },
       {
-        "word": "DUERMES,",
-        "start": 0.746,
-        "end": 1.242,
-        "startFrame": 22,
+        "word": "A",
+        "start": 0.709,
+        "end": 0.767,
+        "startFrame": 21,
+        "endFrame": 23
+      },
+      {
+        "word": "TRAGARSE",
+        "start": 0.767,
+        "end": 1.226,
+        "startFrame": 23,
         "endFrame": 37
       },
       {
-        "word": "TU",
-        "start": 1.242,
-        "end": 1.366,
+        "word": "CONEXIONES",
+        "start": 1.226,
+        "end": 1.8,
         "startFrame": 37,
-        "endFrame": 41
+        "endFrame": 54
       },
       {
-        "word": "CUERPO",
-        "start": 1.366,
-        "end": 1.738,
-        "startFrame": 41,
-        "endFrame": 52
-      },
-      {
-        "word": "SE",
-        "start": 1.738,
-        "end": 1.862,
-        "startFrame": 52,
-        "endFrame": 56
-      },
-      {
-        "word": "PARALIZA",
-        "start": 1.862,
-        "end": 2.358,
-        "startFrame": 56,
+        "word": "SINÁPTICAS",
+        "start": 1.8,
+        "end": 2.375,
+        "startFrame": 54,
         "endFrame": 71
       },
       {
-        "word": "PARA",
-        "start": 2.358,
-        "end": 2.606,
+        "word": "SANAS",
+        "start": 2.375,
+        "end": 2.662,
         "startFrame": 71,
-        "endFrame": 78
+        "endFrame": 80
       },
       {
-        "word": "NO",
-        "start": 2.606,
-        "end": 2.73,
-        "startFrame": 78,
-        "endFrame": 82
+        "word": "QUE",
+        "start": 2.662,
+        "end": 2.834,
+        "startFrame": 80,
+        "endFrame": 85
       },
       {
-        "word": "ACTUAR",
-        "start": 2.73,
-        "end": 3.102,
-        "startFrame": 82,
-        "endFrame": 93
+        "word": "NUNCA",
+        "start": 2.834,
+        "end": 3.121,
+        "startFrame": 85,
+        "endFrame": 94
       },
       {
-        "word": "TUS",
-        "start": 3.102,
-        "end": 3.288,
-        "startFrame": 93,
-        "endFrame": 99
+        "word": "PODRÁS",
+        "start": 3.121,
+        "end": 3.466,
+        "startFrame": 94,
+        "endFrame": 104
       },
       {
-        "word": "PESADILLAS.",
-        "start": 3.288,
-        "end": 3.97,
-        "startFrame": 99,
-        "endFrame": 119
+        "word": "RECUPERAR.",
+        "start": 3.466,
+        "end": 4.04,
+        "startFrame": 104,
+        "endFrame": 121
       }
     ]
   },
   {
     "id": 6,
-    "text": "Si esa barrera química falla, te levantarías con el sistema motor encendido.",
+    "text": "ESTUDIOS EN NEUROCIENCIA CONFIRMARON QUE EL DAÑO COGNITIVO ES INSTANTÁNEO Y VISIBLE.",
+    "camara": "crash_zoom_in",
+    "iluminacion": "limpio",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "pan_diagonal",
-      "transition_out": "smash_cut",
-      "text_highlight_color": "#FFE500",
-      "visual_overlay": "clean"
+      "emotional_color": "#00F0FF"
     },
-    "scene_number": 6,
-    "image_filename": "escena_6.png",
-    "narration_es": "Si esa barrera química falla, te levantarías con el sistema motor encendido.",
-    "durationInSeconds": 5.33,
-    "durationInFrames": 160,
+    "durationInSeconds": 5.45,
+    "durationInFrames": 164,
     "words": [
       {
-        "word": "SI",
+        "word": "ESTUDIOS",
         "start": 0.25,
-        "end": 0.377,
+        "end": 0.716,
         "startFrame": 8,
-        "endFrame": 11
+        "endFrame": 21
       },
       {
-        "word": "ESA",
-        "start": 0.377,
-        "end": 0.568,
-        "startFrame": 11,
-        "endFrame": 17
+        "word": "EN",
+        "start": 0.716,
+        "end": 0.832,
+        "startFrame": 21,
+        "endFrame": 25
       },
       {
-        "word": "BARRERA",
-        "start": 0.568,
-        "end": 1.012,
-        "startFrame": 17,
-        "endFrame": 30
+        "word": "NEUROCIENCIA",
+        "start": 0.832,
+        "end": 1.531,
+        "startFrame": 25,
+        "endFrame": 46
       },
       {
-        "word": "QUÍMICA",
-        "start": 1.012,
-        "end": 1.457,
-        "startFrame": 30,
-        "endFrame": 44
+        "word": "CONFIRMARON",
+        "start": 1.531,
+        "end": 2.171,
+        "startFrame": 46,
+        "endFrame": 65
       },
       {
-        "word": "FALLA,",
-        "start": 1.457,
-        "end": 1.838,
-        "startFrame": 44,
-        "endFrame": 55
-      },
-      {
-        "word": "TE",
-        "start": 1.838,
-        "end": 1.966,
-        "startFrame": 55,
-        "endFrame": 59
-      },
-      {
-        "word": "LEVANTARÍAS",
-        "start": 1.966,
-        "end": 2.664,
-        "startFrame": 59,
-        "endFrame": 80
-      },
-      {
-        "word": "CON",
-        "start": 2.664,
-        "end": 2.855,
-        "startFrame": 80,
-        "endFrame": 86
+        "word": "QUE",
+        "start": 2.171,
+        "end": 2.346,
+        "startFrame": 65,
+        "endFrame": 70
       },
       {
         "word": "EL",
-        "start": 2.855,
-        "end": 2.982,
-        "startFrame": 86,
-        "endFrame": 89
+        "start": 2.346,
+        "end": 2.462,
+        "startFrame": 70,
+        "endFrame": 74
       },
       {
-        "word": "SISTEMA",
-        "start": 2.982,
-        "end": 3.427,
-        "startFrame": 89,
-        "endFrame": 103
+        "word": "DAÑO",
+        "start": 2.462,
+        "end": 2.695,
+        "startFrame": 74,
+        "endFrame": 81
       },
       {
-        "word": "MOTOR",
-        "start": 3.427,
-        "end": 3.745,
-        "startFrame": 103,
-        "endFrame": 112
+        "word": "COGNITIVO",
+        "start": 2.695,
+        "end": 3.219,
+        "startFrame": 81,
+        "endFrame": 97
       },
       {
-        "word": "ENCENDIDO.",
-        "start": 3.745,
-        "end": 4.38,
-        "startFrame": 112,
-        "endFrame": 131
+        "word": "ES",
+        "start": 3.219,
+        "end": 3.336,
+        "startFrame": 97,
+        "endFrame": 100
+      },
+      {
+        "word": "INSTANTÁNEO",
+        "start": 3.336,
+        "end": 3.976,
+        "startFrame": 100,
+        "endFrame": 119
+      },
+      {
+        "word": "Y",
+        "start": 3.976,
+        "end": 4.034,
+        "startFrame": 119,
+        "endFrame": 121
+      },
+      {
+        "word": "VISIBLE.",
+        "start": 4.034,
+        "end": 4.5,
+        "startFrame": 121,
+        "endFrame": 135
       }
     ]
   },
   {
     "id": 7,
-    "text": "Tu corazón late cien mil veces bombeando sangre a presión brutal constante.",
+    "text": "TUS TIEMPOS DE REACCIÓN CAEN AL NIVEL DE ALGUIEN EN ESTADO DE EBRIEDAD.",
+    "camara": "vertigo_dolly_zoom",
+    "iluminacion": "dark_vignette_pulse",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "shake",
-      "transition_out": "fade",
-      "text_highlight_color": "#00F0FF",
-      "visual_overlay": "vignette_heavy"
+      "emotional_color": "#FFE500"
     },
-    "scene_number": 7,
-    "image_filename": "escena_7.png",
-    "narration_es": "Tu corazón late cien mil veces bombeando sangre a presión brutal constante.",
-    "durationInSeconds": 5.04,
-    "durationInFrames": 151,
+    "durationInSeconds": 4.3,
+    "durationInFrames": 129,
     "words": [
       {
-        "word": "TU",
+        "word": "TUS",
         "start": 0.25,
-        "end": 0.37,
+        "end": 0.408,
         "startFrame": 8,
-        "endFrame": 11
+        "endFrame": 12
       },
       {
-        "word": "CORAZÓN",
-        "start": 0.37,
-        "end": 0.79,
-        "startFrame": 11,
-        "endFrame": 24
+        "word": "TIEMPOS",
+        "start": 0.408,
+        "end": 0.775,
+        "startFrame": 12,
+        "endFrame": 23
       },
       {
-        "word": "LATE",
-        "start": 0.79,
-        "end": 1.03,
-        "startFrame": 24,
-        "endFrame": 31
+        "word": "DE",
+        "start": 0.775,
+        "end": 0.881,
+        "startFrame": 23,
+        "endFrame": 26
       },
       {
-        "word": "CIEN",
-        "start": 1.03,
-        "end": 1.27,
-        "startFrame": 31,
-        "endFrame": 38
+        "word": "REACCIÓN",
+        "start": 0.881,
+        "end": 1.301,
+        "startFrame": 26,
+        "endFrame": 39
       },
       {
-        "word": "MIL",
-        "start": 1.27,
-        "end": 1.45,
-        "startFrame": 38,
-        "endFrame": 44
+        "word": "CAEN",
+        "start": 1.301,
+        "end": 1.511,
+        "startFrame": 39,
+        "endFrame": 45
       },
       {
-        "word": "VECES",
-        "start": 1.45,
-        "end": 1.75,
-        "startFrame": 44,
-        "endFrame": 52
+        "word": "AL",
+        "start": 1.511,
+        "end": 1.616,
+        "startFrame": 45,
+        "endFrame": 48
       },
       {
-        "word": "BOMBEANDO",
-        "start": 1.75,
-        "end": 2.29,
-        "startFrame": 52,
-        "endFrame": 69
+        "word": "NIVEL",
+        "start": 1.616,
+        "end": 1.879,
+        "startFrame": 48,
+        "endFrame": 56
       },
       {
-        "word": "SANGRE",
-        "start": 2.29,
-        "end": 2.65,
-        "startFrame": 69,
-        "endFrame": 80
+        "word": "DE",
+        "start": 1.879,
+        "end": 1.984,
+        "startFrame": 56,
+        "endFrame": 60
       },
       {
-        "word": "A",
-        "start": 2.65,
-        "end": 2.71,
-        "startFrame": 80,
-        "endFrame": 81
+        "word": "ALGUIEN",
+        "start": 1.984,
+        "end": 2.352,
+        "startFrame": 60,
+        "endFrame": 71
       },
       {
-        "word": "PRESIÓN",
-        "start": 2.71,
-        "end": 3.13,
-        "startFrame": 81,
-        "endFrame": 94
+        "word": "EN",
+        "start": 2.352,
+        "end": 2.457,
+        "startFrame": 71,
+        "endFrame": 74
       },
       {
-        "word": "BRUTAL",
-        "start": 3.13,
-        "end": 3.49,
-        "startFrame": 94,
-        "endFrame": 105
+        "word": "ESTADO",
+        "start": 2.457,
+        "end": 2.772,
+        "startFrame": 74,
+        "endFrame": 83
       },
       {
-        "word": "CONSTANTE.",
-        "start": 3.49,
-        "end": 4.09,
-        "startFrame": 105,
-        "endFrame": 123
+        "word": "DE",
+        "start": 2.772,
+        "end": 2.877,
+        "startFrame": 83,
+        "endFrame": 86
+      },
+      {
+        "word": "EBRIEDAD.",
+        "start": 2.877,
+        "end": 3.35,
+        "startFrame": 86,
+        "endFrame": 100
       }
     ]
   },
   {
     "id": 8,
-    "text": "La fuerza es suficiente para proyectar un chorro a nueve metros de distancia.",
+    "text": "MICRO-SUEÑOS DE DOS SEGUNDOS APAGAN PARTES DE TU CORTEZA CEREBRAL SIN AVISAR.",
+    "camara": "slow_creepy_crawl",
+    "iluminacion": "limpio",
+    "overlay": "marco_cinematico",
     "remotion_fx": {
-      "camera_movement": "macro_drift",
-      "transition_out": "flash_white",
-      "text_highlight_color": "#00FF66",
-      "visual_overlay": "grain_cinematic"
+      "emotional_color": "#00F0FF"
     },
-    "scene_number": 8,
-    "image_filename": "escena_8.png",
-    "narration_es": "La fuerza es suficiente para proyectar un chorro a nueve metros de distancia.",
-    "durationInSeconds": 4.82,
-    "durationInFrames": 145,
+    "durationInSeconds": 5.26,
+    "durationInFrames": 158,
     "words": [
       {
-        "word": "LA",
+        "word": "MICRO-SUEÑOS",
         "start": 0.25,
-        "end": 0.361,
+        "end": 0.988,
         "startFrame": 8,
-        "endFrame": 11
-      },
-      {
-        "word": "FUERZA",
-        "start": 0.361,
-        "end": 0.696,
-        "startFrame": 11,
-        "endFrame": 21
-      },
-      {
-        "word": "ES",
-        "start": 0.696,
-        "end": 0.807,
-        "startFrame": 21,
-        "endFrame": 24
-      },
-      {
-        "word": "SUFICIENTE",
-        "start": 0.807,
-        "end": 1.364,
-        "startFrame": 24,
-        "endFrame": 41
-      },
-      {
-        "word": "PARA",
-        "start": 1.364,
-        "end": 1.587,
-        "startFrame": 41,
-        "endFrame": 48
-      },
-      {
-        "word": "PROYECTAR",
-        "start": 1.587,
-        "end": 2.088,
-        "startFrame": 48,
-        "endFrame": 63
-      },
-      {
-        "word": "UN",
-        "start": 2.088,
-        "end": 2.199,
-        "startFrame": 63,
-        "endFrame": 66
-      },
-      {
-        "word": "CHORRO",
-        "start": 2.199,
-        "end": 2.533,
-        "startFrame": 66,
-        "endFrame": 76
-      },
-      {
-        "word": "A",
-        "start": 2.533,
-        "end": 2.589,
-        "startFrame": 76,
-        "endFrame": 78
-      },
-      {
-        "word": "NUEVE",
-        "start": 2.589,
-        "end": 2.868,
-        "startFrame": 78,
-        "endFrame": 86
-      },
-      {
-        "word": "METROS",
-        "start": 2.868,
-        "end": 3.202,
-        "startFrame": 86,
-        "endFrame": 96
+        "endFrame": 30
       },
       {
         "word": "DE",
-        "start": 3.202,
-        "end": 3.313,
-        "startFrame": 96,
-        "endFrame": 99
+        "start": 0.988,
+        "end": 1.111,
+        "startFrame": 30,
+        "endFrame": 33
       },
       {
-        "word": "DISTANCIA.",
-        "start": 3.313,
-        "end": 3.87,
-        "startFrame": 99,
+        "word": "DOS",
+        "start": 1.111,
+        "end": 1.296,
+        "startFrame": 33,
+        "endFrame": 39
+      },
+      {
+        "word": "SEGUNDOS",
+        "start": 1.296,
+        "end": 1.788,
+        "startFrame": 39,
+        "endFrame": 54
+      },
+      {
+        "word": "APAGAN",
+        "start": 1.788,
+        "end": 2.157,
+        "startFrame": 54,
+        "endFrame": 65
+      },
+      {
+        "word": "PARTES",
+        "start": 2.157,
+        "end": 2.526,
+        "startFrame": 65,
+        "endFrame": 76
+      },
+      {
+        "word": "DE",
+        "start": 2.526,
+        "end": 2.649,
+        "startFrame": 76,
+        "endFrame": 79
+      },
+      {
+        "word": "TU",
+        "start": 2.649,
+        "end": 2.772,
+        "startFrame": 79,
+        "endFrame": 83
+      },
+      {
+        "word": "CORTEZA",
+        "start": 2.772,
+        "end": 3.203,
+        "startFrame": 83,
+        "endFrame": 96
+      },
+      {
+        "word": "CEREBRAL",
+        "start": 3.203,
+        "end": 3.695,
+        "startFrame": 96,
+        "endFrame": 111
+      },
+      {
+        "word": "SIN",
+        "start": 3.695,
+        "end": 3.879,
+        "startFrame": 111,
         "endFrame": 116
+      },
+      {
+        "word": "AVISAR.",
+        "start": 3.879,
+        "end": 4.31,
+        "startFrame": 116,
+        "endFrame": 129
       }
     ]
   },
   {
     "id": 9,
-    "text": "En tu estómago hay ácido tan corrosivo que puede disolver metal duro.",
+    "text": "Y LA TOXINA BETA-AMILOIDE SE ACUMULA MASIVAMENTE ACELERANDO EL DETERIORO COGNITIVO.",
+    "camara": "whip_pan_left",
+    "iluminacion": "red_alert_pulse",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "crash_zoom_in",
-      "transition_out": "smash_cut",
-      "text_highlight_color": "#FF0055",
-      "visual_overlay": "clean"
+      "emotional_color": "#FF0055"
     },
-    "scene_number": 9,
-    "image_filename": "escena_9.png",
-    "narration_es": "En tu estómago hay ácido tan corrosivo que puede disolver metal duro.",
-    "durationInSeconds": 4.66,
-    "durationInFrames": 140,
+    "durationInSeconds": 5.42,
+    "durationInFrames": 163,
     "words": [
       {
-        "word": "EN",
+        "word": "Y",
         "start": 0.25,
-        "end": 0.369,
+        "end": 0.308,
         "startFrame": 8,
-        "endFrame": 11
+        "endFrame": 9
       },
       {
-        "word": "TU",
-        "start": 0.369,
-        "end": 0.489,
-        "startFrame": 11,
-        "endFrame": 15
+        "word": "LA",
+        "start": 0.308,
+        "end": 0.423,
+        "startFrame": 9,
+        "endFrame": 13
       },
       {
-        "word": "ESTÓMAGO",
-        "start": 0.489,
-        "end": 0.966,
-        "startFrame": 15,
-        "endFrame": 29
+        "word": "TOXINA",
+        "start": 0.423,
+        "end": 0.77,
+        "startFrame": 13,
+        "endFrame": 23
       },
       {
-        "word": "HAY",
-        "start": 0.966,
-        "end": 1.145,
-        "startFrame": 29,
-        "endFrame": 34
+        "word": "BETA-AMILOIDE",
+        "start": 0.77,
+        "end": 1.522,
+        "startFrame": 23,
+        "endFrame": 46
       },
       {
-        "word": "ÁCIDO",
-        "start": 1.145,
-        "end": 1.443,
-        "startFrame": 34,
-        "endFrame": 43
-      },
-      {
-        "word": "TAN",
-        "start": 1.443,
-        "end": 1.622,
-        "startFrame": 43,
+        "word": "SE",
+        "start": 1.522,
+        "end": 1.637,
+        "startFrame": 46,
         "endFrame": 49
       },
       {
-        "word": "CORROSIVO",
-        "start": 1.622,
-        "end": 2.159,
+        "word": "ACUMULA",
+        "start": 1.637,
+        "end": 2.042,
         "startFrame": 49,
-        "endFrame": 65
+        "endFrame": 61
       },
       {
-        "word": "QUE",
-        "start": 2.159,
-        "end": 2.338,
-        "startFrame": 65,
-        "endFrame": 70
+        "word": "MASIVAMENTE",
+        "start": 2.042,
+        "end": 2.678,
+        "startFrame": 61,
+        "endFrame": 80
       },
       {
-        "word": "PUEDE",
-        "start": 2.338,
-        "end": 2.636,
-        "startFrame": 70,
-        "endFrame": 79
+        "word": "ACELERANDO",
+        "start": 2.678,
+        "end": 3.256,
+        "startFrame": 80,
+        "endFrame": 98
       },
       {
-        "word": "DISOLVER",
-        "start": 2.636,
-        "end": 3.113,
-        "startFrame": 79,
-        "endFrame": 93
+        "word": "EL",
+        "start": 3.256,
+        "end": 3.372,
+        "startFrame": 98,
+        "endFrame": 101
       },
       {
-        "word": "METAL",
-        "start": 3.113,
-        "end": 3.412,
-        "startFrame": 93,
-        "endFrame": 102
+        "word": "DETERIORO",
+        "start": 3.372,
+        "end": 3.892,
+        "startFrame": 101,
+        "endFrame": 117
       },
       {
-        "word": "DURO.",
-        "start": 3.412,
-        "end": 3.71,
-        "startFrame": 102,
-        "endFrame": 111
+        "word": "COGNITIVO.",
+        "start": 3.892,
+        "end": 4.47,
+        "startFrame": 117,
+        "endFrame": 134
       }
     ]
   },
   {
     "id": 10,
-    "text": "Produces una capa de moco protector cada minuto para no digerirte a ti mismo.",
+    "text": "CREES QUE ESTÁS ACOSTUMBRADO A NO DORMIR PERO TU BIOLOGÍA NO NEGOCIA.",
+    "camara": "earthquake_shake",
+    "iluminacion": "limpio",
+    "overlay": "alerta_roja_neon",
+    "overlayText": "¡PELIGRO REAL!",
     "remotion_fx": {
-      "camera_movement": "pan_diagonal",
-      "transition_out": "fade",
-      "text_highlight_color": "#FFE500",
-      "visual_overlay": "vignette_heavy"
+      "emotional_color": "#FFE500"
     },
-    "scene_number": 10,
-    "image_filename": "escena_10.png",
-    "narration_es": "Produces una capa de moco protector cada minuto para no digerirte a ti mismo.",
-    "durationInSeconds": 4.94,
-    "durationInFrames": 148,
+    "durationInSeconds": 4.61,
+    "durationInFrames": 138,
     "words": [
       {
-        "word": "PRODUCES",
+        "word": "CREES",
         "start": 0.25,
-        "end": 0.718,
+        "end": 0.544,
         "startFrame": 8,
+        "endFrame": 16
+      },
+      {
+        "word": "QUE",
+        "start": 0.544,
+        "end": 0.72,
+        "startFrame": 16,
         "endFrame": 22
       },
       {
-        "word": "UNA",
-        "start": 0.718,
-        "end": 0.893,
+        "word": "ESTÁS",
+        "start": 0.72,
+        "end": 1.014,
         "startFrame": 22,
-        "endFrame": 27
+        "endFrame": 30
       },
       {
-        "word": "CAPA",
-        "start": 0.893,
-        "end": 1.127,
-        "startFrame": 27,
-        "endFrame": 34
-      },
-      {
-        "word": "DE",
-        "start": 1.127,
-        "end": 1.243,
-        "startFrame": 34,
-        "endFrame": 37
-      },
-      {
-        "word": "MOCO",
-        "start": 1.243,
-        "end": 1.477,
-        "startFrame": 37,
-        "endFrame": 44
-      },
-      {
-        "word": "PROTECTOR",
-        "start": 1.477,
-        "end": 2.003,
-        "startFrame": 44,
-        "endFrame": 60
-      },
-      {
-        "word": "CADA",
-        "start": 2.003,
-        "end": 2.237,
-        "startFrame": 60,
-        "endFrame": 67
-      },
-      {
-        "word": "MINUTO",
-        "start": 2.237,
-        "end": 2.587,
-        "startFrame": 67,
-        "endFrame": 78
-      },
-      {
-        "word": "PARA",
-        "start": 2.587,
-        "end": 2.821,
-        "startFrame": 78,
-        "endFrame": 85
-      },
-      {
-        "word": "NO",
-        "start": 2.821,
-        "end": 2.938,
-        "startFrame": 85,
-        "endFrame": 88
-      },
-      {
-        "word": "DIGERIRTE",
-        "start": 2.938,
-        "end": 3.464,
-        "startFrame": 88,
-        "endFrame": 104
+        "word": "ACOSTUMBRADO",
+        "start": 1.014,
+        "end": 1.72,
+        "startFrame": 30,
+        "endFrame": 52
       },
       {
         "word": "A",
-        "start": 3.464,
-        "end": 3.522,
-        "startFrame": 104,
-        "endFrame": 106
+        "start": 1.72,
+        "end": 1.779,
+        "startFrame": 52,
+        "endFrame": 53
       },
       {
-        "word": "TI",
-        "start": 3.522,
-        "end": 3.639,
-        "startFrame": 106,
-        "endFrame": 109
+        "word": "NO",
+        "start": 1.779,
+        "end": 1.896,
+        "startFrame": 53,
+        "endFrame": 57
       },
       {
-        "word": "MISMO.",
-        "start": 3.639,
-        "end": 3.99,
-        "startFrame": 109,
-        "endFrame": 120
+        "word": "DORMIR",
+        "start": 1.896,
+        "end": 2.249,
+        "startFrame": 57,
+        "endFrame": 67
+      },
+      {
+        "word": "PERO",
+        "start": 2.249,
+        "end": 2.484,
+        "startFrame": 67,
+        "endFrame": 75
+      },
+      {
+        "word": "TU",
+        "start": 2.484,
+        "end": 2.602,
+        "startFrame": 75,
+        "endFrame": 78
+      },
+      {
+        "word": "BIOLOGÍA",
+        "start": 2.602,
+        "end": 3.072,
+        "startFrame": 78,
+        "endFrame": 92
+      },
+      {
+        "word": "NO",
+        "start": 3.072,
+        "end": 3.19,
+        "startFrame": 92,
+        "endFrame": 96
+      },
+      {
+        "word": "NEGOCIA.",
+        "start": 3.19,
+        "end": 3.66,
+        "startFrame": 96,
+        "endFrame": 110
       }
     ]
   },
   {
     "id": 11,
-    "text": "Ahora mismo millones de bacterias en tu intestino están alterando tus emociones.",
+    "text": "CADA HORA EXTRA DE NOCHE LE CUESTA AÑOS DE VIDA A TU MEMORIA.",
+    "camara": "crash_zoom_in",
+    "iluminacion": "dark_vignette_pulse",
+    "overlay": "marco_cinematico",
     "remotion_fx": {
-      "camera_movement": "shake",
-      "transition_out": "flash_white",
-      "text_highlight_color": "#00F0FF",
-      "visual_overlay": "grain_cinematic"
+      "emotional_color": "#FF0055"
     },
-    "scene_number": 11,
-    "image_filename": "escena_11.png",
-    "narration_es": "Ahora mismo millones de bacterias en tu intestino están alterando tus emociones.",
-    "durationInSeconds": 5.09,
-    "durationInFrames": 153,
+    "durationInSeconds": 4.08,
+    "durationInFrames": 122,
     "words": [
       {
-        "word": "AHORA",
+        "word": "CADA",
         "start": 0.25,
-        "end": 0.532,
+        "end": 0.485,
         "startFrame": 8,
-        "endFrame": 16
+        "endFrame": 15
       },
       {
-        "word": "MISMO",
-        "start": 0.532,
-        "end": 0.814,
-        "startFrame": 16,
-        "endFrame": 24
+        "word": "HORA",
+        "start": 0.485,
+        "end": 0.72,
+        "startFrame": 15,
+        "endFrame": 22
       },
       {
-        "word": "MILLONES",
-        "start": 0.814,
-        "end": 1.265,
-        "startFrame": 24,
-        "endFrame": 38
+        "word": "EXTRA",
+        "start": 0.72,
+        "end": 1.014,
+        "startFrame": 22,
+        "endFrame": 30
       },
       {
         "word": "DE",
-        "start": 1.265,
-        "end": 1.378,
-        "startFrame": 38,
-        "endFrame": 41
+        "start": 1.014,
+        "end": 1.132,
+        "startFrame": 30,
+        "endFrame": 34
       },
       {
-        "word": "BACTERIAS",
-        "start": 1.378,
-        "end": 1.885,
-        "startFrame": 41,
+        "word": "NOCHE",
+        "start": 1.132,
+        "end": 1.426,
+        "startFrame": 34,
+        "endFrame": 43
+      },
+      {
+        "word": "LE",
+        "start": 1.426,
+        "end": 1.543,
+        "startFrame": 43,
+        "endFrame": 46
+      },
+      {
+        "word": "CUESTA",
+        "start": 1.543,
+        "end": 1.896,
+        "startFrame": 46,
         "endFrame": 57
       },
       {
-        "word": "EN",
-        "start": 1.885,
-        "end": 1.998,
+        "word": "AÑOS",
+        "start": 1.896,
+        "end": 2.131,
         "startFrame": 57,
-        "endFrame": 60
+        "endFrame": 64
+      },
+      {
+        "word": "DE",
+        "start": 2.131,
+        "end": 2.248,
+        "startFrame": 64,
+        "endFrame": 67
+      },
+      {
+        "word": "VIDA",
+        "start": 2.248,
+        "end": 2.483,
+        "startFrame": 67,
+        "endFrame": 75
+      },
+      {
+        "word": "A",
+        "start": 2.483,
+        "end": 2.542,
+        "startFrame": 75,
+        "endFrame": 76
       },
       {
         "word": "TU",
-        "start": 1.998,
-        "end": 2.11,
-        "startFrame": 60,
-        "endFrame": 63
+        "start": 2.542,
+        "end": 2.66,
+        "startFrame": 76,
+        "endFrame": 80
       },
       {
-        "word": "INTESTINO",
-        "start": 2.11,
-        "end": 2.618,
-        "startFrame": 63,
-        "endFrame": 79
-      },
-      {
-        "word": "ESTÁN",
-        "start": 2.618,
-        "end": 2.9,
-        "startFrame": 79,
-        "endFrame": 87
-      },
-      {
-        "word": "ALTERANDO",
-        "start": 2.9,
-        "end": 3.407,
-        "startFrame": 87,
-        "endFrame": 102
-      },
-      {
-        "word": "TUS",
-        "start": 3.407,
-        "end": 3.576,
-        "startFrame": 102,
-        "endFrame": 107
-      },
-      {
-        "word": "EMOCIONES.",
-        "start": 3.576,
-        "end": 4.14,
-        "startFrame": 107,
-        "endFrame": 124
+        "word": "MEMORIA.",
+        "start": 2.66,
+        "end": 3.13,
+        "startFrame": 80,
+        "endFrame": 94
       }
     ]
   },
   {
     "id": 12,
-    "text": "Tú crees que controlas tus decisiones, pero tu cuerpo ya decidió por ti.",
+    "text": "ASÍ QUE DUERME HOY O PREPÁRATE PORQUE...",
+    "camara": "vertigo_dolly_zoom",
+    "iluminacion": "chromatic_aberration_glitch",
+    "overlay": "ninguno",
     "remotion_fx": {
-      "camera_movement": "macro_drift",
-      "transition_out": "smash_cut",
-      "text_highlight_color": "#00FF66",
-      "visual_overlay": "clean"
+      "emotional_color": "#00F0FF"
     },
-    "scene_number": 12,
-    "image_filename": "escena_12.png",
-    "narration_es": "Tú crees que controlas tus decisiones, pero tu cuerpo ya decidió por ti.",
-    "durationInSeconds": 4.8,
-    "durationInFrames": 144,
+    "durationInSeconds": 2.98,
+    "durationInFrames": 89,
     "words": [
       {
-        "word": "TÚ",
+        "word": "ASÍ",
         "start": 0.25,
-        "end": 0.37,
+        "end": 0.407,
         "startFrame": 8,
-        "endFrame": 11
-      },
-      {
-        "word": "CREES",
-        "start": 0.37,
-        "end": 0.67,
-        "startFrame": 11,
-        "endFrame": 20
+        "endFrame": 12
       },
       {
         "word": "QUE",
-        "start": 0.67,
-        "end": 0.85,
-        "startFrame": 20,
-        "endFrame": 25
+        "start": 0.407,
+        "end": 0.564,
+        "startFrame": 12,
+        "endFrame": 17
       },
       {
-        "word": "CONTROLAS",
-        "start": 0.85,
-        "end": 1.39,
-        "startFrame": 25,
-        "endFrame": 42
+        "word": "DUERME",
+        "start": 0.564,
+        "end": 0.878,
+        "startFrame": 17,
+        "endFrame": 26
       },
       {
-        "word": "TUS",
-        "start": 1.39,
-        "end": 1.57,
-        "startFrame": 42,
+        "word": "HOY",
+        "start": 0.878,
+        "end": 1.035,
+        "startFrame": 26,
+        "endFrame": 31
+      },
+      {
+        "word": "O",
+        "start": 1.035,
+        "end": 1.088,
+        "startFrame": 31,
+        "endFrame": 33
+      },
+      {
+        "word": "PREPÁRATE",
+        "start": 1.088,
+        "end": 1.559,
+        "startFrame": 33,
         "endFrame": 47
       },
       {
-        "word": "DECISIONES,",
-        "start": 1.57,
-        "end": 2.23,
+        "word": "PORQUE...",
+        "start": 1.559,
+        "end": 2.03,
         "startFrame": 47,
-        "endFrame": 67
-      },
-      {
-        "word": "PERO",
-        "start": 2.23,
-        "end": 2.47,
-        "startFrame": 67,
-        "endFrame": 74
-      },
-      {
-        "word": "TU",
-        "start": 2.47,
-        "end": 2.59,
-        "startFrame": 74,
-        "endFrame": 78
-      },
-      {
-        "word": "CUERPO",
-        "start": 2.59,
-        "end": 2.95,
-        "startFrame": 78,
-        "endFrame": 88
-      },
-      {
-        "word": "YA",
-        "start": 2.95,
-        "end": 3.07,
-        "startFrame": 88,
-        "endFrame": 92
-      },
-      {
-        "word": "DECIDIÓ",
-        "start": 3.07,
-        "end": 3.49,
-        "startFrame": 92,
-        "endFrame": 105
-      },
-      {
-        "word": "POR",
-        "start": 3.49,
-        "end": 3.67,
-        "startFrame": 105,
-        "endFrame": 110
-      },
-      {
-        "word": "TI.",
-        "start": 3.67,
-        "end": 3.85,
-        "startFrame": 110,
-        "endFrame": 115
+        "endFrame": 61
       }
     ]
   }
