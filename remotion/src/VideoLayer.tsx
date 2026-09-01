@@ -2,84 +2,71 @@ import React from 'react';
 import { AbsoluteFill, Img, useCurrentFrame, interpolate, staticFile } from 'remotion';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const VideoLayer: React.FC<{ scene: any; durationInFrames: number }> = ({ scene, durationInFrames }) => {
+export const VideoLayer: React.FC<{ scene: any }> = ({ scene }) => {
   const frame = useCurrentFrame();
+  const durationInFrames = scene.durationInFrames || 150;
   const fx = scene.remotion_fx || {};
   const move = fx.camera_movement || 'crash_zoom_in';
   const trans = fx.transition_out || 'flash_white';
 
-  // --- MOTORES DE CÁMARA (GPU / translate3d) ---
-  let scale = 1.15;
-  let translateX = 0;
-  let translateY = 0;
+  const scaleIn = interpolate(frame, [0, durationInFrames], [1, 1.18], { extrapolateRight: 'clamp' });
+  const scaleOut = interpolate(frame, [0, durationInFrames], [1.18, 1], { extrapolateRight: 'clamp' });
+  const translateX = interpolate(frame, [0, durationInFrames], [-20, 20], { extrapolateRight: 'clamp' });
 
-  if (move === 'crash_zoom_in') {
-    scale = interpolate(frame, [0, durationInFrames], [1.1, 1.35], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-  } else if (move === 'pan_zoom_out') {
-    scale = interpolate(frame, [0, durationInFrames], [1.3, 1.12], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
-    translateX = interpolate(frame, [0, durationInFrames], [-25, 25], { extrapolateRight: 'clamp' });
-  } else if (move === 'pan_diagonal') {
-    scale = 1.2;
-    translateX = interpolate(frame, [0, durationInFrames], [-20, 20], { extrapolateRight: 'clamp' });
-    translateY = interpolate(frame, [0, durationInFrames], [15, -15], { extrapolateRight: 'clamp' });
-  } else if (move === 'shake') {
-    scale = 1.25;
+  let transform = `scale(${scaleIn})`;
+  if (move === 'pan_zoom_out') transform = `scale(${scaleOut})`;
+  if (move === 'pan_diagonal') transform = `scale(1.15) translate3d(${translateX}px, ${translateX * 0.4}px, 0)`;
+  if (move === 'shake') {
     const decay = interpolate(frame, [0, Math.min(45, durationInFrames)], [1, 0], { extrapolateRight: 'clamp' });
-    translateX = Math.sin(frame * 3.5) * 18 * decay;
-    translateY = Math.cos(frame * 4.2) * 18 * decay;
-  } else {
-    // macro_drift
-    scale = interpolate(frame, [0, durationInFrames], [1.08, 1.16], { extrapolateRight: 'clamp' });
-    translateX = interpolate(frame, [0, durationInFrames], [0, -15], { extrapolateRight: 'clamp' });
+    const shakeX = Math.sin(frame * 3.5) * 16 * decay;
+    const shakeY = Math.cos(frame * 4.2) * 16 * decay;
+    transform = `scale(1.22) translate3d(${shakeX}px, ${shakeY}px, 0)`;
+  }
+  if (move === 'macro_drift') {
+    transform = `scale(1.10) translate3d(${-translateX * 0.5}px, 0, 0)`;
   }
 
-  // --- TRANSICIÓN DE SALIDA ---
+  // Transiciones de salida (últimos 8 frames)
   const transStart = Math.max(0, durationInFrames - 8);
   let opacity = 1;
   let flashOpacity = 0;
-  let blurAmount = 0;
+  let blur = 0;
+
   if (frame >= transStart) {
     if (trans === 'fade') {
       opacity = interpolate(frame, [transStart, durationInFrames], [1, 0], { extrapolateRight: 'clamp' });
+    } else if (trans === 'blur_fade') {
+      opacity = interpolate(frame, [transStart, durationInFrames], [1, 0], { extrapolateRight: 'clamp' });
+      blur = interpolate(frame, [transStart, durationInFrames], [0, 8], { extrapolateRight: 'clamp' });
     } else if (trans === 'flash_white') {
       flashOpacity = interpolate(frame, [transStart, durationInFrames], [0, 0.85], { extrapolateRight: 'clamp' });
-    } else if (trans === 'blur_fade') {
-      opacity = interpolate(frame, [transStart, durationInFrames], [1, 0.1], { extrapolateRight: 'clamp' });
-      blurAmount = interpolate(frame, [transStart, durationInFrames], [0, 12], { extrapolateRight: 'clamp' });
     }
   }
 
-  const sceneId = scene.id || scene.scene_number || 1;
-  const imageSrc = staticFile(`images/escena_${sceneId}.png`);
+  const grainSvg = `data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E`;
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#000', overflow: 'hidden' }}>
       <Img
-        src={imageSrc}
+        src={staticFile(`images/escena_${scene.id}.png`)}
         style={{
           width: '100%',
           height: '100%',
           objectFit: 'cover',
           opacity,
-          filter: blurAmount > 0 ? `blur(${blurAmount}px)` : undefined,
-          transform: `scale(${scale}) translate3d(${translateX}px, ${translateY}px, 0)`,
+          filter: blur > 0 ? `blur(${blur}px)` : 'none',
+          transform,
           willChange: 'transform, opacity',
         }}
       />
       {flashOpacity > 0 && (
         <AbsoluteFill style={{ backgroundColor: '#FFFFFF', opacity: flashOpacity, pointerEvents: 'none' }} />
       )}
-      {fx.visual_overlay === 'vignette_heavy' && (
+      {(fx.overlay === 'vignette_heavy' || fx.visual_overlay === 'vignette_heavy') && (
         <AbsoluteFill style={{ background: 'radial-gradient(circle, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 120%)', pointerEvents: 'none' }} />
       )}
-      {fx.visual_overlay === 'grain_cinematic' && (
-        <AbsoluteFill
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`,
-            mixBlendMode: 'overlay',
-            pointerEvents: 'none',
-          }}
-        />
+      {(fx.overlay === 'grain_cinematic' || fx.visual_overlay === 'grain_cinematic') && (
+        <AbsoluteFill style={{ backgroundImage: `url("${grainSvg}")`, opacity: 0.12, mixBlendMode: 'overlay', pointerEvents: 'none' }} />
       )}
     </AbsoluteFill>
   );

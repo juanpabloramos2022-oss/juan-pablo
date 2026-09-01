@@ -1,41 +1,40 @@
 @echo off
-chcp 65001 > nul
-cls
-echo ============================================================
-echo   FACTORIA V33.8 - INYECTOR DE COMBUSTIBLE REAL
-echo ============================================================
-echo.
+color 0A
+echo ========================================================
+echo [+] FACTORIA TIKTOK V33.8 - PLAN MAESTRO INTEGRADO
+echo ========================================================
 
-echo [1/3] Generando guion simbiotico de shock biologico (12 escenas)...
-python C:\tiktok\scripts\generador_guion.py
+cd /d C:\tiktok
+echo [*] Ejecutando Co-Director de Arte (Guion)...
+python scripts\generador_guion.py
 if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Fallo critico en la generacion del guion.
+    echo [!] Error generando guion.
     pause
     exit /b %ERRORLEVEL%
 )
-echo.
 
-echo [2/3] Generando narracion de audio y calibracion fonetica proporcional...
-python C:\tiktok\scripts\generador_audio.py
+echo [*] Ejecutando Pipeline Atomico (Audios y Timecodes)...
+python scripts\pipeline_atomico.py
 if %ERRORLEVEL% NEQ 0 (
-    echo [ERROR] Fallo critico en la generacion de audio.
+    echo [!] Error en pipeline atomico.
     pause
     exit /b %ERRORLEVEL%
 )
-echo.
 
-echo ============================================================
-echo   [3/3] FASE DE PRE-PRODUCCION COMPLETADA CON EXITO
-echo   ABRIR EXTENSION HANS ACHA PARA GENERAR IMAGENES EN VIBES
-echo ============================================================
-echo.
-echo Los archivos base ya estan listos en C:\tiktok\projects\actual\:
-echo   - script.json (12 escenas optimizadas)
-echo   - audio_narracion.mp3 (Voz hiperrealista calibrada)
-echo   - timecodes.json (Subtitulos sincronizados sin Whisper)
-echo.
-echo Una vez generadas las imagenes (escena_1.png a escena_12.png):
-echo Ejecuta Sync-Remotion para renderizar el video 9:16:
-echo   powershell -NoProfile -ExecutionPolicy Bypass -File C:\tiktok\remotion\Sync-Remotion.ps1
-echo.
+echo [*] Sincronizando imagenes a public...
+if not exist "C:\tiktok\remotion\public\images" mkdir "C:\tiktok\remotion\public\images"
+copy /Y "C:\tiktok\projects\actual\images\*" "C:\tiktok\remotion\public\images\" >nul
+
+cd /d C:\tiktok\remotion
+echo [*] Renderizando Video Final con Remotion CLI (Intel i5 / 8GB RAM)...
+call npx remotion render src/index.ts TikTokComp "C:\tiktok\projects\actual\output\salida.tmp.mp4" --concurrency=2 --gl=swangle --pixel-format=yuv420p --crf=21 --codec=h264 --bundle-cache=true --chromium-options="--disable-dev-shm-usage --no-sandbox --js-flags=--max-old-space-size=2048"
+
+if %ERRORLEVEL% EQU 0 (
+    move /Y "C:\tiktok\projects\actual\output\salida.tmp.mp4" "C:\tiktok\projects\actual\output\video_final_remotion.mp4"
+    echo ========================================================
+    echo [!] EXITO TOTAL: VIDEO COMPILADO Y LIBERADO EN WINDOWS
+    echo ========================================================
+) else (
+    echo [X] Fallo en el renderizado.
+)
 pause

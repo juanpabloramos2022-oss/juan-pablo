@@ -7,10 +7,7 @@ import scriptData from '../public/script.json';
 
 export const TikTokVideo: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const rawScenes = Array.isArray(scriptData) ? scriptData : (scriptData as any).scenes || [];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const scenes = rawScenes.length > 0 ? rawScenes : (scriptData as any)?.scenes || [];
-  const fps = 30;
+  const scenes = Array.isArray(scriptData) ? scriptData : (scriptData as any).scenes || [];
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#000000' }}>
@@ -18,16 +15,13 @@ export const TikTokVideo: React.FC = () => {
       <Series>
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {scenes.map((scene: any) => {
-          const durSec = scene.durationInSeconds || 5.0;
-          const durationInFrames = Math.max(1, Math.round(durSec * fps));
-          const sceneId = scene.id || scene.scene_number || 1;
-          const audioFileName = `audio/audio_${sceneId}.mp3`;
-          const highlightColor = scene.remotion_fx?.text_highlight_color || '#FFE500';
+          const durationInFrames = Math.max(1, scene.durationInFrames || 150);
+          const highlightColor = scene.remotion_fx?.emotional_color || scene.remotion_fx?.text_highlight_color || '#FFE500';
 
           return (
-            <Series.Sequence key={sceneId} durationInFrames={durationInFrames}>
-              <VideoLayer scene={scene} durationInFrames={durationInFrames} />
-              <Audio src={staticFile(audioFileName)} volume={1.0} />
+            <Series.Sequence key={scene.id} durationInFrames={durationInFrames}>
+              <VideoLayer scene={scene} />
+              <Audio src={staticFile(`audio/audio_${scene.id}.mp3`)} volume={1.0} />
               <AbsoluteFill
                 style={{
                   display: 'flex',
