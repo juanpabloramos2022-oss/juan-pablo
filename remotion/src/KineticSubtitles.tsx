@@ -51,7 +51,7 @@ export const KineticSubtitles: React.FC<{ words: WordTiming[]; highlightColor?: 
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '16px',
+        gap: '28px',
         padding: '0 40px',
         width: '100%',
       }}
@@ -62,14 +62,14 @@ export const KineticSubtitles: React.FC<{ words: WordTiming[]; highlightColor?: 
         const isActive = frame >= activationFrame && frame < w.endFrame;
         const hasPassed = frame >= w.endFrame;
 
-        // Física elástica compensada en el frame exacto de ataque
+        // Física elástica compensada en el frame exacto de ataque (escala refinada 1.13x)
         const pop = spring({
           frame: Math.max(0, frame - activationFrame),
           fps,
           config: { damping: 12, mass: 0.7, stiffness: 220 },
         });
 
-        const scale = isActive ? 1 + pop * 0.18 : 1;
+        const scale = isActive ? 1 + pop * 0.13 : 1;
         const color = isActive ? highlightColor : hasPassed ? '#E0E0E0' : '#FFFFFF';
         const rotate = isActive ? (idx % 2 === 0 ? '-2deg' : '2deg') : '0deg';
 
@@ -77,13 +77,16 @@ export const KineticSubtitles: React.FC<{ words: WordTiming[]; highlightColor?: 
           <span
             key={idx}
             style={{
+              position: 'relative',
+              zIndex: isActive ? 10 : 1,
+              padding: '0 8px',
               fontFamily: 'Montserrat, sans-serif',
               fontWeight: 900,
               fontSize: '78px',
               textTransform: 'uppercase',
               color,
               transform: `scale(${scale}) rotate(${rotate})`,
-              transformOrigin: 'center center',
+              transformOrigin: 'center bottom',
               WebkitTextStroke: '3.5px #000000',
               textShadow: '6px 6px 0px rgba(0,0,0,0.9), 0px 0px 20px rgba(0,0,0,0.5)',
               display: 'inline-block',
