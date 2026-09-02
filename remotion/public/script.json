@@ -2,7 +2,7 @@
   {
     "id": 1,
     "text": "SI PASAS TREINTA Y SEIS HORAS SIN DORMIR TU CEREBRO EMPIEZA A DEVORARSE.",
-    "camara": "earthquake_shake",
+    "camara": "anti_slideshow",
     "iluminacion": "red_alert_pulse",
     "overlay": "ninguno",
     "overlayText": "",
@@ -10,9 +10,9 @@
       "emotional_color": "#FF0055",
       "overlay": "ninguno",
       "overlay_text": "",
-      "camera_movement": "earthquake_shake",
+      "camera_movement": "anti_slideshow",
       "lighting": "red_alert_pulse",
-      "anti_slideshow": false
+      "anti_slideshow": true
     },
     "durationInSeconds": 4.8,
     "durationInFrames": 144,
@@ -109,7 +109,7 @@
         "endFrame": 115
       }
     ],
-    "anti_slideshow": false
+    "anti_slideshow": true
   },
   {
     "id": 2,
