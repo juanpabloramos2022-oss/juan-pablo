@@ -4,18 +4,18 @@
     "text": "SI PASAS TREINTA Y SEIS HORAS SIN DORMIR TU CEREBRO EMPIEZA A DEVORARSE.",
     "camara": "earthquake_shake",
     "iluminacion": "red_alert_pulse",
-    "overlay": "ninguno",
-    "overlayText": "",
+    "overlay": "alerta_roja_neon",
+    "overlayText": "¡SHOCK BIOLÓGICO!",
     "remotion_fx": {
       "emotional_color": "#FF0055",
-      "overlay": "ninguno",
-      "overlay_text": "",
+      "overlay": "alerta_roja_neon",
+      "overlay_text": "¡SHOCK BIOLÓGICO!",
       "camera_movement": "earthquake_shake",
       "lighting": "red_alert_pulse",
       "anti_slideshow": false
     },
-    "durationInSeconds": 4.8,
-    "durationInFrames": 144,
+    "durationInSeconds": 4.17,
+    "durationInFrames": 125,
     "words": [
       {
         "word": "SI",
@@ -114,14 +114,19 @@
   {
     "id": 2,
     "text": "NO ES UNA METÁFORA. TUS CÉLULAS DE LIMPIEZA PIERDEN EL CONTROL TOTAL.",
-    "camara": "vertigo_dolly_zoom",
-    "iluminacion": "limpio",
-    "overlay": "ninguno",
+    "camara": "anti_slideshow",
+    "iluminacion": "dark_vignette_pulse",
+    "overlay": "marco_cinematico",
     "remotion_fx": {
-      "emotional_color": "#FFE500"
+      "emotional_color": "#FFE500",
+      "camera_movement": "anti_slideshow",
+      "anti_slideshow": true,
+      "lighting": "dark_vignette_pulse",
+      "overlay": "marco_cinematico",
+      "overlay_text": ""
     },
-    "durationInSeconds": 5.81,
-    "durationInFrames": 174,
+    "durationInSeconds": 5.2,
+    "durationInFrames": 156,
     "words": [
       {
         "word": "NO",
@@ -207,7 +212,9 @@
         "startFrame": 131,
         "endFrame": 146
       }
-    ]
+    ],
+    "anti_slideshow": true,
+    "overlayText": ""
   },
   {
     "id": 3,
@@ -216,10 +223,15 @@
     "iluminacion": "dark_vignette_pulse",
     "overlay": "marco_cinematico",
     "remotion_fx": {
-      "emotional_color": "#00F0FF"
+      "emotional_color": "#00F0FF",
+      "camera_movement": "slow_creepy_crawl",
+      "anti_slideshow": false,
+      "lighting": "dark_vignette_pulse",
+      "overlay": "marco_cinematico",
+      "overlay_text": ""
     },
-    "durationInSeconds": 5.52,
-    "durationInFrames": 166,
+    "durationInSeconds": 4.9,
+    "durationInFrames": 147,
     "words": [
       {
         "word": "NORMALMENTE",
@@ -284,19 +296,26 @@
         "startFrame": 113,
         "endFrame": 137
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": ""
   },
   {
     "id": 4,
     "text": "PERO TRAS VEINTICUATRO HORAS DE VIGILIA ENTRAN EN UN ESTADO HIPERACTIVO DESTRUCTOR.",
     "camara": "whip_pan_left",
-    "iluminacion": "limpio",
+    "iluminacion": "chromatic_aberration_glitch",
     "overlay": "ninguno",
     "remotion_fx": {
-      "emotional_color": "#FF0055"
+      "emotional_color": "#FF0055",
+      "camera_movement": "whip_pan_left",
+      "anti_slideshow": false,
+      "lighting": "chromatic_aberration_glitch",
+      "overlay": "ninguno",
+      "overlay_text": ""
     },
-    "durationInSeconds": 4.9,
-    "durationInFrames": 147,
+    "durationInSeconds": 4.27,
+    "durationInFrames": 128,
     "words": [
       {
         "word": "PERO",
@@ -382,22 +401,26 @@
         "startFrame": 102,
         "endFrame": 118
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": ""
   },
   {
     "id": 5,
     "text": "EMPIEZAN A TRAGARSE CONEXIONES SINÁPTICAS SANAS QUE NUNCA PODRÁS RECUPERAR.",
-    "camara": "earthquake_shake",
+    "camara": "anti_slideshow",
     "iluminacion": "chromatic_aberration_glitch",
     "overlay": "alerta_roja_neon",
     "remotion_fx": {
       "emotional_color": "#FF0055",
-      "camera_movement": "earthquake_shake",
+      "camera_movement": "anti_slideshow",
       "overlay": "alerta_roja_neon",
-      "overlay_text": "¡DAÑO IRREVERSIBLE!"
+      "overlay_text": "¡DAÑO IRREVERSIBLE!",
+      "anti_slideshow": true,
+      "lighting": "chromatic_aberration_glitch"
     },
-    "durationInSeconds": 4.99,
-    "durationInFrames": 150,
+    "durationInSeconds": 4.37,
+    "durationInFrames": 131,
     "words": [
       {
         "word": "EMPIEZAN",
@@ -470,19 +493,25 @@
         "endFrame": 121
       }
     ],
-    "overlayText": "¡DAÑO IRREVERSIBLE!"
+    "overlayText": "¡DAÑO IRREVERSIBLE!",
+    "anti_slideshow": true
   },
   {
     "id": 6,
     "text": "ESTUDIOS EN NEUROCIENCIA CONFIRMARON QUE EL DAÑO COGNITIVO ES INSTANTÁNEO Y VISIBLE.",
     "camara": "crash_zoom_in",
-    "iluminacion": "limpio",
+    "iluminacion": "red_alert_pulse",
     "overlay": "ninguno",
     "remotion_fx": {
-      "emotional_color": "#00F0FF"
+      "emotional_color": "#00F0FF",
+      "camera_movement": "crash_zoom_in",
+      "anti_slideshow": false,
+      "lighting": "red_alert_pulse",
+      "overlay": "ninguno",
+      "overlay_text": ""
     },
-    "durationInSeconds": 5.45,
-    "durationInFrames": 164,
+    "durationInSeconds": 4.83,
+    "durationInFrames": 145,
     "words": [
       {
         "word": "ESTUDIOS",
@@ -568,19 +597,26 @@
         "startFrame": 121,
         "endFrame": 135
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": ""
   },
   {
     "id": 7,
     "text": "TUS TIEMPOS DE REACCIÓN CAEN AL NIVEL DE ALGUIEN EN ESTADO DE EBRIEDAD.",
     "camara": "vertigo_dolly_zoom",
     "iluminacion": "dark_vignette_pulse",
-    "overlay": "ninguno",
+    "overlay": "marco_cinematico",
     "remotion_fx": {
-      "emotional_color": "#FFE500"
+      "emotional_color": "#FFE500",
+      "camera_movement": "vertigo_dolly_zoom",
+      "anti_slideshow": false,
+      "lighting": "dark_vignette_pulse",
+      "overlay": "marco_cinematico",
+      "overlay_text": ""
     },
-    "durationInSeconds": 4.3,
-    "durationInFrames": 129,
+    "durationInSeconds": 3.67,
+    "durationInFrames": 110,
     "words": [
       {
         "word": "TUS",
@@ -673,19 +709,26 @@
         "startFrame": 86,
         "endFrame": 100
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": ""
   },
   {
     "id": 8,
     "text": "MICRO-SUEÑOS DE DOS SEGUNDOS APAGAN PARTES DE TU CORTEZA CEREBRAL SIN AVISAR.",
-    "camara": "slow_creepy_crawl",
-    "iluminacion": "limpio",
+    "camara": "anti_slideshow",
+    "iluminacion": "dark_vignette_pulse",
     "overlay": "marco_cinematico",
     "remotion_fx": {
-      "emotional_color": "#00F0FF"
+      "emotional_color": "#00F0FF",
+      "camera_movement": "anti_slideshow",
+      "anti_slideshow": true,
+      "lighting": "dark_vignette_pulse",
+      "overlay": "marco_cinematico",
+      "overlay_text": ""
     },
-    "durationInSeconds": 5.26,
-    "durationInFrames": 158,
+    "durationInSeconds": 4.63,
+    "durationInFrames": 139,
     "words": [
       {
         "word": "MICRO-SUEÑOS",
@@ -771,19 +814,26 @@
         "startFrame": 116,
         "endFrame": 129
       }
-    ]
+    ],
+    "anti_slideshow": true,
+    "overlayText": ""
   },
   {
     "id": 9,
     "text": "Y LA TOXINA BETA-AMILOIDE SE ACUMULA MASIVAMENTE ACELERANDO EL DETERIORO COGNITIVO.",
     "camara": "whip_pan_left",
-    "iluminacion": "red_alert_pulse",
+    "iluminacion": "chromatic_aberration_glitch",
     "overlay": "ninguno",
     "remotion_fx": {
-      "emotional_color": "#FF0055"
+      "emotional_color": "#FF0055",
+      "camera_movement": "whip_pan_left",
+      "anti_slideshow": false,
+      "lighting": "chromatic_aberration_glitch",
+      "overlay": "ninguno",
+      "overlay_text": ""
     },
-    "durationInSeconds": 5.42,
-    "durationInFrames": 163,
+    "durationInSeconds": 4.8,
+    "durationInFrames": 144,
     "words": [
       {
         "word": "Y",
@@ -862,20 +912,27 @@
         "startFrame": 117,
         "endFrame": 134
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": ""
   },
   {
     "id": 10,
     "text": "CREES QUE ESTÁS ACOSTUMBRADO A NO DORMIR PERO TU BIOLOGÍA NO NEGOCIA.",
-    "camara": "earthquake_shake",
-    "iluminacion": "limpio",
+    "camara": "anti_slideshow",
+    "iluminacion": "red_alert_pulse",
     "overlay": "alerta_roja_neon",
     "overlayText": "¡PELIGRO REAL!",
     "remotion_fx": {
-      "emotional_color": "#FFE500"
+      "emotional_color": "#FFE500",
+      "camera_movement": "anti_slideshow",
+      "anti_slideshow": true,
+      "lighting": "red_alert_pulse",
+      "overlay": "alerta_roja_neon",
+      "overlay_text": "¡PELIGRO REAL!"
     },
-    "durationInSeconds": 4.61,
-    "durationInFrames": 138,
+    "durationInSeconds": 4.0,
+    "durationInFrames": 120,
     "words": [
       {
         "word": "CREES",
@@ -961,19 +1018,25 @@
         "startFrame": 96,
         "endFrame": 110
       }
-    ]
+    ],
+    "anti_slideshow": true
   },
   {
     "id": 11,
     "text": "CADA HORA EXTRA DE NOCHE LE CUESTA AÑOS DE VIDA A TU MEMORIA.",
     "camara": "crash_zoom_in",
-    "iluminacion": "dark_vignette_pulse",
+    "iluminacion": "red_alert_pulse",
     "overlay": "marco_cinematico",
     "remotion_fx": {
-      "emotional_color": "#FF0055"
+      "emotional_color": "#FF0055",
+      "camera_movement": "crash_zoom_in",
+      "anti_slideshow": false,
+      "lighting": "red_alert_pulse",
+      "overlay": "marco_cinematico",
+      "overlay_text": ""
     },
-    "durationInSeconds": 4.08,
-    "durationInFrames": 122,
+    "durationInSeconds": 3.47,
+    "durationInFrames": 104,
     "words": [
       {
         "word": "CADA",
@@ -1066,19 +1129,26 @@
         "startFrame": 80,
         "endFrame": 94
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": ""
   },
   {
     "id": 12,
     "text": "ASÍ QUE DUERME HOY O PREPÁRATE PORQUE...",
     "camara": "vertigo_dolly_zoom",
     "iluminacion": "chromatic_aberration_glitch",
-    "overlay": "ninguno",
+    "overlay": "alerta_roja_neon",
     "remotion_fx": {
-      "emotional_color": "#00F0FF"
+      "emotional_color": "#00F0FF",
+      "camera_movement": "vertigo_dolly_zoom",
+      "anti_slideshow": false,
+      "lighting": "chromatic_aberration_glitch",
+      "overlay": "alerta_roja_neon",
+      "overlay_text": "¡DUERME HOY!"
     },
-    "durationInSeconds": 2.98,
-    "durationInFrames": 89,
+    "durationInSeconds": 2.37,
+    "durationInFrames": 71,
     "words": [
       {
         "word": "ASÍ",
@@ -1129,6 +1199,8 @@
         "startFrame": 47,
         "endFrame": 61
       }
-    ]
+    ],
+    "anti_slideshow": false,
+    "overlayText": "¡DUERME HOY!"
   }
 ]
