@@ -134,40 +134,52 @@ function extraerNumeroEscena(texto) {
 }
 
 function parsearOrdenOffline(prompt, rawScript) {
-  const t = prompt.toLowerCase();
+  const t = prompt.toLowerCase().trim();
   const targetId = extraerNumeroEscena(prompt) || 1;
-  
-  if (t.includes('hola') || t.includes('buen') || t.includes('saludos') || t.includes('informe') || t.includes('estado')) {
+
+  // Diccionario conversacional heurístico para el modo offline
+  if (/^hola\b|^buen(os)?\s*(dias|días|tardes|noches)/i.test(t)) {
     return {
       type: 'conversational',
-      reply: '¡SÍ, SEÑOR! Le saluda el CAO en modo local. Pasarela Mini-OmniRoute en guardia para procesar órdenes visuales o estratégicas.'
+      reply: '¡SÍ, SEÑOR! ¡Le saluda el CAO en modo local! La pasarela está en guardia, lista para recibir sus órdenes tácticas sobre el video.'
+    };
+  }
+  
+  if (/cómo\s*estás|como\s*estas|qué\s*tal|que\s*tal/i.test(t)) {
+    return {
+      type: 'conversational',
+      reply: '¡AL 100%, DIRECTOR GENERAL! Motores locales encendidos, uso de RAM controlado y listos para el combate. ¿Qué ajuste táctico aplicamos hoy?'
     };
   }
 
+  if (/me\s*lees|estás\s*ahí|estas\s*ahi|me\s*escuchas/i.test(t)) {
+    return {
+      type: 'conversational',
+      reply: '¡FUERTE Y CLARO, DIRECTOR GENERAL! Lo leo en tiempo real a través del puerto 3001. En guardia y esperando instrucciones.'
+    };
+  }
+
+  if (/quién\s*eres|quien\s*eres|tu\s*nombre|tú\s*nombre/i.test(t)) {
+    return {
+      type: 'conversational',
+      reply: '¡Soy el CAO (Chief Automation Officer) de su Factoría Cinematográfica, Director General! Mi misión es blindar su flujo de video y optimizar cada ciclo de hardware.'
+    };
+  }
+
+  // Detección de parches operativos básicos
   const patch = { id: targetId };
   let operative = false;
 
-  // Acciones Negativas / Quitar Cartel
-  if (/quitar?|borrar?|eliminar?|apagar?|sin\s+cartel|sin\s+alerta/i.test(t) && /cartel|alerta|overlay|texto|letrero/i.test(t)) {
+  if (/quitar?|borrar?|eliminar?/i.test(t) && /cartel|alerta|overlay|texto|letrero/i.test(t)) {
     patch.overlay = "ninguno";
     patch.overlayText = "";
     operative = true;
-  } else if (/alerta\s*roja|cartel|letrero|badge/i.test(t)) {
-    patch.overlay = "alerta_roja_neon";
-    const quoteMatch = prompt.match(/["']([^"']+)["']/);
-    patch.overlayText = quoteMatch ? quoteMatch[1].toUpperCase() : "¡ALERTA!";
-    operative = true;
-  } else if (/marco|viñeta|vineta|cinematico/i.test(t)) {
-    patch.overlay = "marco_cinematico";
-    operative = true;
-  }
-
-  // Cámaras
-  if (/anti|slideshow/i.test(t)) {
+  } else if (/anti|slideshow/i.test(t)) {
     patch.camara = "anti_slideshow";
     patch.anti_slideshow = true;
+    patch.overlay = "ninguno";
     operative = true;
-  } else if (/terremoto|temblor|shake|sacud/i.test(t)) {
+  } else if (/terremoto|shake|temblor|sacud/i.test(t)) {
     patch.camara = "earthquake_shake";
     operative = true;
   } else if (/v[eé]rtigo|dolly/i.test(t)) {
@@ -206,14 +218,16 @@ function parsearOrdenOffline(prompt, rawScript) {
     return { type: 'operative', patch: [patch] };
   }
 
+  // Respuesta por defecto si no es comando ni saludo conocido, pero manteniendo el personaje
   return {
     type: 'conversational',
-    reply: '⚠️ Modo Offline: No identifiqué un comando operativo claro. Pruebe seleccionando los dropdowns visuales o use frases como "en la escena uno quita el cartel".'
+    reply: '¡Entendido, Director General! Nota de combate: Actualmente opero en Modo Offline (sin conexión a APIs externas). Para que pueda conversar libremente de cualquier tema o analizar a fondo el guion, recuerde ingresar las credenciales en api_config.json. Mientras tanto, puede usar los botones visuales del Inspector o pedir parches rápidos como "quitar cartel".'
   };
 }
 
 // 5. ENRUTADORES COGNITIVOS INDEPENDIENTES
 async function llamarGroq(prompt, systemPrompt, key) {
+  if (!key) throw new Error('Falta GROQ_API_KEY en api_config.json');
   const payload = JSON.stringify({
     model: 'llama-3.3-70b-versatile',
     messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: prompt }],
@@ -226,10 +240,12 @@ async function llamarGroq(prompt, systemPrompt, key) {
     body: payload
   }, 4500); // 4.5s timeout
   const data = await res.json();
+  if (!data.choices || !data.choices[0]) throw new Error(data.error?.message || 'Respuesta inválida de Groq');
   return JSON.parse(data.choices[0].message.content);
 }
 
 async function llamarGemini(prompt, systemPrompt, key) {
+  if (!key) throw new Error('Falta google_api_key en api_config.json');
   const payload = JSON.stringify({
     contents: [{ parts: [{ text: `${systemPrompt}\n\nORDEN DEL USUARIO: ${prompt}` }] }],
     generationConfig: { responseMimeType: "application/json" }
@@ -240,11 +256,15 @@ async function llamarGemini(prompt, systemPrompt, key) {
     body: payload
   }, 5000); // 5s timeout
   const data = await res.json();
+  if (!data.candidates || !data.candidates[0] || !data.candidates[0].content?.parts?.[0]) {
+    throw new Error(data.error?.message || 'Respuesta inválida de Gemini');
+  }
   const textContent = data.candidates[0].content.parts[0].text;
   return JSON.parse(textContent);
 }
 
 async function llamarOpenRouter(prompt, systemPrompt, key) {
+  if (!key) throw new Error('Falta OPENROUTER_API_KEY en api_config.json');
   const payload = JSON.stringify({
     model: 'meta-llama/llama-3.3-70b-instruct:free',
     messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: prompt }],
@@ -256,6 +276,7 @@ async function llamarOpenRouter(prompt, systemPrompt, key) {
     body: payload
   }, 6000); // 6s timeout
   const data = await res.json();
+  if (!data.choices || !data.choices[0]) throw new Error(data.error?.message || 'Respuesta inválida de OpenRouter');
   return JSON.parse(data.choices[0].message.content);
 }
 
