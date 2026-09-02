@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estudio de Producción V36.5: Ecosistema Cognitivo-Visual Unificado</title>
+  <style>
+    :root {
+      --bg-base: #0c0d12;
+      --bg-panel: #13151f;
+      --bg-card: #1c1e2d;
+      --border: #2d314a;
+      --accent: #FF0055;
+      --cyan: #00F0FF;
+      --yellow: #FFE500;
+      --text-main: #ffffff;
+      --text-dim: #8d94a5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { display: flex; width: 100vw; height: 100vh; background-color: var(--bg-base); color: var(--text-main); overflow: hidden; }
+    
+    /* Layout */
+    .player-section { flex: 1.1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; background: #08090d; position: relative; }
+    .video-card { height: 82vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.85); border: 2px solid var(--border); }
+    video { width: 100%; height: 100%; object-fit: cover; }
+    
+    .sidebar { width: 480px; border-left: 1px solid var(--border); display: flex; flex-direction: column; background: var(--bg-panel); }
+    .tabs { display: flex; border-bottom: 1px solid var(--border); background: #181b28; }
+    .tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; font-weight: bold; font-size: 13px; color: var(--text-dim); text-transform: uppercase; transition: 0.2s; }
+    .tab.active { color: var(--yellow); border-bottom: 2px solid var(--yellow); background: var(--bg-panel); }
+    
+    .panel-content { flex: 1; overflow-y: auto; padding: 20px; display: none; }
+    .panel-content.active { display: block; }
+    
+    /* Inspector Visual */
+    .scene-card { background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px; padding: 14px; }
+    .scene-header { font-size: 14px; font-weight: 900; color: var(--cyan); margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .scene-text { font-size: 12px; color: #a5adc4; margin-bottom: 10px; font-style: italic; }
+    .field-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+    .field-group label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; width: 90px; }
+    .field-group select, .field-group input { flex: 1; background: var(--bg-base); color: #fff; border: 1px solid var(--border); padding: 6px; border-radius: 4px; font-size: 12px; outline: none; }
+    .field-group select:focus, .field-group input:focus { border-color: var(--accent); }
+    
+    /* Chat & Logs */
+    .log-box { height: 42vh; background: #090a0f; border-radius: 10px; padding: 16px; border: 1px solid var(--border); overflow-y: auto; margin-bottom: 16px; font-size: 13px; }
+    .msg { margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; line-height: 1.4; }
+    .msg-sys { background: rgba(0, 240, 255, 0.1); color: var(--cyan); border: 1px solid rgba(0, 240, 255, 0.2); }
+    .msg-user { background: rgba(255, 229, 0, 0.1); color: var(--yellow); border: 1px solid rgba(229, 229, 0, 0.2); }
+    .msg-ok { background: rgba(0, 255, 102, 0.1); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.2); }
+    .msg-cao { background: rgba(255, 0, 85, 0.1); color: var(--accent); border: 1px solid rgba(255, 0, 85, 0.2); font-weight: 500; }
+    .brain-badge { display: inline-block; margin-top: 5px; font-size: 10px; background: rgba(0, 240, 255, 0.15); color: var(--cyan); padding: 2px 6px; border-radius: 10px; font-weight: bold; }
+    
+    /* Vector 1: UI Adaptativa (Online / Offline) */
+    #input-container { display: flex; flex-direction: column; }
+    .ui-mode-view { display: none; }
+    
+    #input-container.mode-online .online-only { display: block; }
+    #input-container.mode-offline .offline-only { display: block; }
+    
+    textarea { width: 100%; height: 80px; background: #090a0f; color: #fff; border: 1px solid #2a2e42; border-radius: 8px; padding: 12px; font-size: 13px; resize: none; margin-bottom: 12px; outline: none; }
+    .action-btn { width: 100%; padding: 14px; background: var(--accent); color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
+    .action-btn:hover { background: #d90048; }
+
+    /* Action Chips */
+    .chips-section { margin-bottom: 12px; }
+    .chips-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .chips-container { display: flex; flex-wrap: wrap; gap: 8px; }
+    .action-chip { background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.25); color: var(--cyan); padding: 6px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+    .action-chip:hover { background: rgba(0, 240, 255, 0.25); border-color: var(--cyan); }
+    
+    /* Barra de Progreso de Assets */
+    .progress-bar-container { width: 100%; height: 20px; background-color: #1c1e2d; border-radius: 10px; overflow: hidden; margin-top: 10px; display: none; border: 1px solid var(--border); }
+    .progress-fill { height: 100%; width: 0%; background-color: var(--yellow); transition: width 0.3s; }
+    
+    .status-panel-offline { background: rgba(255, 229, 0, 0.05); border: 1px solid rgba(255, 229, 0, 0.15); padding: 10px; border-radius: 6px; font-size: 11px; line-height: 1.4; color: var(--yellow); margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+
+  <!-- VISUALIZADOR IZQUIERDO -->
+  <div class="player-section">
+    <div class="video-card">
+      <video id="videoPlayer" controls autoplay loop>
+        <source src="/media/video_final_remotion.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div style="margin-top: 15px; display: flex; gap: 15px; width: 100%; max-width: 450px;">
+      <button class="action-btn" style="background: var(--cyan); color:#000;" onclick="generarAssetsNativos()">Autogenerar Visuales (API Imagen 3)</button>
+    </div>
+    <div class="progress-bar-container" id="pBar">
+      <div class="progress-fill" id="pFill"></div>
+    </div>
+    <p id="progressStatus" style="font-size:12px; color: var(--text-dim); margin-top:8px;"></p>
+  </div>
+
+  <!-- CONTROL LATERAL DERECHO -->
+  <div class="sidebar">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('inspector')">Inspector</div>
+      <div class="tab" onclick="switchTab('chat')">Asistente IA</div>
+    </div>
+
+    <!-- PANEL 1: INSPECTOR -->
+    <div id="panel-inspector" class="panel-content active">
+      <div class="field-group" style="margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">
+        <label style="color: var(--yellow); font-weight:bold;">CEREBRO CORE</label>
+        <select id="brain-select" style="border-color: var(--yellow);">
+          <option value="auto">Cascada Inteligente (Auto-Failover)</option>
+          <option value="groq">Forzar: Groq Llama 3.3</option>
+          <option value="gemini">Forzar: Gemini 2.0 Flash</option>
+          <option value="openrouter">Forzar: OpenRouter Free Llama</option>
+          <option value="offline">Forzar: Modo Offline (Solo Local)</option>
+        </select>
+      </div>
+      <h3 style="font-size:14px; margin-bottom:12px; color: var(--cyan);">Ajustes Visuales</h3>
+      <div id="inspectorContainer">Cargando escenas...</div>
+    </div>
+
+    <!-- PANEL 2: CHAT COGNITIVO ADAPTATIVO -->
+    <div id="panel-chat" class="panel-content">
+      <div class="log-box" id="logBox">
+        <div class="msg msg-sys">[SISTEMA]: Inicializando pasarela híbrida V36.5. Validando credenciales de la factoría...</div>
+      </div>
+
+      <div id="input-container" class="mode-checking">
+        <!-- SECCIÓN OFFLINE: CONTROLES DIRECTOS CHIPS + MACROS (VECTOR 1) -->
+        <div class="ui-mode-view offline-only">
+          <div class="status-panel-offline">
+            <strong>🔒 MODO SEGURO OFFLINE ACTIVO</strong><br>
+            Para conversar libremente o planificar guiones desde cero, ingrese credenciales en <code>api_config.json</code>. En este modo, el chat libre se ha deshabilitado para prevenir fallos y se exponen atajos rápidos directos.
+          </div>
+          
+          <!-- Chips contextuales dinámicos -->
+          <div class="chips-section">
+            <span class="chips-label">Atajos Quirúrgicos Dinámicos:</span>
+            <div id="action-chips" class="chips-container">
+              <!-- Se hidratan dinámicamente -->
+            </div>
+          </div>
+
+          <!-- Selector de macros fijas -->
+          <div class="field-group" style="margin-bottom: 15px;">
+            <label style="color: var(--cyan); font-weight: bold; width: 120px;">Macro Determinista</label>
+            <select id="macro-select">
+              <option value="Quita los carteles de todas las escenas">Macro: Limpiar Overlays (Limpio)</option>
+              <option value="Activa el anti-slideshow en la escena uno">Macro: Activar 7-Capas en Escena 1</option>
+              <option value="En la escena uno cambia el movimiento a earthquake_shake">Macro: Terremoto en Escena 1 (Hook)</option>
+            </select>
+          </div>
+          <button class="action-btn" style="background: var(--cyan); color:#000; margin-bottom:12px;" onclick="aplicarMacroLocal()">Aplicar Parche Local</button>
+        </div>
+
+        <!-- SECCIÓN ONLINE: TEXTAREA DE CONVERSACIÓN LIBRE COGNITIVA -->
+        <div class="ui-mode-view online-only">
+          <textarea id="promptInput" placeholder="Saluda al CAO, haz preguntas tácticas sobre el video o pide ediciones directas..."></textarea>
+          <button class="action-btn" id="sendBtn" onclick="enviarOrdenChat()">Enviar a IA</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentScript = [];
+    let backendKeysActive = false;
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('panel-' + tabName).classList.add('active');
+    }
+
+    // Comprobar estado de credenciales para ajustar la UI
+    async function validarEstadoYConexión() {
+      const container = document.getElementById('input-container');
+      const log = document.getElementById('logBox');
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        
+        backendKeysActive = data.hasKeys;
+        if (backendKeysActive) {
+          container.className = 'mode-online';
+          log.innerHTML += '<div class="msg msg-sys">[SISTEMA]: Credenciales detectadas en la nube. Cerebro cognitivo habilitado con auto-failover activo.</div>';
+        } else {
+          container.className = 'mode-offline';
+          log.innerHTML += '<div class="msg msg-sys">[SISTEMA]: Operando en modo local seguro. Atajos tácticos e Inspector Visual totalmente habilitados.</div>';
+          generarChipsLocales();
+        }
+      } catch (e) {
+        container.className = 'mode-offline';
+        log.innerHTML += '<div class="msg msg-sys" style="color:var(--accent)">[SISTEMA]: Error de enlace con el servidor. Forzando modo local seguro.</div>';
+        generarChipsLocales();
+      }
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function cargarScript() {
+      try {
+        const res = await fetch('/api/script');
+        currentScript = await res.json();
+        renderInspector();
+        if (!backendKeysActive) {
+          generarChipsLocales();
+        }
+      } catch (e) {}
+    }
+
+    function renderInspector() {
+      const container = document.getElementById('inspectorContainer');
+      container.innerHTML = '';
+      const scenes = currentScript.scenes || currentScript;
+      scenes.forEach(scene => {
+        const card = document.createElement('div');
+        card.className = 'scene-card';
+        card.innerHTML = `
+          <div class="scene-header">
+            <span>Escena ${scene.id}</span>
+            <span style="color:var(--accent); cursor:pointer; font-size:11px;" onclick="guardarEscenaVisual(${scene.id})">Guardar</span>
+          </div>
+          <div class="scene-text">"${scene.text || scene.narrative_text || ''}"</div>
+          
+          <div class="field-group">
+            <label>Cámara</label>
+            <select id="cam-${scene.id}">
+              <option value="estatico" ${scene.camara === 'estatico' ? 'selected' : ''}>Plano Fijo</option>
+              <option value="anti_slideshow" ${scene.anti_slideshow || scene.camara === 'anti_slideshow' ? 'selected' : ''}>Anti-Slideshow 7-Capas</option>
+              <option value="crash_zoom_in" ${scene.camara === 'crash_zoom_in' ? 'selected' : ''}>Zoom Elástico</option>
+              <option value="vertigo_dolly_zoom" ${scene.camara === 'vertigo_dolly_zoom' ? 'selected' : ''}>Efecto Vértigo</option>
+              <option value="earthquake_shake" ${scene.camara === 'earthquake_shake' ? 'selected' : ''}>Terremoto</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Overlay</label>
+            <select id="over-${scene.id}">
+              <option value="ninguno" ${scene.overlay === 'ninguno' ? 'selected' : ''}>Ninguno</option>
+              <option value="alerta_roja_neon" ${scene.overlay === 'alerta_roja_neon' ? 'selected' : ''}>Letrero Neón</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Texto Alerta</label>
+            <input type="text" id="overTxt-${scene.id}" value="${scene.overlayText || ''}">
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Generar Chips de acción en base al estado real del JSON (Vector 1.2)
+    function generarChipsLocales() {
+      const container = document.getElementById('action-chips');
+      if (!container) return;
+      container.innerHTML = '';
+      const scenes = currentScript.scenes || currentScript;
+
+      if (!scenes || scenes.length === 0) return;
+
+      const chips = [];
+
+      // Evaluar la Escena 1 (Gancho / Hook)
+      const escena1 = scenes[0];
+      if (escena1.camara !== 'earthquake_shake') {
+        chips.push({
+          label: '💥 Hook Agresivo',
+          command: 'En la escena uno cambia la camara a earthquake_shake'
+        });
+      }
+      if (escena1.overlay !== 'alerta_roja_neon') {
+        chips.push({
+          label: '🚨 Alerta Roja en Hook',
+          command: 'En la escena uno agrega alerta_roja_neon con el texto ALERTA'
+        });
+      }
+
+      // Evaluar si hay carteles que quitar de forma inteligente
+      const escenaConCartel = scenes.find(s => s.overlay && s.overlay !== 'ninguno');
+      if (escenaConCartel) {
+        chips.push({
+          label: `❌ Quitar cartel Escena ${escenaConCartel.id}`,
+          command: `En la escena ${escenaConCartel.id} quita el cartel`
+        });
+      }
+
+      // Forzar Anti-Slideshow
+      const escenaSinAnti = scenes.find(s => !s.anti_slideshow && s.camara !== 'anti_slideshow');
+      if (escenaSinAnti) {
+        chips.push({
+          label: `✨ Activar 7-Capas Escena ${escenaSinAnti.id}`,
+          command: `Activa el anti-slideshow en la escena ${escenaSinAnti.id}`
+        });
+      }
+
+      // Añadir chips a la UI
+      chips.forEach(chip => {
+        const btn = document.createElement('button');
+        btn.className = 'action-chip';
+        btn.innerText = chip.label;
+        btn.onclick = () => enviarMacroChip(chip.command);
+        container.appendChild(btn);
+      });
+    }
+
+    async function enviarMacroChip(comandoText) {
+      const log = document.getElementById('logBox');
+      log.innerHTML += '<div class="msg msg-user"><b>Atajo:</b> ' + comandoText + '</div>';
+      log.scrollTop = log.scrollHeight;
+
+      try {
+        const res = await fetch('/api/edit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: comandoText, modelChoice: 'offline' })
+        });
+        const data = await res.json();
+        if (data.success) {
+          log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Parche táctico local inyectado con éxito.</div>';
+          document.getElementById('videoPlayer').load();
+          cargarScript();
+        }
+      } catch (e) {
+        log.innerHTML += '<div class="msg" style="color:var(--accent)"><b>[ERROR]:</b> Fallo en enlace con el servidor local.</div>';
+      }
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function aplicarMacroLocal() {
+      const select = document.getElementById('macro-select');
+      await enviarMacroChip(select.value);
+    }
+
+    async function guardarEscenaVisual(id) {
+      const camara = document.getElementById('cam-' + id).value;
+      const overlay = document.getElementById('over-' + id).value;
+      const overlayText = document.getElementById('overTxt-' + id).value;
+      try {
+        const res = await fetch('/api/save-scene', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, camara, overlay, overlayText })
+        });
+        const data = await res.json();
+        if (data.success) {
+          document.getElementById('videoPlayer').load();
+          cargarScript();
+        }
+      } catch (e) {}
+    }
+
+    async function enviarOrdenChat() {
+      const input = document.getElementById('promptInput');
+      const btn = document.getElementById('sendBtn');
+      const log = document.getElementById('logBox');
+      const text = input.value.trim();
+      const brain = document.getElementById('brain-select').value;
+      if (!text) return;
+
+      btn.disabled = true;
+      btn.innerText = 'Pensando...';
+      log.innerHTML += '<div class="msg msg-user"><b>Tú:</b> ' + text + '</div>';
+      log.scrollTop = log.scrollHeight;
+
+      try {
+        const res = await fetch('/api/edit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text, modelChoice: brain })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.type === 'conversational') {
+            log.innerHTML += '<div class="msg msg-cao"><b>CAO:</b> ' + data.reply + '<br><span class="brain-badge">🧠 ' + data.cerebro + '</span></div>';
+          } else {
+            log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Edición aplicada en script.json. Refrescando visualizador...<br><span class="brain-badge">🧠 ' + data.cerebro + '</span></div>';
+            document.getElementById('videoPlayer').load();
+            cargarScript();
+          }
+        } else {
+          log.innerHTML += '<div class="msg" style="color:var(--accent)"><b>[ERROR]:</b> ' + (data.error || 'Error interno') + '</div>';
+        }
+      } catch (e) {
+        log.innerHTML += '<div class="msg" style="color:var(--accent)"><b>[ERROR]:</b> Error de conexión.</div>';
+      }
+
+      input.value = '';
+      btn.disabled = false;
+      btn.innerText = 'Enviar a IA';
+      log.scrollTop = log.scrollHeight;
+    }
+
+    async function generarAssetsNativos() {
+      const pBar = document.getElementById('pBar');
+      const pFill = document.getElementById('pFill');
+      const status = document.getElementById('progressStatus');
+      
+      pBar.style.display = 'block';
+      pFill.style.width = '0%';
+      status.innerText = 'Iniciando conexión síncrona con Google AI Studio...';
+
+      try {
+        const response = await fetch('/api/generate-assets', { method: 'POST' });
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\n\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = JSON.parse(line.replace('data: ', ''));
+              status.innerText = data.status;
+              if (data.progress) {
+                const pct = (data.progress / data.total) * 100;
+                pFill.style.width = pct + '%';
+              }
+              if (data.done) {
+                alert('Generación visual y recorte Safe-Zone completados con éxito.');
+                document.getElementById('videoPlayer').load();
+              }
+            }
+          }
+        }
+      } catch (e) {
+        status.innerText = 'Pipeline interrumpido por fallo o desconexión.';
+      }
+    }
+
+    // Inicializar el sistema
+    async function init() {
+      await validarEstadoYConexión();
+      await cargarScript();
+    }
+    
+    init();
+  </script>
+</body>
+</html>
