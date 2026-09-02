@@ -18,82 +18,112 @@ const VIDEO_DIR = path.join('C:', 'tiktok', 'projects', 'actual', 'output');
 
 app.use('/media', express.static(VIDEO_DIR));
 
-const VALID_CAMARAS = ["crash_zoom_in", "vertigo_dolly_zoom", "slow_creepy_crawl", "whip_pan_left", "earthquake_shake", "estatico"];
-const VALID_ILUMINACION = ["red_alert_pulse", "dark_vignette_pulse", "chromatic_aberration_glitch", "limpio"];
-const VALID_OVERLAYS = ["alerta_roja_neon", "marco_cinematico", "ninguno"];
-
+// 1. RESOLUCIÓN DE CREDENCIALES
 function getGroqKey() {
-  if (process.env.GROQ_API_KEY && process.env.GROQ_API_KEY.startsWith('gsk_')) return process.env.GROQ_API_KEY;
+  const envKey = process.env.GROQ_API_KEY;
+  if (envKey && envKey.startsWith('gsk_')) return envKey;
   if (fs.existsSync(CONFIG_PATH)) {
     try {
       const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
-      const k = cfg.GROQ_API_KEY || cfg.groq_api_key || cfg.api_key || '';
-      if (typeof k === 'string' && k.startsWith('gsk_')) return k;
+      const k = cfg.GROQ_API_KEY || cfg.groq_api_key || cfg.api_key;
+      if (k && k.startsWith('gsk_')) return k;
     } catch (e) {}
   }
   return '';
 }
 
-function parsearOrdenFallback(orden) {
-  const cambio = {};
-  const matchEscena = orden.match(/(?:escena|scene)\s*(\d+)/i);
-  if (!matchEscena) return [];
-  cambio.id = parseInt(matchEscena[1], 10);
+// 2. NORMALIZADOR LÉXICO: CONVERSOR DE PALABRAS A NÚMEROS (1-12)
+function extraerNumeroEscena(texto) {
+  const t = texto.toLowerCase();
+  const digitMatch = t.match(/(?:escena|scene)\s*(\d+)/i);
+  if (digitMatch) return parseInt(digitMatch[1], 10);
 
-  for (const cam of VALID_CAMARAS) {
-    if (orden.toLowerCase().includes(cam)) {
-      cambio.camara = cam;
-      break;
-    }
+  const mapa = {
+    'primera': 1, 'primer': 1, 'uno': 1, 'one': 1, 'inicio': 1,
+    'segunda': 2, 'segundo': 2, 'dos': 2, 'two': 2,
+    'tercera': 3, 'tercer': 3, 'tres': 3, 'three': 3,
+    'cuarta': 4, 'cuarto': 4, 'cuatro': 4, 'four': 4,
+    'quinta': 5, 'quinto': 5, 'cinco': 5, 'five': 5,
+    'sexta': 6, 'sexto': 6, 'seis': 6, 'six': 6,
+    'séptima': 7, 'septima': 7, 'séptimo': 7, 'septimo': 7, 'siete': 7, 'seven': 7,
+    'octava': 8, 'octavo': 8, 'ocho': 8, 'eight': 8,
+    'novena': 9, 'noveno': 9, 'nueve': 9, 'nine': 9,
+    'décima': 10, 'decima': 10, 'décimo': 10, 'decimo': 10, 'diez': 10, 'ten': 10,
+    'undécima': 11, 'undecima': 11, 'once': 11, 'eleven': 11,
+    'duodécima': 12, 'duodecima': 12, 'doce': 12, 'twelve': 12, 'final': 12, 'última': 12, 'ultima': 12
+  };
+
+  for (const [palabra, num] of Object.entries(mapa)) {
+    const regex = new RegExp(`(?:escena|scene)\\s+${palabra}\\b`, 'i');
+    if (regex.test(t)) return num;
   }
-
-  for (const ilum of VALID_ILUMINACION) {
-    if (orden.toLowerCase().includes(ilum)) {
-      cambio.iluminacion = ilum;
-      break;
-    }
-  }
-
-  for (const ov of VALID_OVERLAYS) {
-    if (orden.toLowerCase().includes(ov)) {
-      cambio.overlay = ov;
-      break;
-    }
-  }
-
-  const matchTexto = orden.match(/(?:con\s+el\s+texto|con\s+texto|texto|mensaje)\s*[:=]?\s*["']?([^"'\r\n]+?)["']?$/i);
-  if (matchTexto) {
-    let t = matchTexto[1].trim();
-    if (t.toUpperCase().includes("IRREVERSIBLE")) {
-      t = "¡DAÑO IRREVERSIBLE!";
-    }
-    cambio.overlayText = t;
-  }
-
-  return [cambio];
+  return null;
 }
 
-function aplicarCambios(rawScript, cambios) {
-  let count = 0;
-  for (const cambio of cambios) {
-    for (let i = 0; i < rawScript.length; i++) {
-      if (String(rawScript[i].id) === String(cambio.id)) {
-        Object.assign(rawScript[i], cambio);
-        if (!rawScript[i].remotion_fx) rawScript[i].remotion_fx = {};
-        if (cambio.camara) rawScript[i].remotion_fx.camera_movement = cambio.camara;
-        if (cambio.iluminacion) rawScript[i].remotion_fx.lighting = cambio.iluminacion;
-        if (cambio.overlay) rawScript[i].remotion_fx.overlay = cambio.overlay;
-        if (cambio.overlayText) rawScript[i].remotion_fx.overlay_text = cambio.overlayText;
-        count++;
-      }
-    }
+// 3. PARSER SEMÁNTICO LOCAL DE CONTINGENCIA (COMPRENSIÓN COLOQUIAL Y ACCIONES NEGATIVAS)
+function parsearOrdenLocal(prompt) {
+  const targetId = extraerNumeroEscena(prompt);
+  if (!targetId) return [];
+
+  const t = prompt.toLowerCase();
+  const patch = { id: targetId };
+  let modificado = false;
+
+  // Acciones Negativas / Quitar Cartel u Overlay
+  if (/quitar?|borrar?|eliminar?|apagar?|sin\s+cartel|sin\s+alerta/i.test(t) && /cartel|alerta|overlay|texto\s+flotante|letrero/i.test(t)) {
+    patch.overlay = "ninguno";
+    patch.overlayText = "";
+    modificado = true;
+  } else if (/alerta\s*roja|cartel|letrero|badge/i.test(t)) {
+    patch.overlay = "alerta_roja_neon";
+    const quoteMatch = prompt.match(/["']([^"']+)["']/);
+    patch.overlayText = quoteMatch ? quoteMatch[1].toUpperCase() : "¡ALERTA!";
+    modificado = true;
+  } else if (/marco|viñeta|vineta|cinematico/i.test(t)) {
+    patch.overlay = "marco_cinematico";
+    modificado = true;
   }
-  fs.writeFileSync(SCRIPT_PROJECT, JSON.stringify(rawScript, null, 2), 'utf-8');
-  fs.writeFileSync(SCRIPT_PUBLIC, JSON.stringify(rawScript, null, 2), 'utf-8');
-  return count;
+
+  // Cámaras Coloquiales
+  if (/terremoto|temblor|sacud/i.test(t)) {
+    patch.camara = "earthquake_shake";
+    modificado = true;
+  } else if (/v[eé]rtigo|dolly/i.test(t)) {
+    patch.camara = "vertigo_dolly_zoom";
+    modificado = true;
+  } else if (/zoom\s*(violento|fuerte|r[aá]pido|in)|crash/i.test(t)) {
+    patch.camara = "crash_zoom_in";
+    modificado = true;
+  } else if (/lento|lenta|creep|crawl/i.test(t)) {
+    patch.camara = "slow_creepy_crawl";
+    modificado = true;
+  } else if (/l[aá]tigo|whip|barrido/i.test(t)) {
+    patch.camara = "whip_pan_left";
+    modificado = true;
+  } else if (/quieto|est[aá]tico|fijo/i.test(t)) {
+    patch.camara = "estatico";
+    modificado = true;
+  }
+
+  // Iluminación
+  if (/quitar?\s*(luz|iluminaci[oó]n|efectos)|luz\s*normal|limpio/i.test(t)) {
+    patch.iluminacion = "limpio";
+    modificado = true;
+  } else if (/pulso\s*rojo|alarma/i.test(t)) {
+    patch.iluminacion = "red_alert_pulse";
+    modificado = true;
+  } else if (/oscuro|suspenso|viñeta\s*oscura/i.test(t)) {
+    patch.iluminacion = "dark_vignette_pulse";
+    modificado = true;
+  } else if (/glitch|aberraci[oó]n/i.test(t)) {
+    patch.iluminacion = "chromatic_aberration_glitch";
+    modificado = true;
+  }
+
+  return modificado ? [patch] : [];
 }
 
-// Interfaz Web Visual del Chat Studio
+// 4. INTERFAZ WEB COMPLETA
 app.get('/', (req, res) => {
   const html = `
 <!DOCTYPE html>
@@ -105,7 +135,7 @@ app.get('/', (req, res) => {
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { display: flex; width: 100vw; height: 100vh; background-color: #0c0d12; color: #fff; overflow: hidden; }
     .player-section { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; background: #08090d; }
-    .video-card { height: 90vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); border: 2px solid #1f2230; display: flex; flex-direction: column; }
+    .video-card { height: 90vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); border: 2px solid #1f2230; }
     video { width: 100%; height: 100%; object-fit: cover; }
     .chat-section { width: 440px; border-left: 1px solid #1f2230; display: flex; flex-direction: column; background: #13151f; padding: 24px; }
     h1 { font-size: 20px; font-weight: 900; color: #FFE500; margin-bottom: 6px; letter-spacing: 1px; }
@@ -117,7 +147,7 @@ app.get('/', (req, res) => {
     .msg-ok { background: rgba(0, 255, 102, 0.1); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.2); }
     textarea { width: 100%; height: 100px; background: #090a0f; color: #fff; border: 1px solid #2a2e42; border-radius: 8px; padding: 12px; font-size: 14px; resize: none; margin-bottom: 12px; outline: none; }
     textarea:focus { border-color: #FF0055; }
-    button { width: 100%; padding: 14px; background: #FF0055; color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+    button { width: 100%; padding: 14px; background: #FF0055; color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
     button:hover { background: #d90048; }
     button:disabled { background: #555; cursor: not-allowed; }
   </style>
@@ -126,7 +156,7 @@ app.get('/', (req, res) => {
   <div class="player-section">
     <div class="video-card">
       <video id="videoPlayer" controls autoplay loop>
-        <source src="/media/video_final_remotion.mp4?v=${Date.now()}" type="video/mp4">
+        <source src="/media/video_final_remotion.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -136,10 +166,10 @@ app.get('/', (req, res) => {
     <p class="sub">Escribe en lenguaje natural para modificar cualquier escena en caliente.</p>
 
     <div class="log-box" id="logBox">
-      <div class="msg msg-sys">[SISTEMA]: Conectado a Llama 3.3 70B vía Groq. Video sincronizado con C:\\tiktok\\.</div>
+      <div class="msg msg-sys">[SISTEMA]: Compilador Semántico Universal activo (Groq Cloud Llama-3.3 + Respaldo Local).</div>
     </div>
 
-    <textarea id="promptInput" placeholder="Ej: En la escena 3 pon sacudida de terremoto y agrega alerta roja neon que diga ¡PELIGRO!"></textarea>
+    <textarea id="promptInput" placeholder="Ej: en la escena uno quita el cartel de arriba shock biologico"></textarea>
     <button id="sendBtn" onclick="enviarOrden()">Ejecutar Orden Agéntica</button>
   </div>
 
@@ -152,7 +182,7 @@ app.get('/', (req, res) => {
       if (!text) return;
 
       btn.disabled = true;
-      btn.innerText = 'Procesando en Groq...';
+      btn.innerText = 'Interpretando orden...';
       log.innerHTML += '<div class="msg msg-user"><b>Tú:</b> ' + text + '</div>';
       log.scrollTop = log.scrollHeight;
 
@@ -164,7 +194,7 @@ app.get('/', (req, res) => {
         });
         const data = await res.json();
         if (data.success) {
-          log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Cambio aplicado en script.json. Escenas modificadas: ' + JSON.stringify(data.patch) + '</div>';
+          log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Hot-Swap aplicado. Parche: ' + JSON.stringify(data.patch) + '</div>';
           const player = document.getElementById('videoPlayer');
           player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
           player.load();
@@ -188,6 +218,7 @@ app.get('/', (req, res) => {
   res.send(html);
 });
 
+// 5. ENDPOINT /api/edit HÍBRIDO RESILIENTE
 app.post('/api/edit', async (req, res) => {
   const { prompt } = req.body;
   if (!prompt) return res.status(400).json({ error: 'Prompt requerido' });
@@ -199,25 +230,54 @@ app.post('/api/edit', async (req, res) => {
     return res.status(500).json({ error: 'No se pudo leer script.json' });
   }
 
-  const groqKey = getGroqKey();
-
-  // Si no hay key de Groq, usar el parser semántico local de alta precisión
-  if (!groqKey) {
-    const cambios = parsearOrdenFallback(prompt);
-    if (cambios.length === 0) {
-      return res.status(400).json({ error: 'No se pudo identificar la escena o los parámetros en la orden.' });
+  function aplicarParche(patchArray) {
+    for (const cambio of patchArray) {
+      for (let i = 0; i < rawScript.length; i++) {
+        if (String(rawScript[i].id) === String(cambio.id)) {
+          Object.assign(rawScript[i], cambio);
+          if (!rawScript[i].remotion_fx) rawScript[i].remotion_fx = {};
+          if (cambio.camara) rawScript[i].remotion_fx.camera_movement = cambio.camara;
+          if (cambio.iluminacion) rawScript[i].remotion_fx.lighting = cambio.iluminacion;
+          if (cambio.overlay) rawScript[i].remotion_fx.overlay = cambio.overlay;
+          if (cambio.overlayText !== undefined) rawScript[i].remotion_fx.overlay_text = cambio.overlayText;
+        }
+      }
     }
-    const count = aplicarCambios(rawScript, cambios);
-    return res.json({ success: true, count, patch: cambios, modo: 'determinista_local' });
+    fs.writeFileSync(SCRIPT_PROJECT, JSON.stringify(rawScript, null, 2), 'utf-8');
+    fs.writeFileSync(SCRIPT_PUBLIC, JSON.stringify(rawScript, null, 2), 'utf-8');
+    return res.json({ success: true, patch: patchArray });
   }
 
-  const systemPrompt = `Eres el Copiloto de Edición Quirúrgica de Remotion. Recibirás el JSON actual de 12 escenas y una orden en lenguaje natural. Devuelve ÚNICAMENTE un JSON: {"escenas_modificadas": [{"id": X, "camara": "...", "iluminacion": "...", "overlay": "...", "overlayText": "..."}]}. Opciones de camara: crash_zoom_in, vertigo_dolly_zoom, slow_creepy_crawl, whip_pan_left, earthquake_shake, estatico. Iluminacion: red_alert_pulse, dark_vignette_pulse, chromatic_aberration_glitch, limpio. Overlay: alerta_roja_neon, marco_cinematico, ninguno.`;
+  const groqKey = getGroqKey();
+
+  // Si no hay key de Groq, usar de inmediato el compilador local robusto
+  if (!groqKey) {
+    const localPatch = parsearOrdenLocal(prompt);
+    if (localPatch.length === 0) {
+      return res.status(400).json({ error: 'No se pudo identificar la escena (ej: escena 1, escena uno) o la acción solicitada.' });
+    }
+    return aplicarParche(localPatch);
+  }
+
+  // Si hay Groq, usar Llama 3.3 con Few-Shot exhaustivo de acciones negativas y coloquiales
+  const systemPrompt = `
+Eres un Asistente de Edición Cinematográfica en Remotion.
+Recibirás el JSON de 12 escenas y una orden coloquial humana.
+Devuelve ÚNICAMENTE un JSON: {"escenas_modificadas": [{"id": X, ...}]}.
+REGLAS SEMÁNTICAS CRÍTICAS:
+- Mapea palabras ordinales/cardinales ("uno", "primera", "dos") al número de id correspondiente.
+- ACCIONES NEGATIVAS: Si el usuario dice "quita el cartel", "elimina la alerta", "borra el texto de arriba", debes asignar: "overlay": "ninguno", "overlayText": "".
+- ACCIONES DE LUZ NEGATIVAS: Si dice "quita el efecto de luz" o "luz normal", debes asignar: "iluminacion": "limpio".
+- CÁMARAS: "crash_zoom_in", "vertigo_dolly_zoom", "slow_creepy_crawl", "whip_pan_left", "earthquake_shake", "estatico".
+- ILUMINACIÓN: "red_alert_pulse", "dark_vignette_pulse", "chromatic_aberration_glitch", "limpio".
+- OVERLAYS: "alerta_roja_neon", "marco_cinematico", "ninguno".
+`;
 
   const payload = JSON.stringify({
     model: 'llama-3.3-70b-versatile',
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: `JSON ACTUAL:\n${JSON.stringify(rawScript)}\n\nORDEN: ${prompt}` }
+      { role: 'user', content: `JSON ACTUAL:\n${JSON.stringify(rawScript)}\n\nORDEN:\n${prompt}` }
     ],
     response_format: { type: 'json_object' },
     temperature: 0.1
@@ -241,23 +301,22 @@ app.post('/api/edit', async (req, res) => {
       try {
         const parsed = JSON.parse(data);
         const patch = JSON.parse(parsed.choices[0].message.content);
-        const cambios = patch.escenas_modificadas || [];
-        const count = aplicarCambios(rawScript, cambios);
-        return res.json({ success: true, count, patch: cambios, modo: 'groq_cloud' });
-      } catch (err) {
-        console.log(`[!] Groq fallo al parsear: ${err.message}. Activando fallback local.`);
-        const cambios = parsearOrdenFallback(prompt);
-        const count = aplicarCambios(rawScript, cambios);
-        return res.json({ success: true, count, patch: cambios, modo: 'fallback_post_groq' });
-      }
+        const mod = patch.escenas_modificadas || [];
+        if (mod.length > 0) {
+          return aplicarParche(mod);
+        }
+      } catch (err) {}
+      // Fallback local si Groq no devolvió parche válido
+      const localPatch = parsearOrdenLocal(prompt);
+      if (localPatch.length > 0) return aplicarParche(localPatch);
+      return res.status(400).json({ error: 'No se pudo interpretar la acción en la orden enviada.' });
     });
   });
 
-  groqReq.on('error', (e) => {
-    console.log(`[!] Error red Groq: ${e.message}. Activando fallback local.`);
-    const cambios = parsearOrdenFallback(prompt);
-    const count = aplicarCambios(rawScript, cambios);
-    return res.json({ success: true, count, patch: cambios, modo: 'fallback_red' });
+  groqReq.on('error', () => {
+    const localPatch = parsearOrdenLocal(prompt);
+    if (localPatch.length > 0) return aplicarParche(localPatch);
+    return res.status(500).json({ error: 'Error de red con Groq y fallback local no concluyente.' });
   });
 
   groqReq.write(payload);
@@ -265,4 +324,4 @@ app.post('/api/edit', async (req, res) => {
 });
 
 const PORT = 3001;
-app.listen(PORT, () => console.log(`[+] Servidor Web Chat Studio activo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`[+] Servidor V34 con Compilador Semantico activo en http://localhost:${PORT}`));
