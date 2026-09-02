@@ -1,6 +1,7 @@
 import React from 'react';
 import { Img, useCurrentFrame, useVideoConfig, spring, staticFile } from 'remotion';
 import { OVERLAY_REGISTRY } from './ComponentesAuxiliares';
+import { AntiSlideshowLayer } from './recipes/AntiSlideshowLayer';
 
 const CAMERA_REGISTRY: Record<string, (f: number, fps: number, dur: number) => string> = {
   crash_zoom_in: (f, fps) => `scale(${1 + spring({ frame: f, fps, config: { damping: 14, mass: 0.8, stiffness: 220 } }) * 0.28})`,
@@ -36,6 +37,15 @@ export const VideoLayer: React.FC<{ scene: any }> = ({ scene }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
 
+  // Activación de AntiSlideshowLayer si está explícito o como modo cinematográfico multicapa
+  const isAntiSlideshow = scene.anti_slideshow === true || 
+                          scene.remotion_fx?.anti_slideshow === true || 
+                          scene.camara === 'anti_slideshow';
+
+  if (isAntiSlideshow) {
+    return <AntiSlideshowLayer scene={scene} />;
+  }
+
   const camKey = scene.camara || scene.remotion_fx?.camera_movement || 'crash_zoom_in';
   const lightKey = scene.iluminacion || scene.remotion_fx?.lighting || 'limpio';
   const overlayKey = scene.overlay || scene.remotion_fx?.overlay || 'ninguno';
@@ -58,7 +68,7 @@ export const VideoLayer: React.FC<{ scene: any }> = ({ scene }) => {
           transformOrigin: 'center center',
         }}
       />
-      {OverlayComponent && <OverlayComponent texto={scene.overlayText} />}
+      {OverlayComponent && <OverlayComponent texto={scene.overlayText || scene.remotion_fx?.overlay_text} />}
     </div>
   );
 };
