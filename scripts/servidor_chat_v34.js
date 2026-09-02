@@ -15,17 +15,29 @@ const SCRIPT_PROJECT = path.join('C:', 'tiktok', 'projects', 'actual', 'script.j
 const SCRIPT_PUBLIC = path.join('C:', 'tiktok', 'remotion', 'public', 'script.json');
 const CONFIG_PATH = path.join('C:', 'tiktok', 'api_config.json');
 const VIDEO_DIR = path.join('C:', 'tiktok', 'projects', 'actual', 'output');
+const IMAGES_DIR = path.join('C:', 'tiktok', 'projects', 'actual', 'images');
+const PUBLIC_IMAGES_DIR = path.join('C:', 'tiktok', 'remotion', 'public', 'images');
+
+// Asegurar directorios de imágenes
+if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
+if (!fs.existsSync(PUBLIC_IMAGES_DIR)) fs.mkdirSync(PUBLIC_IMAGES_DIR, { recursive: true });
 
 app.use('/media', express.static(VIDEO_DIR));
 
-function getGroqKey() {
-  const envKey = process.env.GROQ_API_KEY;
-  if (envKey && envKey.startsWith('gsk_')) return envKey;
+// Obtener credenciales
+function getApiKey(type) {
+  if (type === 'groq') {
+    if (process.env.GROQ_API_KEY && process.env.GROQ_API_KEY.startsWith('gsk_')) return process.env.GROQ_API_KEY;
+  }
+  if (type === 'google') {
+    if (process.env.GEMINI_API_KEY) return process.env.GEMINI_API_KEY;
+    if (process.env.GOOGLE_API_KEY) return process.env.GOOGLE_API_KEY;
+  }
   if (fs.existsSync(CONFIG_PATH)) {
     try {
       const cfg = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
-      const k = cfg.GROQ_API_KEY || cfg.groq_api_key || cfg.api_key;
-      if (k && k.startsWith('gsk_')) return k;
+      if (type === 'groq') return cfg.GROQ_API_KEY || cfg.groq_api_key || cfg.api_key || '';
+      if (type === 'google') return cfg.google_api_key || cfg.gemini_api_key || cfg.api_key || '';
     } catch (e) {}
   }
   return '';
@@ -126,7 +138,7 @@ function parsearOrdenLocal(prompt) {
   return modificado ? [patch] : [];
 }
 
-// APIs de Sincronización de Datos
+// Endpoint para leer el script.json
 app.get('/api/script', (req, res) => {
   try {
     const data = JSON.parse(fs.readFileSync(SCRIPT_PROJECT, 'utf-8'));
@@ -136,25 +148,26 @@ app.get('/api/script', (req, res) => {
   }
 });
 
+// Endpoint para guardar edición visual desde el Inspector
 app.post('/api/save-scene', (req, res) => {
   const { id, camara, iluminacion, overlay, overlayText } = req.body;
   try {
     let script = JSON.parse(fs.readFileSync(SCRIPT_PROJECT, 'utf-8'));
     for (let i = 0; i < script.length; i++) {
       if (String(script[i].id) === String(id)) {
-        script[i].camara = camara;
-        script[i].iluminacion = iluminacion;
-        script[i].overlay = overlay;
-        script[i].overlayText = overlayText || "";
+        if (camara !== undefined) script[i].camara = camara;
+        if (iluminacion !== undefined) script[i].iluminacion = iluminacion;
+        if (overlay !== undefined) script[i].overlay = overlay;
+        if (overlayText !== undefined) script[i].overlayText = overlayText;
         if (!script[i].remotion_fx) script[i].remotion_fx = {};
-        script[i].remotion_fx.camera_movement = camara;
-        script[i].remotion_fx.lighting = iluminacion;
-        script[i].remotion_fx.overlay = overlay;
-        script[i].remotion_fx.overlay_text = overlayText || "";
-        if (camara === "anti_slideshow") {
+        if (camara !== undefined) script[i].remotion_fx.camera_movement = camara;
+        if (iluminacion !== undefined) script[i].remotion_fx.lighting = iluminacion;
+        if (overlay !== undefined) script[i].remotion_fx.overlay = overlay;
+        if (overlayText !== undefined) script[i].remotion_fx.overlay_text = overlayText;
+        if (camara === 'anti_slideshow') {
           script[i].anti_slideshow = true;
           script[i].remotion_fx.anti_slideshow = true;
-        } else {
+        } else if (camara !== undefined) {
           script[i].anti_slideshow = false;
           script[i].remotion_fx.anti_slideshow = false;
         }
@@ -168,254 +181,12 @@ app.post('/api/save-scene', (req, res) => {
   }
 });
 
-// Interfaz Web V35 de Control Completo
-app.get('/', (req, res) => {
-  const html = `
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Estudio de Producción V35</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body { display: flex; width: 100vw; height: 100vh; background-color: #0c0d12; color: #fff; overflow: hidden; }
-    .player-section { flex: 1.2; display: flex; justify-content: center; align-items: center; padding: 20px; background: #08090d; position: relative; }
-    .video-card { height: 92vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.85); border: 2px solid #1f2230; }
-    video { width: 100%; height: 100%; object-fit: cover; }
-    
-    .sidebar { width: 480px; border-left: 1px solid #1f2230; display: flex; flex-direction: column; background: #13151f; }
-    .tabs { display: flex; border-bottom: 1px solid #1f2230; background: #181b28; }
-    .tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; font-weight: bold; font-size: 13px; color: #8d94a5; text-transform: uppercase; transition: 0.2s; user-select: none; }
-    .tab.active { color: #FFE500; border-bottom: 2px solid #FFE500; background: #13151f; }
-    
-    .panel-content { flex: 1; overflow-y: auto; padding: 20px; display: none; }
-    .panel-content.active { display: block; }
-    
-    /* Estilos del Inspector Visual */
-    .scene-card { background: #1c1e2d; border-radius: 8px; border: 1px solid #2d314a; margin-bottom: 12px; padding: 14px; transition: border-color 0.2s; }
-    .scene-card:hover { border-color: #3f4568; }
-    .scene-header { font-size: 14px; font-weight: 900; color: #00F0FF; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
-    .save-badge { background: #FF0055; color: #fff; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; text-transform: uppercase; transition: 0.2s; }
-    .save-badge:hover { background: #d90048; }
-    .scene-text { font-size: 12px; color: #a5adc4; margin-bottom: 10px; font-style: italic; line-height: 1.4; }
-    .field-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .field-group label { font-size: 11px; color: #8d94a5; text-transform: uppercase; width: 95px; flex-shrink: 0; }
-    .field-group select, .field-group input { flex: 1; background: #0c0d12; color: #fff; border: 1px solid #2d314a; padding: 6px 8px; border-radius: 4px; font-size: 12px; outline: none; }
-    .field-group select:focus, .field-group input:focus { border-color: #FF0055; }
-    
-    /* Estilos del Chat */
-    .log-box { height: calc(100vh - 250px); background: #090a0f; border-radius: 10px; padding: 16px; border: 1px solid #1f2230; overflow-y: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
-    .msg { margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; }
-    .msg-sys { background: rgba(0, 240, 255, 0.1); color: #00F0FF; border: 1px solid rgba(0, 240, 255, 0.2); }
-    .msg-user { background: rgba(255, 229, 0, 0.1); color: #FFE500; border: 1px solid rgba(229, 229, 0, 0.2); }
-    .msg-ok { background: rgba(0, 255, 102, 0.1); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.2); }
-    textarea { width: 100%; height: 80px; background: #090a0f; color: #fff; border: 1px solid #2a2e42; border-radius: 8px; padding: 12px; font-size: 13px; resize: none; margin-bottom: 12px; outline: none; }
-    textarea:focus { border-color: #FF0055; }
-    .action-btn { width: 100%; padding: 14px; background: #FF0055; color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
-    .action-btn:hover { background: #d90048; }
-    .action-btn:disabled { background: #555; cursor: not-allowed; }
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #00FF66; color: #000; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 13px; display: none; z-index: 999; box-shadow: 0 4px 15px rgba(0,255,102,0.4); }
-  </style>
-</head>
-<body>
-  <div class="player-section">
-    <div class="video-card">
-      <video id="videoPlayer" controls autoplay loop>
-        <source src="/media/video_final_remotion.mp4" type="video/mp4">
-      </video>
-    </div>
-  </div>
-
-  <div class="sidebar">
-    <div class="tabs">
-      <div class="tab active" id="tab-inspector" onclick="switchTab('inspector')">Inspector Visual</div>
-      <div class="tab" id="tab-chat" onclick="switchTab('chat')">Asistente IA</div>
-    </div>
-
-    <!-- PANEL 1: INSPECTOR VISUAL DIRECTO -->
-    <div id="panel-inspector" class="panel-content active">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <h3 style="font-size:15px; color:#FFE500;">Control Quirúrgico por Escenas</h3>
-        <span style="font-size:11px; color:#00F0FF; cursor:pointer;" onclick="cargarScript()">↻ Recargar</span>
-      </div>
-      <div id="inspectorContainer">Cargando escenas...</div>
-    </div>
-
-    <!-- PANEL 2: ASISTENTE DE CHAT -->
-    <div id="panel-chat" class="panel-content">
-      <div class="log-box" id="logBox">
-        <div class="msg msg-sys">[SISTEMA]: Compilador Semántico V35 Activo. Conversa con el video en español coloquial.</div>
-      </div>
-      <textarea id="promptInput" placeholder="Ej: En la escena uno quita el cartel de arriba shock biologico..."></textarea>
-      <button class="action-btn" id="sendBtn" onclick="enviarOrdenChat()">Ejecutar Orden Semántica</button>
-    </div>
-  </div>
-
-  <div id="toast" class="toast">¡Cambio guardado!</div>
-
-  <script>
-    let currentScript = [];
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      toast.innerText = msg;
-      toast.style.display = 'block';
-      setTimeout(() => { toast.style.display = 'none'; }, 2500);
-    }
-
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
-      
-      document.getElementById('tab-' + tabName).classList.add('active');
-      document.getElementById('panel-' + tabName).classList.add('active');
-    }
-
-    async function cargarScript() {
-      try {
-        const res = await fetch('/api/script');
-        currentScript = await res.json();
-        renderInspector();
-      } catch (e) {
-        console.error('Error cargando el script.json', e);
-        document.getElementById('inspectorContainer').innerText = 'Error al cargar script.json';
-      }
-    }
-
-    function renderInspector() {
-      const container = document.getElementById('inspectorContainer');
-      container.innerHTML = '';
-      
-      currentScript.forEach(scene => {
-        const card = document.createElement('div');
-        card.className = 'scene-card';
-        card.innerHTML = \`
-          <div class="scene-header">
-            <span>Escena \${scene.id} (\${scene.durationInSeconds ? scene.durationInSeconds.toFixed(1) + 's' : ''})</span>
-            <span class="save-badge" onclick="guardarEscenaVisual(\${scene.id})">Guardar</span>
-          </div>
-          <div class="scene-text">"\${scene.text || ''}"</div>
-          
-          <div class="field-group">
-            <label>Cámara</label>
-            <select id="cam-\${scene.id}">
-              <option value="estatico" \${scene.camara === 'estatico' ? 'selected' : ''}>Plano Fijo (estatico)</option>
-              <option value="anti_slideshow" \${scene.anti_slideshow || scene.camara === 'anti_slideshow' ? 'selected' : ''}>7-Capas Cinemáticas (anti_slideshow)</option>
-              <option value="crash_zoom_in" \${scene.camara === 'crash_zoom_in' ? 'selected' : ''}>Zoom Elástico (crash_zoom_in)</option>
-              <option value="vertigo_dolly_zoom" \${scene.camara === 'vertigo_dolly_zoom' ? 'selected' : ''}>Vértigo (vertigo_dolly_zoom)</option>
-              <option value="earthquake_shake" \${scene.camara === 'earthquake_shake' ? 'selected' : ''}>Terremoto (earthquake_shake)</option>
-              <option value="slow_creepy_crawl" \${scene.camara === 'slow_creepy_crawl' ? 'selected' : ''}>Zoom Lento (slow_creepy_crawl)</option>
-              <option value="whip_pan_left" \${scene.camara === 'whip_pan_left' ? 'selected' : ''}>Barrido Rápido (whip_pan_left)</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label>Iluminación</label>
-            <select id="light-\${scene.id}">
-              <option value="limpio" \${scene.iluminacion === 'limpio' ? 'selected' : ''}>Normal / Limpio</option>
-              <option value="red_alert_pulse" \${scene.iluminacion === 'red_alert_pulse' ? 'selected' : ''}>Pulso de Alerta Roja</option>
-              <option value="chromatic_aberration_glitch" \${scene.iluminacion === 'chromatic_aberration_glitch' ? 'selected' : ''}>Glitch Óptico</option>
-              <option value="dark_vignette_pulse" \${scene.iluminacion === 'dark_vignette_pulse' ? 'selected' : ''}>Respiración Suspenso</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label>Overlay</label>
-            <select id="over-\${scene.id}">
-              <option value="ninguno" \${scene.overlay === 'ninguno' ? 'selected' : ''}>Ninguno</option>
-              <option value="alerta_roja_neon" \${scene.overlay === 'alerta_roja_neon' ? 'selected' : ''}>Letrero Rojo Neón</option>
-              <option value="marco_cinematico" \${scene.overlay === 'marco_cinematico' ? 'selected' : ''}>Viñeta de Cine Oscura</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label>Texto Alerta</label>
-            <input type="text" id="overTxt-\${scene.id}" value="\${scene.overlayText || ''}" placeholder="Ej: ¡SHOCK!">
-          </div>
-        \`;
-        container.appendChild(card);
-      });
-    }
-
-    async function guardarEscenaVisual(id) {
-      const camara = document.getElementById('cam-' + id).value;
-      const iluminacion = document.getElementById('light-' + id).value;
-      const overlay = document.getElementById('over-' + id).value;
-      const overlayText = document.getElementById('overTxt-' + id).value;
-
-      try {
-        const res = await fetch('/api/save-scene', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id, camara, iluminacion, overlay, overlayText })
-        });
-        const data = await res.json();
-        if (data.success) {
-          showToast('✓ Escena ' + id + ' actualizada');
-          const player = document.getElementById('videoPlayer');
-          player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
-          player.load();
-          cargarScript();
-        } else {
-          alert('Error al guardar: ' + (data.error || 'Error desconocido'));
-        }
-      } catch (e) {
-        alert('Error al guardar escena.');
-      }
-    }
-
-    async function enviarOrdenChat() {
-      const input = document.getElementById('promptInput');
-      const btn = document.getElementById('sendBtn');
-      const log = document.getElementById('logBox');
-      const text = input.value.trim();
-      if (!text) return;
-
-      btn.disabled = true;
-      btn.innerText = 'Pensando semánticamente...';
-      log.innerHTML += '<div class="msg msg-user"><b>Tú:</b> ' + text + '</div>';
-      log.scrollTop = log.scrollHeight;
-
-      try {
-        const res = await fetch('/api/edit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: text })
-        });
-        const data = await res.json();
-        if (data.success) {
-          log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Orden ejecutada en script.json. Parche aplicado con éxito: ' + JSON.stringify(data.patch) + '</div>';
-          const player = document.getElementById('videoPlayer');
-          player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
-          player.load();
-          cargarScript();
-        } else {
-          log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> ' + (data.error || 'Fallo desconocido') + '</div>';
-        }
-      } catch (e) {
-        log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> Falla de red en servidor local.</div>';
-      }
-
-      input.value = '';
-      btn.disabled = false;
-      btn.innerText = 'Ejecutar Orden Semántica';
-      log.scrollTop = log.scrollHeight;
-    }
-
-    // Inicializar
-    cargarScript();
-  </script>
-</body>
-</html>
-  `;
-  res.send(html);
-});
-
-// 5. ENDPOINT /api/edit HÍBRIDO CON COMPILADOR SEMÁNTICO UNIVERSAL
+// 2. ENRUTADOR DE INTENCIONES SEMÁNTICO (CONVERSACIONAL VS OPERATIVO)
 app.post('/api/edit', async (req, res) => {
   const { prompt } = req.body;
   if (!prompt) return res.status(400).json({ error: 'Prompt requerido' });
 
+  const groqKey = getApiKey('groq');
   let rawScript = [];
   try {
     rawScript = JSON.parse(fs.readFileSync(SCRIPT_PROJECT, 'utf-8'));
@@ -423,8 +194,8 @@ app.post('/api/edit', async (req, res) => {
     return res.status(500).json({ error: 'No se pudo leer script.json' });
   }
 
-  function aplicarParche(patchArray) {
-    for (const cambio of patchArray) {
+  function aplicarParcheLocal(cambios) {
+    for (const cambio of cambios) {
       for (let i = 0; i < rawScript.length; i++) {
         if (String(rawScript[i].id) === String(cambio.id)) {
           Object.assign(rawScript[i], cambio);
@@ -433,7 +204,7 @@ app.post('/api/edit', async (req, res) => {
           if (cambio.iluminacion) rawScript[i].remotion_fx.lighting = cambio.iluminacion;
           if (cambio.overlay) rawScript[i].remotion_fx.overlay = cambio.overlay;
           if (cambio.overlayText !== undefined) rawScript[i].remotion_fx.overlay_text = cambio.overlayText;
-          if (cambio.camara === "anti_slideshow") {
+          if (cambio.camara === 'anti_slideshow') {
             rawScript[i].anti_slideshow = true;
             rawScript[i].remotion_fx.anti_slideshow = true;
           }
@@ -442,29 +213,39 @@ app.post('/api/edit', async (req, res) => {
     }
     fs.writeFileSync(SCRIPT_PROJECT, JSON.stringify(rawScript, null, 2), 'utf-8');
     fs.writeFileSync(SCRIPT_PUBLIC, JSON.stringify(rawScript, null, 2), 'utf-8');
-    return res.json({ success: true, patch: patchArray });
+    return res.json({ success: true, type: 'operative', patch: cambios });
   }
 
-  const groqKey = getGroqKey();
-
-  // Si no hay key de Groq, usar de inmediato el compilador local robusto
+  // Fallback si no hay API Key de Groq (Modo Híbrido Básico Local)
   if (!groqKey) {
     const localPatch = parsearOrdenLocal(prompt);
-    if (localPatch.length === 0) {
-      return res.status(400).json({ error: 'No se pudo identificar la escena (ej: escena 1, escena uno) o la acción solicitada.' });
+    if (localPatch.length > 0) {
+      return aplicarParcheLocal(localPatch);
     }
-    return aplicarParche(localPatch);
+    return res.json({
+      success: true,
+      type: 'conversational',
+      reply: '¡SÍ, SEÑOR! Estoy operando en modo local sin conexión a Groq. Para habilitar mi pleno potencial cognitivo de conversación e interpretación semántica, asegúrese de ingresar su GROQ_API_KEY en api_config.json.'
+    });
   }
 
   const systemPrompt = `
-Eres un Asistente de Edición Cinematográfica en Remotion.
-Recibe el JSON de 12 escenas y una orden coloquial.
-Devuelve ÚNICAMENTE un JSON: {"escenas_modificadas": [{"id": X, "camara": "...", "iluminacion": "...", "overlay": "...", "overlayText": "..."}]}.
-Reglas de mapeo semántico:
-- Ordinales/cardinales ("uno", "primera") -> id: 1
-- Si dice "quita el cartel", "elimina la alerta", "borra el texto de arriba" -> overlay: "ninguno", overlayText: ""
-- Si dice "activa anti-slideshow", "pon anti slideshow", "activa el anti_slideshow" -> camara: "anti_slideshow", overlay: "ninguno"
-- Cámaras: crash_zoom_in, vertigo_dolly_zoom, slow_creepy_crawl, whip_pan_left, earthquake_shake, estatico, anti_slideshow.
+Eres el CAO (Chief Automation Officer) de Juan Pablo, Director General. Tu tono es enérgico, ultra-estratégico y militar ("¡SÍ, SEÑOR!", "Director General").
+Analiza la orden del usuario y decide si es CONVERSACIONAL (saludos, preguntas del guion, sugerencias) o si es OPERATIVA (petición de cambios al video).
+
+Devuelve estrictamente un JSON con este esquema:
+{
+  "type": "conversational" | "operative",
+  "reply": "Tu respuesta militar enérgica de CAO (solo si es conversational)",
+  "escenas_modificadas": [ (solo si es operative)
+    {"id": X, "camara": "...", "iluminacion": "...", "overlay": "...", "overlayText": "..."}
+  ]
+}
+
+REGLAS DE EDICIÓN (OPERATIVO):
+- Mapea palabras ("uno", "primera") a IDs reales (1).
+- Si el usuario pide "quitar cartel" o "borrar letrero" -> overlay: "ninguno", overlayText: "".
+- Cámaras válidas: crash_zoom_in, vertigo_dolly_zoom, slow_creepy_crawl, whip_pan_left, earthquake_shake, estatico, anti_slideshow.
 - Iluminación: red_alert_pulse, dark_vignette_pulse, chromatic_aberration_glitch, limpio.
 - Overlays: alerta_roja_neon, marco_cinematico, ninguno.
 `;
@@ -473,7 +254,7 @@ Reglas de mapeo semántico:
     model: 'llama-3.3-70b-versatile',
     messages: [
       { role: 'system', content: systemPrompt },
-      { role: 'user', content: `JSON ACTUAL:\n${JSON.stringify(rawScript)}\n\nORDEN:\n${prompt}` }
+      { role: 'user', content: `JSON ACTUAL:\n${JSON.stringify(rawScript)}\n\nORDEN: ${prompt}` }
     ],
     response_format: { type: 'json_object' },
     temperature: 0.1
@@ -496,28 +277,386 @@ Reglas de mapeo semántico:
     groqRes.on('end', () => {
       try {
         const parsed = JSON.parse(data);
-        const patch = JSON.parse(parsed.choices[0].message.content);
-        const mod = patch.escenas_modificadas || [];
-        if (mod.length > 0) {
-          return aplicarParche(mod);
+        const result = JSON.parse(parsed.choices[0].message.content);
+
+        if (result.type === 'operative' && result.escenas_modificadas && result.escenas_modificadas.length > 0) {
+          return aplicarParcheLocal(result.escenas_modificadas);
         }
-      } catch (err) {}
-      // Fallback local si Groq no devolvió parche válido
-      const localPatch = parsearOrdenLocal(prompt);
-      if (localPatch.length > 0) return aplicarParche(localPatch);
-      return res.status(400).json({ error: 'No se pudo interpretar la acción en la orden enviada.' });
+
+        return res.json({ success: true, type: 'conversational', reply: result.reply || '¡A la orden, Director General!' });
+      } catch (err) {
+        const localPatch = parsearOrdenLocal(prompt);
+        if (localPatch.length > 0) return aplicarParcheLocal(localPatch);
+        return res.status(500).json({ error: 'Fallo al parsear respuesta cognitiva' });
+      }
     });
   });
 
-  groqReq.on('error', () => {
+  groqReq.on('error', (e) => {
     const localPatch = parsearOrdenLocal(prompt);
-    if (localPatch.length > 0) return aplicarParche(localPatch);
-    return res.status(500).json({ error: 'Error de red con Groq y fallback local no concluyente.' });
+    if (localPatch.length > 0) return aplicarParcheLocal(localPatch);
+    return res.status(500).json({ error: e.message });
   });
 
   groqReq.write(payload);
   groqReq.end();
 });
 
+// 3. PUENTE AUTOMÁTICO DE IMÁGENES NATIVO (IMAGEN 3.0 API)
+app.post('/api/generate-assets', async (req, res) => {
+  const googleKey = getApiKey('google');
+  if (!googleKey) return res.status(400).json({ error: 'Falta google_api_key o gemini_api_key en api_config.json' });
+
+  let rawScript = [];
+  try {
+    rawScript = JSON.parse(fs.readFileSync(SCRIPT_PROJECT, 'utf-8'));
+  } catch (e) {
+    return res.status(500).json({ error: 'No se pudo leer el script' });
+  }
+
+  // Establecer conexión asíncrona de progreso (SSE Chunked)
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  const enviarProgreso = (msg) => {
+    res.write(`data: ${JSON.stringify(msg)}\n\n`);
+  };
+
+  for (let i = 0; i < rawScript.length; i++) {
+    const scene = rawScript[i];
+    const sceneId = scene.id;
+    const promptTexto = scene.visual_prompt || `Vertical 9:16 cinematic scene about ${scene.text}`;
+
+    enviarProgreso({ status: `Generando imagen para Escena ${sceneId}...`, progress: i + 1, total: rawScript.length });
+
+    try {
+      const postData = JSON.stringify({
+        requests: [{
+          prompt: { text: promptTexto },
+          aspectRatio: "9:16",
+          numberOfImages: 1
+        }]
+      });
+
+      const options = {
+        hostname: 'generativelanguage.googleapis.com',
+        path: `/v1beta/models/imagen-3.0-generate-002:generateImages?key=${googleKey}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(postData)
+        }
+      };
+
+      await new Promise((resolve, reject) => {
+        const reqImage = https.request(options, (resImg) => {
+          let chunkData = '';
+          resImg.on('data', (d) => chunkData += d);
+          resImg.on('end', () => {
+            try {
+              const parsed = JSON.parse(chunkData);
+              if (parsed.generatedImages && parsed.generatedImages[0]) {
+                const base64Image = parsed.generatedImages[0].image.imageBytes;
+                const buffer = Buffer.from(base64Image, 'base64');
+                const outPath = path.join(IMAGES_DIR, `escena_${sceneId}.png`);
+                const publicOutPath = path.join(PUBLIC_IMAGES_DIR, `escena_${sceneId}.png`);
+                fs.writeFileSync(outPath, buffer);
+                fs.writeFileSync(publicOutPath, buffer);
+                resolve();
+              } else {
+                reject(new Error(parsed.error ? parsed.error.message : 'Error desconocido de Imagen API'));
+              }
+            } catch (e) {
+              reject(e);
+            }
+          });
+        });
+        reqImage.on('error', reject);
+        reqImage.write(postData);
+        reqImage.end();
+      });
+
+      enviarProgreso({ status: `¡Escena ${sceneId} guardada con éxito!`, progress: i + 1, total: rawScript.length });
+    } catch (err) {
+      enviarProgreso({ status: `Fallo en Escena ${sceneId}: ${err.message}. Saltando...`, progress: i + 1, total: rawScript.length });
+    }
+  }
+
+  enviarProgreso({ status: '¡FINALIZADO! Assets actualizados en C:\\tiktok\\.', done: true });
+  res.end();
+});
+
+// Servir la Interfaz de Mando V36
+app.get('/', (req, res) => {
+  const html = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Estudio de Producción V36: Ecosistema Cognitivo-Visual</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { display: flex; width: 100vw; height: 100vh; background-color: #0c0d12; color: #fff; overflow: hidden; }
+    .player-section { flex: 1.1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; background: #08090d; position: relative; }
+    .video-card { height: 82vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.85); border: 2px solid #1f2230; }
+    video { width: 100%; height: 100%; object-fit: cover; }
+    
+    .sidebar { width: 480px; border-left: 1px solid #1f2230; display: flex; flex-direction: column; background: #13151f; }
+    .tabs { display: flex; border-bottom: 1px solid #1f2230; background: #181b28; }
+    .tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; font-weight: bold; font-size: 13px; color: #8d94a5; text-transform: uppercase; transition: 0.2s; user-select: none; }
+    .tab.active { color: #FFE500; border-bottom: 2px solid #FFE500; background: #13151f; }
+    
+    .panel-content { flex: 1; overflow-y: auto; padding: 20px; display: none; }
+    .panel-content.active { display: block; }
+    
+    .scene-card { background: #1c1e2d; border-radius: 8px; border: 1px solid #2d314a; margin-bottom: 12px; padding: 14px; }
+    .scene-header { font-size: 14px; font-weight: 900; color: #00F0FF; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .save-badge { background: #FF0055; color: #fff; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+    .save-badge:hover { background: #d90048; }
+    .scene-text { font-size: 12px; color: #a5adc4; margin-bottom: 10px; font-style: italic; }
+    .field-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .field-group label { font-size: 11px; color: #8d94a5; text-transform: uppercase; width: 90px; flex-shrink: 0; }
+    .field-group select, .field-group input { flex: 1; background: #0c0d12; color: #fff; border: 1px solid #2d314a; padding: 6px 8px; border-radius: 4px; font-size: 12px; outline: none; }
+    .field-group select:focus, .field-group input:focus { border-color: #FF0055; }
+    
+    .log-box { height: calc(100vh - 270px); background: #090a0f; border-radius: 10px; padding: 16px; border: 1px solid #1f2230; overflow-y: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
+    .msg { margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; }
+    .msg-sys { background: rgba(0, 240, 255, 0.1); color: #00F0FF; border: 1px solid rgba(0, 240, 255, 0.2); }
+    .msg-user { background: rgba(255, 229, 0, 0.1); color: #FFE500; border: 1px solid rgba(229, 229, 0, 0.2); }
+    .msg-ok { background: rgba(0, 255, 102, 0.1); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.2); }
+    .msg-cao { background: rgba(255, 0, 85, 0.1); color: #FF0055; border: 1px solid rgba(255, 0, 85, 0.2); font-weight: 500; }
+    
+    textarea { width: 100%; height: 80px; background: #090a0f; color: #fff; border: 1px solid #2a2e42; border-radius: 8px; padding: 12px; font-size: 13px; resize: none; margin-bottom: 12px; outline: none; }
+    .action-btn { width: 100%; padding: 14px; background: #FF0055; color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+    .action-btn:hover { background: #d90048; }
+
+    /* Barra de Progreso de Assets */
+    .progress-bar-container { width: 100%; height: 16px; background-color: #1c1e2d; border-radius: 8px; overflow: hidden; margin-top: 10px; display: none; border: 1px solid #2d314a; max-width: 450px; }
+    .progress-fill { height: 100%; width: 0%; background-color: #FFE500; transition: width 0.3s; }
+  </style>
+</head>
+<body>
+  <div class="player-section">
+    <div class="video-card">
+      <video id="videoPlayer" controls autoplay loop>
+        <source src="/media/video_final_remotion.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div style="margin-top: 15px; display: flex; gap: 15px; width: 100%; max-width: 450px;">
+      <button class="action-btn" style="background:#00F0FF; color:#000;" onclick="generarAssetsNativos()">Autogenerar Visuales (API Imagen)</button>
+    </div>
+    <div class="progress-bar-container" id="pBar">
+      <div class="progress-fill" id="pFill"></div>
+    </div>
+    <p id="progressStatus" style="font-size:12px; color:#8d94a5; margin-top:8px;"></p>
+  </div>
+
+  <div class="sidebar">
+    <div class="tabs">
+      <div class="tab active" id="tab-inspector" onclick="switchTab('inspector')">Inspector</div>
+      <div class="tab" id="tab-chat" onclick="switchTab('chat')">Asistente IA</div>
+    </div>
+
+    <div id="panel-inspector" class="panel-content active">
+      <h3 style="font-size:15px; margin-bottom:12px; color:#FFE500;">Control Visual</h3>
+      <div id="inspectorContainer">Cargando escenas...</div>
+    </div>
+
+    <div id="panel-chat" class="panel-content">
+      <div class="log-box" id="logBox">
+        <div class="msg msg-sys">[SISTEMA]: Enrutador Cognitivo V36 activo. Háblame con total libertad.</div>
+      </div>
+      <textarea id="promptInput" placeholder="Saluda al CAO, haz preguntas sobre el video o pide ediciones directas..."></textarea>
+      <button class="action-btn" id="sendBtn" onclick="enviarOrdenChat()">Enviar a IA</button>
+    </div>
+  </div>
+
+  <script>
+    let currentScript = [];
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.getElementById('panel-' + tabName).classList.add('active');
+    }
+
+    async function cargarScript() {
+      try {
+        const res = await fetch('/api/script');
+        currentScript = await res.json();
+        renderInspector();
+      } catch (e) {}
+    }
+
+    function renderInspector() {
+      const container = document.getElementById('inspectorContainer');
+      container.innerHTML = '';
+      currentScript.forEach(scene => {
+        const card = document.createElement('div');
+        card.className = 'scene-card';
+        card.innerHTML = \`
+          <div class="scene-header">
+            <span>Escena \${scene.id}</span>
+            <span class="save-badge" onclick="guardarEscenaVisual(\${scene.id})">Guardar</span>
+          </div>
+          <div class="scene-text">"\${scene.text || ''}"</div>
+          
+          <div class="field-group">
+            <label>Cámara</label>
+            <select id="cam-\${scene.id}">
+              <option value="estatico" \${scene.camara === 'estatico' ? 'selected' : ''}>Plano Fijo</option>
+              <option value="anti_slideshow" \${scene.anti_slideshow || scene.camara === 'anti_slideshow' ? 'selected' : ''}>Anti-Slideshow 7-Capas</option>
+              <option value="crash_zoom_in" \${scene.camara === 'crash_zoom_in' ? 'selected' : ''}>Zoom Elástico</option>
+              <option value="vertigo_dolly_zoom" \${scene.camara === 'vertigo_dolly_zoom' ? 'selected' : ''}>Efecto Vértigo</option>
+              <option value="earthquake_shake" \${scene.camara === 'earthquake_shake' ? 'selected' : ''}>Terremoto</option>
+              <option value="slow_creepy_crawl" \${scene.camara === 'slow_creepy_crawl' ? 'selected' : ''}>Zoom Lento</option>
+              <option value="whip_pan_left" \${scene.camara === 'whip_pan_left' ? 'selected' : ''}>Barrido Rápido</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Iluminación</label>
+            <select id="light-\${scene.id}">
+              <option value="limpio" \${scene.iluminacion === 'limpio' ? 'selected' : ''}>Limpio / Normal</option>
+              <option value="red_alert_pulse" \${scene.iluminacion === 'red_alert_pulse' ? 'selected' : ''}>Pulso Alerta Roja</option>
+              <option value="chromatic_aberration_glitch" \${scene.iluminacion === 'chromatic_aberration_glitch' ? 'selected' : ''}>Glitch Óptico</option>
+              <option value="dark_vignette_pulse" \${scene.iluminacion === 'dark_vignette_pulse' ? 'selected' : ''}>Viñeta Oscura</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Overlay</label>
+            <select id="over-\${scene.id}">
+              <option value="ninguno" \${scene.overlay === 'ninguno' ? 'selected' : ''}>Ninguno</option>
+              <option value="alerta_roja_neon" \${scene.overlay === 'alerta_roja_neon' ? 'selected' : ''}>Letrero Neón</option>
+              <option value="marco_cinematico" \${scene.overlay === 'marco_cinematico' ? 'selected' : ''}>Marco Cinemático</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label>Texto Alerta</label>
+            <input type="text" id="overTxt-\${scene.id}" value="\${scene.overlayText || ''}" placeholder="Ej: ¡ALERTA!">
+          </div>
+        \`;
+        container.appendChild(card);
+      });
+    }
+
+    async function guardarEscenaVisual(id) {
+      const camara = document.getElementById('cam-' + id).value;
+      const iluminacion = document.getElementById('light-' + id).value;
+      const overlay = document.getElementById('over-' + id).value;
+      const overlayText = document.getElementById('overTxt-' + id).value;
+      try {
+        const res = await fetch('/api/save-scene', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, camara, iluminacion, overlay, overlayText })
+        });
+        const data = await res.json();
+        if (data.success) {
+          const player = document.getElementById('videoPlayer');
+          player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
+          player.load();
+          cargarScript();
+        }
+      } catch (e) {}
+    }
+
+    async function enviarOrdenChat() {
+      const input = document.getElementById('promptInput');
+      const btn = document.getElementById('sendBtn');
+      const log = document.getElementById('logBox');
+      const text = input.value.trim();
+      if (!text) return;
+
+      btn.disabled = true;
+      btn.innerText = 'Consultando cerebro...';
+      log.innerHTML += '<div class="msg msg-user"><b>Tú:</b> ' + text + '</div>';
+      log.scrollTop = log.scrollHeight;
+
+      try {
+        const res = await fetch('/api/edit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text })
+        });
+        const data = await res.json();
+        if (data.success) {
+          if (data.type === 'conversational') {
+            log.innerHTML += '<div class="msg msg-cao"><b>CAO:</b> ' + data.reply + '</div>';
+          } else {
+            log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Edición aplicada en script.json. Refrescando reproductor...</div>';
+            const player = document.getElementById('videoPlayer');
+            player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
+            player.load();
+            cargarScript();
+          }
+        } else {
+          log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> ' + (data.error || 'Error interno') + '</div>';
+        }
+      } catch (e) {
+        log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> Error de conexión.</div>';
+      }
+
+      input.value = '';
+      btn.disabled = false;
+      btn.innerText = 'Enviar a IA';
+      log.scrollTop = log.scrollHeight;
+    }
+
+    // Pipeline automático de Imágenes por Streaming SSE
+    async function generarAssetsNativos() {
+      const pBar = document.getElementById('pBar');
+      const pFill = document.getElementById('pFill');
+      const status = document.getElementById('progressStatus');
+      
+      pBar.style.display = 'block';
+      pFill.style.width = '0%';
+      status.innerText = 'Inicializando puente nativo de generación con Google Cloud...';
+
+      try {
+        const response = await fetch('/api/generate-assets', { method: 'POST' });
+        if (!response.ok) {
+          const err = await response.json();
+          status.innerText = 'Error: ' + (err.error || 'Fallo de conexión con Google Cloud');
+          return;
+        }
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split('\\n\\n');
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              const data = JSON.parse(line.replace('data: ', ''));
+              status.innerText = data.status;
+              if (data.progress) {
+                const pct = (data.progress / data.total) * 100;
+                pFill.style.width = pct + '%';
+              }
+              if (data.done) {
+                const player = document.getElementById('videoPlayer');
+                player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
+                player.load();
+              }
+            }
+          }
+        }
+      } catch (e) {
+        status.innerText = 'Error durante la generación: ' + e.message;
+      }
+    }
+
+    cargarScript();
+  </script>
+</body>
+</html>
+  `;
+  res.send(html);
+});
+
 const PORT = 3001;
-app.listen(PORT, () => console.log(`[+] Servidor V35 Hibrido activo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`[+] Servidor V36 Hibrido activo en http://localhost:${PORT}`));
