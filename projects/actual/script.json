@@ -9,7 +9,10 @@
     "remotion_fx": {
       "emotional_color": "#FF0055",
       "overlay": "ninguno",
-      "overlay_text": ""
+      "overlay_text": "",
+      "camera_movement": "crash_zoom_in",
+      "lighting": "red_alert_pulse",
+      "anti_slideshow": false
     },
     "durationInSeconds": 4.8,
     "durationInFrames": 144,
@@ -105,7 +108,8 @@
         "startFrame": 98,
         "endFrame": 115
       }
-    ]
+    ],
+    "anti_slideshow": false
   },
   {
     "id": 2,

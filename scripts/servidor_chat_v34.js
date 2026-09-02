@@ -18,7 +18,6 @@ const VIDEO_DIR = path.join('C:', 'tiktok', 'projects', 'actual', 'output');
 
 app.use('/media', express.static(VIDEO_DIR));
 
-// 1. RESOLUCIÓN DE CREDENCIALES
 function getGroqKey() {
   const envKey = process.env.GROQ_API_KEY;
   if (envKey && envKey.startsWith('gsk_')) return envKey;
@@ -32,7 +31,7 @@ function getGroqKey() {
   return '';
 }
 
-// 2. NORMALIZADOR LÉXICO: CONVERSOR DE PALABRAS A NÚMEROS (1-12)
+// Normalizador de palabras a números (1-12)
 function extraerNumeroEscena(texto) {
   const t = texto.toLowerCase();
   const digitMatch = t.match(/(?:escena|scene)\s*(\d+)/i);
@@ -60,7 +59,7 @@ function extraerNumeroEscena(texto) {
   return null;
 }
 
-// 3. PARSER SEMÁNTICO LOCAL DE CONTINGENCIA (COMPRENSIÓN COLOQUIAL Y ACCIONES NEGATIVAS)
+// Parser Semántico Local Robusto
 function parsearOrdenLocal(prompt) {
   const targetId = extraerNumeroEscena(prompt);
   if (!targetId) return [];
@@ -84,8 +83,12 @@ function parsearOrdenLocal(prompt) {
     modificado = true;
   }
 
-  // Cámaras Coloquiales
-  if (/terremoto|temblor|sacud/i.test(t)) {
+  // Cámaras
+  if (/anti|slideshow/i.test(t)) {
+    patch.camara = "anti_slideshow";
+    patch.anti_slideshow = true;
+    modificado = true;
+  } else if (/terremoto|temblor|sacud/i.test(t)) {
     patch.camara = "earthquake_shake";
     modificado = true;
   } else if (/v[eé]rtigo|dolly/i.test(t)) {
@@ -123,33 +126,95 @@ function parsearOrdenLocal(prompt) {
   return modificado ? [patch] : [];
 }
 
-// 4. INTERFAZ WEB COMPLETA
+// APIs de Sincronización de Datos
+app.get('/api/script', (req, res) => {
+  try {
+    const data = JSON.parse(fs.readFileSync(SCRIPT_PROJECT, 'utf-8'));
+    res.json(data);
+  } catch (e) {
+    res.status(500).json({ error: 'No se pudo leer el script' });
+  }
+});
+
+app.post('/api/save-scene', (req, res) => {
+  const { id, camara, iluminacion, overlay, overlayText } = req.body;
+  try {
+    let script = JSON.parse(fs.readFileSync(SCRIPT_PROJECT, 'utf-8'));
+    for (let i = 0; i < script.length; i++) {
+      if (String(script[i].id) === String(id)) {
+        script[i].camara = camara;
+        script[i].iluminacion = iluminacion;
+        script[i].overlay = overlay;
+        script[i].overlayText = overlayText || "";
+        if (!script[i].remotion_fx) script[i].remotion_fx = {};
+        script[i].remotion_fx.camera_movement = camara;
+        script[i].remotion_fx.lighting = iluminacion;
+        script[i].remotion_fx.overlay = overlay;
+        script[i].remotion_fx.overlay_text = overlayText || "";
+        if (camara === "anti_slideshow") {
+          script[i].anti_slideshow = true;
+          script[i].remotion_fx.anti_slideshow = true;
+        } else {
+          script[i].anti_slideshow = false;
+          script[i].remotion_fx.anti_slideshow = false;
+        }
+      }
+    }
+    fs.writeFileSync(SCRIPT_PROJECT, JSON.stringify(script, null, 2), 'utf-8');
+    fs.writeFileSync(SCRIPT_PUBLIC, JSON.stringify(script, null, 2), 'utf-8');
+    res.json({ success: true });
+  } catch (e) {
+    res.status(500).json({ error: 'Fallo al guardar escena' });
+  }
+});
+
+// Interfaz Web V35 de Control Completo
 app.get('/', (req, res) => {
   const html = `
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Factoría V34: Chat Studio</title>
+  <title>Estudio de Producción V35</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { display: flex; width: 100vw; height: 100vh; background-color: #0c0d12; color: #fff; overflow: hidden; }
-    .player-section { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; background: #08090d; }
-    .video-card { height: 90vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.8); border: 2px solid #1f2230; }
+    .player-section { flex: 1.2; display: flex; justify-content: center; align-items: center; padding: 20px; background: #08090d; position: relative; }
+    .video-card { height: 92vh; aspect-ratio: 9/16; background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 0 40px rgba(0,0,0,0.85); border: 2px solid #1f2230; }
     video { width: 100%; height: 100%; object-fit: cover; }
-    .chat-section { width: 440px; border-left: 1px solid #1f2230; display: flex; flex-direction: column; background: #13151f; padding: 24px; }
-    h1 { font-size: 20px; font-weight: 900; color: #FFE500; margin-bottom: 6px; letter-spacing: 1px; }
-    p.sub { font-size: 13px; color: #8d94a5; margin-bottom: 20px; }
-    .log-box { flex: 1; background: #090a0f; border-radius: 10px; padding: 16px; border: 1px solid #1f2230; overflow-y: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
+    
+    .sidebar { width: 480px; border-left: 1px solid #1f2230; display: flex; flex-direction: column; background: #13151f; }
+    .tabs { display: flex; border-bottom: 1px solid #1f2230; background: #181b28; }
+    .tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; font-weight: bold; font-size: 13px; color: #8d94a5; text-transform: uppercase; transition: 0.2s; user-select: none; }
+    .tab.active { color: #FFE500; border-bottom: 2px solid #FFE500; background: #13151f; }
+    
+    .panel-content { flex: 1; overflow-y: auto; padding: 20px; display: none; }
+    .panel-content.active { display: block; }
+    
+    /* Estilos del Inspector Visual */
+    .scene-card { background: #1c1e2d; border-radius: 8px; border: 1px solid #2d314a; margin-bottom: 12px; padding: 14px; transition: border-color 0.2s; }
+    .scene-card:hover { border-color: #3f4568; }
+    .scene-header { font-size: 14px; font-weight: 900; color: #00F0FF; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .save-badge { background: #FF0055; color: #fff; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; text-transform: uppercase; transition: 0.2s; }
+    .save-badge:hover { background: #d90048; }
+    .scene-text { font-size: 12px; color: #a5adc4; margin-bottom: 10px; font-style: italic; line-height: 1.4; }
+    .field-group { margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .field-group label { font-size: 11px; color: #8d94a5; text-transform: uppercase; width: 95px; flex-shrink: 0; }
+    .field-group select, .field-group input { flex: 1; background: #0c0d12; color: #fff; border: 1px solid #2d314a; padding: 6px 8px; border-radius: 4px; font-size: 12px; outline: none; }
+    .field-group select:focus, .field-group input:focus { border-color: #FF0055; }
+    
+    /* Estilos del Chat */
+    .log-box { height: calc(100vh - 250px); background: #090a0f; border-radius: 10px; padding: 16px; border: 1px solid #1f2230; overflow-y: auto; margin-bottom: 16px; font-size: 13px; line-height: 1.5; }
     .msg { margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; }
     .msg-sys { background: rgba(0, 240, 255, 0.1); color: #00F0FF; border: 1px solid rgba(0, 240, 255, 0.2); }
     .msg-user { background: rgba(255, 229, 0, 0.1); color: #FFE500; border: 1px solid rgba(229, 229, 0, 0.2); }
     .msg-ok { background: rgba(0, 255, 102, 0.1); color: #00FF66; border: 1px solid rgba(0, 255, 102, 0.2); }
-    textarea { width: 100%; height: 100px; background: #090a0f; color: #fff; border: 1px solid #2a2e42; border-radius: 8px; padding: 12px; font-size: 14px; resize: none; margin-bottom: 12px; outline: none; }
+    textarea { width: 100%; height: 80px; background: #090a0f; color: #fff; border: 1px solid #2a2e42; border-radius: 8px; padding: 12px; font-size: 13px; resize: none; margin-bottom: 12px; outline: none; }
     textarea:focus { border-color: #FF0055; }
-    button { width: 100%; padding: 14px; background: #FF0055; color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-    button:hover { background: #d90048; }
-    button:disabled { background: #555; cursor: not-allowed; }
+    .action-btn { width: 100%; padding: 14px; background: #FF0055; color: #fff; font-weight: 900; border: none; border-radius: 8px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; }
+    .action-btn:hover { background: #d90048; }
+    .action-btn:disabled { background: #555; cursor: not-allowed; }
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #00FF66; color: #000; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 13px; display: none; z-index: 999; box-shadow: 0 4px 15px rgba(0,255,102,0.4); }
   </style>
 </head>
 <body>
@@ -161,20 +226,145 @@ app.get('/', (req, res) => {
     </div>
   </div>
 
-  <div class="chat-section">
-    <h1>FACTORÍA V34: CHAT STUDIO</h1>
-    <p class="sub">Escribe en lenguaje natural para modificar cualquier escena en caliente.</p>
-
-    <div class="log-box" id="logBox">
-      <div class="msg msg-sys">[SISTEMA]: Compilador Semántico Universal activo (Groq Cloud Llama-3.3 + Respaldo Local).</div>
+  <div class="sidebar">
+    <div class="tabs">
+      <div class="tab active" id="tab-inspector" onclick="switchTab('inspector')">Inspector Visual</div>
+      <div class="tab" id="tab-chat" onclick="switchTab('chat')">Asistente IA</div>
     </div>
 
-    <textarea id="promptInput" placeholder="Ej: en la escena uno quita el cartel de arriba shock biologico"></textarea>
-    <button id="sendBtn" onclick="enviarOrden()">Ejecutar Orden Agéntica</button>
+    <!-- PANEL 1: INSPECTOR VISUAL DIRECTO -->
+    <div id="panel-inspector" class="panel-content active">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 style="font-size:15px; color:#FFE500;">Control Quirúrgico por Escenas</h3>
+        <span style="font-size:11px; color:#00F0FF; cursor:pointer;" onclick="cargarScript()">↻ Recargar</span>
+      </div>
+      <div id="inspectorContainer">Cargando escenas...</div>
+    </div>
+
+    <!-- PANEL 2: ASISTENTE DE CHAT -->
+    <div id="panel-chat" class="panel-content">
+      <div class="log-box" id="logBox">
+        <div class="msg msg-sys">[SISTEMA]: Compilador Semántico V35 Activo. Conversa con el video en español coloquial.</div>
+      </div>
+      <textarea id="promptInput" placeholder="Ej: En la escena uno quita el cartel de arriba shock biologico..."></textarea>
+      <button class="action-btn" id="sendBtn" onclick="enviarOrdenChat()">Ejecutar Orden Semántica</button>
+    </div>
   </div>
 
+  <div id="toast" class="toast">¡Cambio guardado!</div>
+
   <script>
-    async function enviarOrden() {
+    let currentScript = [];
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2500);
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel-content').forEach(p => p.classList.remove('active'));
+      
+      document.getElementById('tab-' + tabName).classList.add('active');
+      document.getElementById('panel-' + tabName).classList.add('active');
+    }
+
+    async function cargarScript() {
+      try {
+        const res = await fetch('/api/script');
+        currentScript = await res.json();
+        renderInspector();
+      } catch (e) {
+        console.error('Error cargando el script.json', e);
+        document.getElementById('inspectorContainer').innerText = 'Error al cargar script.json';
+      }
+    }
+
+    function renderInspector() {
+      const container = document.getElementById('inspectorContainer');
+      container.innerHTML = '';
+      
+      currentScript.forEach(scene => {
+        const card = document.createElement('div');
+        card.className = 'scene-card';
+        card.innerHTML = \`
+          <div class="scene-header">
+            <span>Escena \${scene.id} (\${scene.durationInSeconds ? scene.durationInSeconds.toFixed(1) + 's' : ''})</span>
+            <span class="save-badge" onclick="guardarEscenaVisual(\${scene.id})">Guardar</span>
+          </div>
+          <div class="scene-text">"\${scene.text || ''}"</div>
+          
+          <div class="field-group">
+            <label>Cámara</label>
+            <select id="cam-\${scene.id}">
+              <option value="estatico" \${scene.camara === 'estatico' ? 'selected' : ''}>Plano Fijo (estatico)</option>
+              <option value="anti_slideshow" \${scene.anti_slideshow || scene.camara === 'anti_slideshow' ? 'selected' : ''}>7-Capas Cinemáticas (anti_slideshow)</option>
+              <option value="crash_zoom_in" \${scene.camara === 'crash_zoom_in' ? 'selected' : ''}>Zoom Elástico (crash_zoom_in)</option>
+              <option value="vertigo_dolly_zoom" \${scene.camara === 'vertigo_dolly_zoom' ? 'selected' : ''}>Vértigo (vertigo_dolly_zoom)</option>
+              <option value="earthquake_shake" \${scene.camara === 'earthquake_shake' ? 'selected' : ''}>Terremoto (earthquake_shake)</option>
+              <option value="slow_creepy_crawl" \${scene.camara === 'slow_creepy_crawl' ? 'selected' : ''}>Zoom Lento (slow_creepy_crawl)</option>
+              <option value="whip_pan_left" \${scene.camara === 'whip_pan_left' ? 'selected' : ''}>Barrido Rápido (whip_pan_left)</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Iluminación</label>
+            <select id="light-\${scene.id}">
+              <option value="limpio" \${scene.iluminacion === 'limpio' ? 'selected' : ''}>Normal / Limpio</option>
+              <option value="red_alert_pulse" \${scene.iluminacion === 'red_alert_pulse' ? 'selected' : ''}>Pulso de Alerta Roja</option>
+              <option value="chromatic_aberration_glitch" \${scene.iluminacion === 'chromatic_aberration_glitch' ? 'selected' : ''}>Glitch Óptico</option>
+              <option value="dark_vignette_pulse" \${scene.iluminacion === 'dark_vignette_pulse' ? 'selected' : ''}>Respiración Suspenso</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Overlay</label>
+            <select id="over-\${scene.id}">
+              <option value="ninguno" \${scene.overlay === 'ninguno' ? 'selected' : ''}>Ninguno</option>
+              <option value="alerta_roja_neon" \${scene.overlay === 'alerta_roja_neon' ? 'selected' : ''}>Letrero Rojo Neón</option>
+              <option value="marco_cinematico" \${scene.overlay === 'marco_cinematico' ? 'selected' : ''}>Viñeta de Cine Oscura</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label>Texto Alerta</label>
+            <input type="text" id="overTxt-\${scene.id}" value="\${scene.overlayText || ''}" placeholder="Ej: ¡SHOCK!">
+          </div>
+        \`;
+        container.appendChild(card);
+      });
+    }
+
+    async function guardarEscenaVisual(id) {
+      const camara = document.getElementById('cam-' + id).value;
+      const iluminacion = document.getElementById('light-' + id).value;
+      const overlay = document.getElementById('over-' + id).value;
+      const overlayText = document.getElementById('overTxt-' + id).value;
+
+      try {
+        const res = await fetch('/api/save-scene', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, camara, iluminacion, overlay, overlayText })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('✓ Escena ' + id + ' actualizada');
+          const player = document.getElementById('videoPlayer');
+          player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
+          player.load();
+          cargarScript();
+        } else {
+          alert('Error al guardar: ' + (data.error || 'Error desconocido'));
+        }
+      } catch (e) {
+        alert('Error al guardar escena.');
+      }
+    }
+
+    async function enviarOrdenChat() {
       const input = document.getElementById('promptInput');
       const btn = document.getElementById('sendBtn');
       const log = document.getElementById('logBox');
@@ -182,7 +372,7 @@ app.get('/', (req, res) => {
       if (!text) return;
 
       btn.disabled = true;
-      btn.innerText = 'Interpretando orden...';
+      btn.innerText = 'Pensando semánticamente...';
       log.innerHTML += '<div class="msg msg-user"><b>Tú:</b> ' + text + '</div>';
       log.scrollTop = log.scrollHeight;
 
@@ -194,23 +384,26 @@ app.get('/', (req, res) => {
         });
         const data = await res.json();
         if (data.success) {
-          log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Hot-Swap aplicado. Parche: ' + JSON.stringify(data.patch) + '</div>';
+          log.innerHTML += '<div class="msg msg-ok"><b>[OK]:</b> Orden ejecutada en script.json. Parche aplicado con éxito: ' + JSON.stringify(data.patch) + '</div>';
           const player = document.getElementById('videoPlayer');
           player.src = '/media/video_final_remotion.mp4?t=' + Date.now();
           player.load();
-          player.play();
+          cargarScript();
         } else {
           log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> ' + (data.error || 'Fallo desconocido') + '</div>';
         }
       } catch (e) {
-        log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> Error de conexión con el backend local.</div>';
+        log.innerHTML += '<div class="msg" style="color:#FF0055"><b>[ERROR]:</b> Falla de red en servidor local.</div>';
       }
 
       input.value = '';
       btn.disabled = false;
-      btn.innerText = 'Ejecutar Orden Agéntica';
+      btn.innerText = 'Ejecutar Orden Semántica';
       log.scrollTop = log.scrollHeight;
     }
+
+    // Inicializar
+    cargarScript();
   </script>
 </body>
 </html>
@@ -218,7 +411,7 @@ app.get('/', (req, res) => {
   res.send(html);
 });
 
-// 5. ENDPOINT /api/edit HÍBRIDO RESILIENTE
+// 5. ENDPOINT /api/edit HÍBRIDO CON COMPILADOR SEMÁNTICO UNIVERSAL
 app.post('/api/edit', async (req, res) => {
   const { prompt } = req.body;
   if (!prompt) return res.status(400).json({ error: 'Prompt requerido' });
@@ -240,6 +433,10 @@ app.post('/api/edit', async (req, res) => {
           if (cambio.iluminacion) rawScript[i].remotion_fx.lighting = cambio.iluminacion;
           if (cambio.overlay) rawScript[i].remotion_fx.overlay = cambio.overlay;
           if (cambio.overlayText !== undefined) rawScript[i].remotion_fx.overlay_text = cambio.overlayText;
+          if (cambio.camara === "anti_slideshow") {
+            rawScript[i].anti_slideshow = true;
+            rawScript[i].remotion_fx.anti_slideshow = true;
+          }
         }
       }
     }
@@ -259,18 +456,17 @@ app.post('/api/edit', async (req, res) => {
     return aplicarParche(localPatch);
   }
 
-  // Si hay Groq, usar Llama 3.3 con Few-Shot exhaustivo de acciones negativas y coloquiales
   const systemPrompt = `
 Eres un Asistente de Edición Cinematográfica en Remotion.
-Recibirás el JSON de 12 escenas y una orden coloquial humana.
-Devuelve ÚNICAMENTE un JSON: {"escenas_modificadas": [{"id": X, ...}]}.
-REGLAS SEMÁNTICAS CRÍTICAS:
-- Mapea palabras ordinales/cardinales ("uno", "primera", "dos") al número de id correspondiente.
-- ACCIONES NEGATIVAS: Si el usuario dice "quita el cartel", "elimina la alerta", "borra el texto de arriba", debes asignar: "overlay": "ninguno", "overlayText": "".
-- ACCIONES DE LUZ NEGATIVAS: Si dice "quita el efecto de luz" o "luz normal", debes asignar: "iluminacion": "limpio".
-- CÁMARAS: "crash_zoom_in", "vertigo_dolly_zoom", "slow_creepy_crawl", "whip_pan_left", "earthquake_shake", "estatico".
-- ILUMINACIÓN: "red_alert_pulse", "dark_vignette_pulse", "chromatic_aberration_glitch", "limpio".
-- OVERLAYS: "alerta_roja_neon", "marco_cinematico", "ninguno".
+Recibe el JSON de 12 escenas y una orden coloquial.
+Devuelve ÚNICAMENTE un JSON: {"escenas_modificadas": [{"id": X, "camara": "...", "iluminacion": "...", "overlay": "...", "overlayText": "..."}]}.
+Reglas de mapeo semántico:
+- Ordinales/cardinales ("uno", "primera") -> id: 1
+- Si dice "quita el cartel", "elimina la alerta", "borra el texto de arriba" -> overlay: "ninguno", overlayText: ""
+- Si dice "activa anti-slideshow", "pon anti slideshow", "activa el anti_slideshow" -> camara: "anti_slideshow", overlay: "ninguno"
+- Cámaras: crash_zoom_in, vertigo_dolly_zoom, slow_creepy_crawl, whip_pan_left, earthquake_shake, estatico, anti_slideshow.
+- Iluminación: red_alert_pulse, dark_vignette_pulse, chromatic_aberration_glitch, limpio.
+- Overlays: alerta_roja_neon, marco_cinematico, ninguno.
 `;
 
   const payload = JSON.stringify({
@@ -324,4 +520,4 @@ REGLAS SEMÁNTICAS CRÍTICAS:
 });
 
 const PORT = 3001;
-app.listen(PORT, () => console.log(`[+] Servidor V34 con Compilador Semantico activo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`[+] Servidor V35 Hibrido activo en http://localhost:${PORT}`));
